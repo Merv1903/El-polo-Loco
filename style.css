@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    background-image: url("img/5_background/first_half_background.png");
+    background-repeat: no-repeat;
+
+    background-size: cover;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: radial-gradient(
+        circle,
+        transparent 40%,
+        rgba(0, 0, 0, 0.55) 100%
+    );
+
+    z-index: -1;
+}
+
+.intro-chicken {
+    position: fixed;
+     bottom: 3vh;
+    right: 3vw;
+
+    width: clamp(70px, 10vw, 130px);
+
+    z-index: 5;
+
+    animation: walk 12s linear infinite;
+}
+
+@keyframes walk {
+    from {
+        right: -150px;
+    }
+
+    to {
+        right: 110%;
+    }
+}
+
+canvas {
+    border: 40px solid rgba(255, 255, 255, 0.882);
+  width: 720px;
+    height: 480px;
+    height: auto;
+border-radius: 10px;
+animation: floatCanvas 4s ease-in-out infinite;
+}
+
+
+
+@keyframes floatCanvas {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+
+#rotate-device {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+
+    z-index: 9999;
+}
+
+
+
+@media (max-width: 1025px) {
+    canvas {
+        border: 10px solid rgba(255, 255, 255, 0.882);
+    }
+}
+
+/*Nur auf kleinen Geräten im Hochformat*/
+
+@media (max-width: 1025px) and (orientation: portrait) {
+
+    canvas {
+        display: none;
+    }
+
+    #rotate-device {
+        display: flex;
+    }
+}
+
+/*Querformat unter 1025px*/
+
+@media (max-width: 1025px) and (orientation: landscape) {
+
+    canvas {
+        display: block;
+    }
+
+    #rotate-device {
+        display: none;
+    }
+}
+
+
+/*CSS für Menü*/
+.game-container{
+    position:relative;
+}
+
+#menu{
+
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    pointer-events:none;
+}
+
+.menu-center{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+
+    gap:18px;
+
+    pointer-events:auto;
+}
+
+.main-btn{
+
+    padding:18px 45px;
+
+    font-size:28px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    border:none;
+    border-radius:12px;
+}
+
+#menu button{
+
+    padding:12px 25px;
+
+    font-size:20px;
+
+    border:none;
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+.icon-btn{
+
+    position:absolute;
+
+    top:20px;
+    right:20px;
+
+    width:55px;
+    height:55px;
+
+    border-radius:50%;
+}
+
+#overlay{
+
+    position:absolute;
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,0,0,.7);
+}
+
+.overlay-content{
+
+    width:80%;
+    max-width:600px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    position:relative;
+}
+
+#close-btn{
+
+    position:absolute;
+
+    top:15px;
+    right:15px;
+}
+

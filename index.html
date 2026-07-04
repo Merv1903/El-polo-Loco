@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Pollo Loco</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Gerät drehen -->
+    <div id="rotate-device">
+        <h2>📱 Bitte drehe dein Gerät.</h2>
+        <p>Für das beste Spielerlebnis spiele im Querformat.</p>
+    </div>
+
+    <!-- Spiel -->
+    <div class="game-container">
+
+        <canvas id="canvas" width="720" height="480"></canvas>
+
+        <!-- Menü -->
+        <div id="menu">
+
+            <button id="music-btn" class="icon-btn">🔊</button>
+
+            <div class="menu-center">
+
+                <button id="start-btn" class="main-btn">
+                    SPIEL STARTEN
+                </button>
+
+                <button id="manual-btn">
+                    📖 Benutzerhandbuch
+                </button>
+
+                <button id="controls-btn">
+                    🎮 Steuerung
+                </button>
+
+                <button id="imprint-btn">
+                    ℹ Impressum
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Overlay -->
+        <div id="overlay">
+
+            <div class="overlay-content">
+
+                <button id="close-btn">✖</button>
+
+                <h2 id="overlay-title"></h2>
+
+                <div id="overlay-body"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="models/drawable-object.class.js"></script>
+    <script src="models/movable-object.class.js"></script>
+    <script src="models/character.class.js"></script>
+    <script src="models/chicken.class.js"></script>
+    <script src="models/level.class.js"></script>
+    <script src="models/world.class.js"></script>
+
+    <script src="js/game.js"></script>
+
+</body>
+
+</html>
