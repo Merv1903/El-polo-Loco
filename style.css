@@ -1,204 +1,227 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-body {
-min-height: 100vh;
+body{
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    overflow: hidden;
-
-    background-image: url("img/5_background/first_half_background.png");
-    background-repeat: no-repeat;
-
-    background-size: cover;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-
-    background: radial-gradient(
-        circle,
-        transparent 40%,
-        rgba(0, 0, 0, 0.55) 100%
-    );
-
-    z-index: -1;
-}
-
-.intro-chicken {
-    position: fixed;
-     bottom: 3vh;
-    right: 3vw;
-
-    width: clamp(70px, 10vw, 130px);
-
-    z-index: 5;
-
-    animation: walk 12s linear infinite;
-}
-
-@keyframes walk {
-    from {
-        right: -150px;
-    }
-
-    to {
-        right: 110%;
-    }
-}
-
-canvas {
-    border: 40px solid rgba(255, 255, 255, 0.882);
-  width: 720px;
-    height: 480px;
-    height: auto;
-border-radius: 10px;
-animation: floatCanvas 4s ease-in-out infinite;
-}
-
-
-
-@keyframes floatCanvas {
-    0%, 100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-
-
-#rotate-device {
-    display: none;
-
-    position: fixed;
-    inset: 0;
-
-    background: rgba(0, 0, 0, 0.95);
-    color: white;
-
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-
-    z-index: 9999;
-}
-
-
-
-@media (max-width: 1025px) {
-    canvas {
-        border: 10px solid rgba(255, 255, 255, 0.882);
-    }
-}
-
-/*Nur auf kleinen Geräten im Hochformat*/
-
-@media (max-width: 1025px) and (orientation: portrait) {
-
-    canvas {
-        display: none;
-    }
-
-    #rotate-device {
-        display: flex;
-    }
-}
-
-/*Querformat unter 1025px*/
-
-@media (max-width: 1025px) and (orientation: landscape) {
-
-    canvas {
-        display: block;
-    }
-
-    #rotate-device {
-        display: none;
-    }
-}
-
-
-/*CSS für Menü*/
-.game-container{
-    position:relative;
-}
-
-#menu{
-
-    position:absolute;
-    inset:0;
+    min-height:100vh;
 
     display:flex;
     justify-content:center;
     align-items:center;
 
-    pointer-events:none;
+    overflow:hidden;
+
+    background:url("img/5_background/first_half_background.png") center/cover no-repeat;
 }
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+    inset:0;
+
+    background:radial-gradient(
+        circle,
+        transparent 40%,
+        rgba(0,0,0,.55)
+    );
+
+    z-index:-1;
+}
+
+/*------------------------------------------------*/
+/* GAME CONTAINER */
+
+.game-container{
+
+    position:relative;
+
+    width:720px;
+    height:480px;
+
+    animation:floatGame 4s ease-in-out infinite;
+}
+
+/*------------------------------------------------*/
+/* CANVAS */
+
+.canvas-area{
+
+    position:absolute;
+
+    top:18px;
+    left:22px;
+    right:22px;
+    bottom:53px;
+
+    overflow:hidden;
+
+    border-radius:12px;
+
+    z-index:1;
+}
+
+canvas{
+
+    width:100%;
+    height:100%;
+
+    display:block;
+}
+
+/*------------------------------------------------*/
+/* HOLZRAHMEN */
+
+.frame{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    pointer-events:none;
+
+    z-index:5;
+}
+
+/*------------------------------------------------*/
+/* MENÜ */
+
+#menu{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    /*padding:22px 30px 25px;*/
+
+    z-index:20;
+}
+
+/*------------------------------------------------*/
+/* HEADER */
+
+.menu-header{
+
+    display:flex;
+
+    justify-content:flex-end;
+    align-items:flex-start;
+}
+
+#music-btn{
+
+    width:clamp(50px,8vw,60px);
+}
+
+
+.menu-navigation {
+display: flex;
+justify-content: space-between;
+
+
+}
+/*------------------------------------------------*/
+/* MITTE */
 
 .menu-center{
 
     display:flex;
-    flex-direction:column;
+
+    justify-content:center;
     align-items:center;
 
-    gap:18px;
+    margin-top:auto;
 
-    pointer-events:auto;
+    margin-bottom:-21px;
 }
 
-.main-btn{
+#start-btn{
 
-    padding:18px 45px;
+    width:clamp(180px,36%,260px);
+}
 
-    font-size:28px;
-    font-weight:bold;
+/*------------------------------------------------*/
+/* FOOTER */
+
+.menu-footer{
+
+    width:100%;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:12px;
+
+    margin-bottom:10px;
+}
+
+/* Erste und zweite Zeile */
+
+.footer-row{
+
+    display:flex;
+
+    flex-direction:row;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:20px;
+}
+/* Buttons */
+
+#manual-btn,
+#controls-btn,
+#about-btn,
+#imprint-btn{
+
+    width:clamp(140px,22vw,150px);
+
+    flex:0 1 auto;
+}
+/*------------------------------------------------*/
+/* BUTTONS */
+
+.menu-icon{
 
     cursor:pointer;
 
-    border:none;
-    border-radius:12px;
+    user-select:none;
+
+    transition:.25s;
 }
 
-#menu button{
+.menu-icon:hover{
 
-    padding:12px 25px;
+    transform:scale(1.08);
 
-    font-size:20px;
-
-    border:none;
-    border-radius:10px;
-
-    cursor:pointer;
+    filter:drop-shadow(
+        0 0 12px rgba(255,255,255,.75)
+    );
 }
 
-.icon-btn{
-
-    position:absolute;
-
-    top:20px;
-    right:20px;
-
-    width:55px;
-    height:55px;
-
-    border-radius:50%;
-}
+/*------------------------------------------------*/
+/* OVERLAY */
 
 #overlay{
 
     position:absolute;
+
     inset:0;
 
     display:none;
@@ -206,21 +229,23 @@ animation: floatCanvas 4s ease-in-out infinite;
     justify-content:center;
     align-items:center;
 
-    background:rgba(0,0,0,.7);
+    background:rgba(0,0,0,.75);
+
+    z-index:100;
 }
 
 .overlay-content{
+
+    position:relative;
 
     width:80%;
     max-width:600px;
 
     background:white;
 
-    padding:30px;
-
     border-radius:20px;
 
-    position:relative;
+    padding:30px;
 }
 
 #close-btn{
@@ -229,5 +254,215 @@ animation: floatCanvas 4s ease-in-out infinite;
 
     top:15px;
     right:15px;
+
+    cursor:pointer;
 }
 
+/*------------------------------------------------*/
+/* SCHWEBE ANIMATION */
+
+@keyframes floatGame{
+
+    0%,
+    100%{
+
+        transform:translateY(0);
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+    }
+}
+
+/*------------------------------------------------*/
+/* GERÄT DREHEN */
+
+#rotate-device{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.95);
+
+    color:white;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    z-index:9999;
+}
+
+#rotate-device h2{
+
+    font-size:2rem;
+
+    margin-bottom:15px;
+}
+
+#rotate-device p{
+
+    font-size:1.2rem;
+}
+
+/*------------------------------------------------*/
+/* RESPONSIVE */
+
+/*------------------------------------------------*/
+/* RESPONSIVE */
+
+@media (max-width:1025px){
+
+    .game-container{
+
+        width:95vw;
+        height:auto;
+
+        aspect-ratio:720 / 480;
+    }
+
+    /* Canvas bleibt im Rahmen */
+    .canvas-area{
+
+        top:2.5%;
+        left:3%;
+        right:3%;
+        bottom:11%;
+    }
+
+    /* Innenabstand vom Menü */
+    #menu{
+
+       /* padding:3% 4% 3%;*/
+    }
+
+    /* Lautsprecher */
+
+    #music-btn{
+
+        width:clamp(42px,7vw,60px);
+    }
+
+    /* Startbutton */
+
+    #start-btn{
+
+        width:clamp(180px,34vw,260px);
+    }
+
+    /* Footer */
+
+    .menu-footer{
+
+        width:88%;
+
+        margin:0 auto;
+
+        display:flex;
+        flex-direction:column;
+
+        gap:12px;
+    }
+
+    .footer-row{
+
+        display:flex;
+
+        justify-content:space-between;
+        align-items:center;
+
+        gap:18px;
+    }
+
+    /* Buttons */
+
+    #manual-btn,
+    #controls-btn,
+    #about-btn,
+    #imprint-btn{
+
+        width:clamp(100px,21vw,110px);
+
+        flex-shrink:0;
+    }
+}
+
+/*------------------------------------------------*/
+/* SEHR KLEINE DISPLAYS */
+
+@media (max-width:700px){
+
+    #menu{
+
+       /* padding:2.5% 3% 2%;*/
+    }
+
+    #music-btn{
+
+        width:clamp(38px,7vw,60px);
+    }
+
+    #start-btn{
+
+        width:clamp(150px,38vw,220px);
+    }
+
+    .menu-footer{
+
+        width:92%;
+
+        gap:8px;
+    }
+
+    .footer-row{
+
+        gap:10px;
+    }
+
+    #manual-btn,
+    #controls-btn,
+    #about-btn,
+    #imprint-btn{
+
+        width:clamp(105px,22vw,130px);
+    }
+}
+
+/*------------------------------------------------*/
+/* PORTRAIT */
+
+@media (max-width:1025px) and (orientation:portrait){
+
+    .game-container{
+
+        display:none;
+    }
+
+    #rotate-device{
+
+        display:flex;
+    }
+}
+
+/*------------------------------------------------*/
+/* LANDSCAPE */
+
+@media (max-width:1025px) and (orientation:landscape){
+
+    .game-container{
+
+        display:block;
+    }
+
+    #rotate-device{
+
+        display:none;
+    }
+}

@@ -1,35 +1,49 @@
 let canvas;
+let gameContainer;
 let world;
 
 function init() {
     canvas = document.getElementById("canvas");
+    gameContainer = document.querySelector(".game-container");
 
-    resizeCanvas();
+    resizeGame();
 
     world = new World(canvas);
 }
 
-function resizeCanvas() {
-    if (window.innerWidth > 1025) {
-        canvas.style.width = "720px";
-        canvas.style.height = "480px";
-        return;
+function resizeGame() {
+
+    let width = 720;
+    let height = 480;
+
+    if (window.innerWidth <= 1025) {
+
+        const maxWidth = window.innerWidth * 0.95;
+        const maxHeight = window.innerHeight * 0.95;
+
+        width = maxWidth;
+        height = width / 1.5;
+
+        if (height > maxHeight) {
+            height = maxHeight;
+            width = height * 1.5;
+        }
     }
 
-    const maxWidth = window.innerWidth * 0.95;
-    const maxHeight = window.innerHeight * 0.95;
+    gameContainer.style.width = width + "px";
+    gameContainer.style.height = height + "px";
 
-    let width = maxWidth;
-    let height = width / 1.5;
-
-    if (height > maxHeight) {
-        height = maxHeight;
-        width = height * 1.5;
-    }
-
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
+    scaleMenu(width);
 }
 
-window.addEventListener("resize", resizeCanvas);
-window.onload = init;
+function scaleMenu(width) {
+
+    const scale = width / 720;
+
+    document.querySelectorAll(".menu-icon").forEach(icon => {
+        icon.style.transform = `scale(${scale})`;
+    });
+}
+
+window.addEventListener("resize", resizeGame);
+window.addEventListener("load", init);

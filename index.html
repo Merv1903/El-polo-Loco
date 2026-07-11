@@ -20,30 +20,68 @@
     <!-- Spiel -->
     <div class="game-container">
 
-        <canvas id="canvas" width="720" height="480"></canvas>
+        <!-- Canvas -->
+        <div class="canvas-area">
+            <canvas id="canvas" width="720" height="480"></canvas>
+        </div>
+
+        <!-- Holzrahmen -->
+        <img
+            src="img/9_intro_outro_screens/start/holzrahmen.png"
+            class="frame"
+            alt="Holzrahmen">
 
         <!-- Menü -->
         <div id="menu">
 
-            <button id="music-btn" class="icon-btn">🔊</button>
+            <!-- Linke Navigation -->
+            <div class="menu-navigation">
 
+                <img
+                    id="manual-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/benutzer_Handbuch.png"
+                    alt="Benutzerhandbuch">
+
+                <img
+                    id="controls-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/steuerung.png"
+                    alt="Steuerung">
+
+                <img
+                    id="about-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/über_das_Spiel.png"
+                    alt="Über das Spiel">
+
+                <img
+                    id="imprint-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/impressum.png"
+                    alt="Impressum">
+
+            </div>
+
+            <!-- Mitte -->
             <div class="menu-center">
 
-                <button id="start-btn" class="main-btn">
-                    SPIEL STARTEN
-                </button>
+                <img
+                    id="start-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/spiel_starten.png"
+                    alt="Spiel starten">
 
-                <button id="manual-btn">
-                    📖 Benutzerhandbuch
-                </button>
+            </div>
 
-                <button id="controls-btn">
-                    🎮 Steuerung
-                </button>
+            <!-- Rechte Seite -->
+            <div class="menu-right">
 
-                <button id="imprint-btn">
-                    ℹ Impressum
-                </button>
+                <img
+                    id="music-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/Lautsprecher.png"
+                    alt="Musik">
 
             </div>
 
