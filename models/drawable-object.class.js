@@ -1,19 +1,29 @@
-imageCache = {};
+class DrawableObject {
 
-currentImage = 0;
+    x = 0;
+    y = 0;
+    width = 0;
+    height = 0;
 
-loadImages(arr) {
-    arr.forEach(path => {
-        let img = new Image();
-        img.src = path;
-        this.imageCache[path] = img;
-    });
-}
+    img;
 
+    loadImage(path) {
 
-playAnimation(images) {
-    let i = this.currentImage % images.length;
-    let path = images[i];
-    this.img = this.imageCache[path];
-    this.currentImage++;
+        this.img = new Image();
+        this.img.src = path;
+
+    }
+
+    draw(ctx) {
+
+        ctx.drawImage(
+            this.img,
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        );
+
+    }
+
 }

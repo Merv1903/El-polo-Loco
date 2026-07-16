@@ -71,6 +71,8 @@ canvas{
     height:100%;
 
     display:block;
+    filter: brightness(1.01);
+
 }
 
 /*------------------------------------------------*/
@@ -122,10 +124,7 @@ canvas{
     align-items:flex-start;
 }
 
-#music-btn{
 
-    width:clamp(50px,8vw,60px);
-}
 
 
 .menu-navigation {
@@ -134,6 +133,56 @@ justify-content: space-between;
 
 
 }
+
+
+.music-button{
+
+    position:relative;
+
+    width:clamp(50px,8vw,60px);
+
+    cursor:pointer;
+}
+
+.music-button img{
+
+    width:100%;
+
+    display:block;
+
+    transition:.25s;
+}
+
+.music-button:hover img{
+
+    transform:scale(1.08);
+
+    filter:drop-shadow(0 0 12px rgba(255,255,255,.75));
+}
+
+.music-button.muted::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    left:8%;
+
+    width:84%;
+    height:4px;
+
+    background:#d61c1c;
+
+    border-radius:10px;
+
+    transform:translateY(-50%) rotate(-45deg);
+
+    pointer-events:none;
+
+    z-index:5;
+}
+
 /*------------------------------------------------*/
 /* MITTE */
 
@@ -154,35 +203,7 @@ justify-content: space-between;
     width:clamp(180px,36%,260px);
 }
 
-/*------------------------------------------------*/
-/* FOOTER */
 
-.menu-footer{
-
-    width:100%;
-
-    display:flex;
-    flex-direction:column;
-
-    gap:12px;
-
-    margin-bottom:10px;
-}
-
-/* Erste und zweite Zeile */
-
-.footer-row{
-
-    display:flex;
-
-    flex-direction:row;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:20px;
-}
 /* Buttons */
 
 #manual-btn,
@@ -220,7 +241,7 @@ justify-content: space-between;
 
 #overlay{
 
-    position:absolute;
+    position:fixed;
 
     inset:0;
 
@@ -229,35 +250,55 @@ justify-content: space-between;
     justify-content:center;
     align-items:center;
 
-    background:rgba(0,0,0,.75);
+    background:rgba(255, 255, 255, 0.65);
 
     z-index:100;
 }
 
-.overlay-content{
+.overlay-wrapper{
 
     position:relative;
 
-    width:80%;
-    max-width:600px;
+    display:inline-block;
+}
 
-    background:white;
+.overlay-content{
 
-    border-radius:20px;
+    width:min(92vw,720px);
 
-    padding:30px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.overlay-image{
+
+    width:95%;
+    height:auto;
+
+    display:block;
+
+    margin:auto;
 }
 
 #close-btn{
+    
 
     position:absolute;
 
-    top:15px;
-    right:15px;
+    top:2%;
+    right:2%;
+
+    width:clamp(34px,5vw,50px);
+    height:clamp(34px,5vw,50px);
+
+    border:none;
+
 
     cursor:pointer;
-}
 
+    z-index:1000;
+}
 /*------------------------------------------------*/
 /* SCHWEBE ANIMATION */
 
@@ -345,7 +386,7 @@ justify-content: space-between;
 
     /* Lautsprecher */
 
-    #music-btn{
+    .music-button{
 
         width:clamp(42px,7vw,60px);
     }
@@ -404,7 +445,7 @@ justify-content: space-between;
        /* padding:2.5% 3% 2%;*/
     }
 
-    #music-btn{
+    .music-button{
 
         width:clamp(38px,7vw,60px);
     }
@@ -465,4 +506,72 @@ justify-content: space-between;
 
         display:none;
     }
+}
+
+/*IPHONE SE */
+
+
+
+
+
+/*IMPRINT OVERLAY*/
+
+.imprint-container{
+
+    position:relative;
+
+    width:100%;
+    height:100%;
+}
+
+.overlay-image{
+
+    width:100%;
+    height:auto;
+
+    display:block;
+}
+
+.overlay-imprint{
+
+    width:92%;
+    height:92%;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.imprint-text{
+
+    position:absolute;
+
+    top:22%;
+    left:12%;
+    right:12%;
+    bottom:10%;
+
+    overflow-y:auto;
+
+    color:#4d2c17;
+
+    text-align:center;
+
+    line-height:1.6;
+}
+
+.imprint-text h3{
+
+    margin:18px 0 8px;
+
+    font-size:clamp(18px,2vw,28px);
+}
+
+.imprint-text p{
+
+    margin-bottom:18px;
+
+    font-size:clamp(14px,1.3vw,20px);
 }
