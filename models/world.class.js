@@ -1,5 +1,3 @@
-
-
 class World {
 
     canvas;
@@ -8,6 +6,7 @@ class World {
     startScreen = new Image();
 
     level;
+    character;
 
     showStartScreen = true;
 
@@ -19,6 +18,7 @@ class World {
         this.ctx = canvas.getContext("2d");
 
         this.level = new Level();
+this.character = new Character(keyboard);
 
         this.startScreen.src =
             "img/9_intro_outro_screens/start/startscreen_1.png";
@@ -31,7 +31,17 @@ class World {
 
     }
 
-    draw() {
+    run() {
+
+        setInterval(() => {
+
+            this.draw();
+
+        }, 1000 / 60);
+
+    }
+
+    clearCanvas() {
 
         this.ctx.clearRect(
             0,
@@ -40,42 +50,75 @@ class World {
             this.canvas.height
         );
 
+    }
+
+    draw() {
+
+        this.clearCanvas();
+
         if (this.showStartScreen) {
 
-            this.ctx.drawImage(
-                this.startScreen,
-                0,
-                0,
-                this.canvas.width,
-                this.canvas.height
-            );
+            this.drawStartScreen();
 
         } else {
 
-      this.ctx.save();
-
-this.ctx.translate(this.camera_x, 0);
-
-this.level.backgrounds.forEach(background => {
-
-    background.draw(this.ctx);
-
-});
-
-this.ctx.restore();
+            this.drawLevel();
 
         }
 
     }
 
- startLevel() {
+    drawStartScreen() {
 
-    this.showStartScreen = false;
+        this.ctx.drawImage(
+            this.startScreen,
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height
+        );
 
-    this.camera_x = -300;
+    }
 
-    this.draw();
+    drawLevel() {
 
-}
+        this.ctx.save();
+
+        this.ctx.translate(this.camera_x, 0);
+
+        this.drawBackground();
+        this.drawCharacter();
+
+        this.ctx.restore();
+
+    }
+
+    drawBackground() {
+
+        this.level.backgrounds.forEach(background => {
+
+            background.draw(this.ctx);
+
+        });
+
+    }
+
+    drawCharacter() {
+
+        this.character.draw(this.ctx);
+
+    }
+
+    startLevel() {
+
+        this.showStartScreen = false;
+
+        this.camera_x = 0;
+
+        this.character.animate();
+
+        this.run();
+
+    }
 
 }

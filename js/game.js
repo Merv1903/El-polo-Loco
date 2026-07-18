@@ -1,17 +1,56 @@
 let canvas;
 let gameContainer;
 let world;
+let keyboard = new Keyboard();
+
+window.addEventListener("keydown", (event) => {
+
+    if (event.key === "ArrowRight") keyboard.RIGHT = true;
+
+    if (event.key === "ArrowLeft") keyboard.LEFT = true;
+
+    if (event.key === " ") keyboard.SPACE = true;
+
+    if (event.key === "ArrowUp") keyboard.UP = true;
+
+});
+
+window.addEventListener("keyup", (event) => {
+
+    if (event.key === "ArrowRight") keyboard.RIGHT = false;
+
+    if (event.key === "ArrowLeft") keyboard.LEFT = false;
+
+    if (event.key === " ") keyboard.SPACE = false;
+
+    if (event.key === "ArrowUp") keyboard.UP = false;
+
+});
 
 function init() {
-  canvas = document.getElementById("canvas");
-  gameContainer = document.querySelector(".game-container");
 
-  resizeGame();
+    canvas = document.getElementById("canvas");
+    gameContainer = document.querySelector(".game-container");
 
-  world = new World(canvas);
+    resizeGame();
+
+    world = new World(canvas);
+
 }
 
 function resizeGame() {
+
+    const size = getGameSize();
+
+    resizeContainer(size.width, size.height);
+
+    resizeOverlay(size.width);
+
+    scaleMenu(size.width);
+
+}
+
+function getGameSize() {
 
     let width = 720;
     let height = 480;
@@ -30,40 +69,69 @@ function resizeGame() {
             width = height * 1.5;
 
         }
+
     }
+
+    return { width, height };
+
+}
+
+function resizeContainer(width, height) {
 
     gameContainer.style.width = width + "px";
     gameContainer.style.height = height + "px";
 
-    const overlayContent = document.getElementById("overlay-content");
-
-    if (overlayContent) {
-
-        overlayContent.style.width = (width - 8) + "px";
-
-        /* KEINE Höhe setzen! */
-        overlayContent.style.height = "auto";
-
-    }
-
-    scaleMenu(width);
 }
 
+function resizeOverlay(width) {
+
+    const overlayContent = document.getElementById("overlay-content");
+
+    if (!overlayContent) return;
+
+    overlayContent.style.width = (width - 8) + "px";
+    overlayContent.style.height = "auto";
+
+}
+
+
+
 function scaleMenu(width) {
-  const scale = width / 720;
 
-  // Startbutton
-  document.getElementById("start-btn").style.width = `${260 * scale}px`;
+    const scale = width / 720;
 
-  // Musik
-  document.getElementById("music-btn").style.width = `${60 * scale}px`;
+    scaleStartButton(scale);
+    scaleMusicButton(scale);
+    scaleNavigationButtons(scale);
 
-  // Menübuttons
-  document
-    .querySelectorAll("#manual-btn,#controls-btn,#about-btn,#imprint-btn")
-    .forEach((btn) => {
-      btn.style.width = `${150 * scale}px`;
-    });
+}
+
+function scaleStartButton(scale) {
+
+    document.getElementById("start-btn").style.width =
+        `${260 * scale}px`;
+
+}
+
+function scaleMusicButton(scale) {
+
+    document.getElementById("music-btn").style.width =
+        `${60 * scale}px`;
+
+}
+
+function scaleNavigationButtons(scale) {
+
+    document
+        .querySelectorAll(
+            "#manual-btn,#controls-btn,#about-btn,#imprint-btn"
+        )
+        .forEach(button => {
+
+            button.style.width = `${150 * scale}px`;
+
+        });
+
 }
 
 window.addEventListener("resize", resizeGame);
