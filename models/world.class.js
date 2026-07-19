@@ -18,7 +18,7 @@ class World {
         this.ctx = canvas.getContext("2d");
 
         this.level = new Level();
-this.character = new Character(keyboard);
+        this.character = new Character(keyboard);
 
         this.startScreen.src =
             "img/9_intro_outro_screens/start/startscreen_1.png";
@@ -105,7 +105,37 @@ this.character = new Character(keyboard);
 
     drawCharacter() {
 
+        if (this.character.otherDirection) {
+
+            this.drawFlippedCharacter();
+            return;
+
+        }
+
         this.character.draw(this.ctx);
+
+    }
+
+    drawFlippedCharacter() {
+
+        this.ctx.save();
+
+        this.ctx.translate(
+            this.character.x + this.character.width,
+            0
+        );
+
+        this.ctx.scale(-1, 1);
+
+        this.ctx.drawImage(
+            this.character.img,
+            0,
+            this.character.y,
+            this.character.width,
+            this.character.height
+        );
+
+        this.ctx.restore();
 
     }
 
@@ -114,8 +144,6 @@ this.character = new Character(keyboard);
         this.showStartScreen = false;
 
         this.camera_x = 0;
-
-        this.character.animate();
 
         this.run();
 

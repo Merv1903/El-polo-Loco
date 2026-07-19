@@ -2,6 +2,8 @@ class Character extends MovableObject {
 
     keyboard;
 
+    otherDirection = false;
+
     IMAGES_IDLE = [
 
         "img/2_character_pepe/1_idle/idle/I-1.png",
@@ -68,24 +70,26 @@ animate() {
 
 }
 
-    move() {
+ move() {
 
-        setInterval(() => {
+    setInterval(() => {
 
-            if (this.keyboard.RIGHT) {
+        if (this.keyboard.RIGHT) {
 
-                this.x += 5;
+            this.otherDirection = false;
+            this.x += 5;
 
-            }
+        }
 
-            if (this.keyboard.LEFT) {
+        if (this.keyboard.LEFT) {
 
-                this.x -= 5;
+            this.otherDirection = true;
+            this.x -= 5;
 
-            }
+        }
 
-        }, 1000 / 60);
+    }, 1000 / 60);
 
-    }
+}
 
 }
