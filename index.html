@@ -1,133 +1,172 @@
 <!doctype html>
 <html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
     <title>El Pollo Loco</title>
 
+    <link
+        rel="icon"
+        type="image/png"
+        href="img/3_enemies_chicken/chicken_small/1_walk/1_w.png">
 
-<link
-    rel="icon"
-    type="image/png"
-    href="img/3_enemies_chicken/chicken_small/1_walk/1_w.png">
+    <link rel="stylesheet" href="style.css">
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+</head>
+
+<body>
+
     <!-- Gerät drehen -->
     <div id="rotate-device">
-      <h2>📱 Bitte drehe dein Gerät.</h2>
-      <p>Für das beste Spielerlebnis spiele im Querformat.</p>
+
+        <h2>📱 Bitte drehe dein Gerät.</h2>
+
+        <p>Für das beste Spielerlebnis spiele im Querformat.</p>
+
     </div>
 
     <!-- Spiel -->
     <div class="game-container">
-      <!-- Canvas -->
-      <div class="canvas-area">
-        <canvas id="canvas" width="720" height="480"></canvas>
-      </div>
 
-      <!-- Holzrahmen -->
-      <img
-        src="img/9_intro_outro_screens/start/holzrahmen.png"
-        class="frame"
-        alt="Holzrahmen"
-      />
+        <!-- Canvas -->
+        <div class="canvas-area">
 
-      <!-- Menü -->
-      <div id="menu">
-        <div class="menu-navigation">
-          <img
-            id="manual-btn"
-            class="menu-icon"
-            src="img/9_intro_outro_screens/start/benutzer_Handbuch.png"
-            alt="Benutzerhandbuch"
-          />
+            <canvas
+                id="canvas"
+                width="720"
+                height="480">
+            </canvas>
 
-          <img
-            id="controls-btn"
-            class="menu-icon"
-            src="img/9_intro_outro_screens/start/steuerung.png"
-            alt="Steuerung"
-          />
-
-          <img
-            id="about-btn"
-            class="menu-icon"
-            src="img/9_intro_outro_screens/start/über_das_Spiel.png"
-            alt="Über das Spiel"
-          />
-
-          <img
-            id="imprint-btn"
-            class="menu-icon"
-            src="img/9_intro_outro_screens/start/impressum.png"
-            alt="Impressum"
-          />
         </div>
 
-        <div class="menu-center">
-          <img
-            id="start-btn"
-            class="menu-icon"
-            src="img/9_intro_outro_screens/start/spiel_starten.png"
-            alt="Spiel starten"
-          />
+        <!-- Mobile Steuerung -->
+        <div id="mobile-controls">
+
+            <button id="btn-throw">🍾</button>
+
+            <button id="btn-jump">🦘</button>
+
+            <button id="btn-left">⬅️</button>
+
+            <button id="btn-right">➡️</button>
+
         </div>
 
-        <div class="menu-right">
-          <div id="music-btn" class="music-button">
-            <img
-              src="img/9_intro_outro_screens/start/Lautsprecher.png"
-              alt="Musik"
-            />
-          </div>
+        <!-- Holzrahmen -->
+        <img
+            src="img/9_intro_outro_screens/start/holzrahmen.png"
+            class="frame"
+            alt="Holzrahmen">
+
+        <!-- Menü -->
+        <div id="menu">
+
+            <div class="menu-navigation">
+
+                <img
+                    id="manual-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/benutzer_Handbuch.png"
+                    alt="Benutzerhandbuch">
+
+                <img
+                    id="controls-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/steuerung.png"
+                    alt="Steuerung">
+
+                <img
+                    id="about-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/über_das_Spiel.png"
+                    alt="Über das Spiel">
+
+                <img
+                    id="imprint-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/impressum.png"
+                    alt="Impressum">
+
+            </div>
+
+            <div class="menu-center">
+
+                <img
+                    id="start-btn"
+                    class="menu-icon"
+                    src="img/9_intro_outro_screens/start/spiel_starten.png"
+                    alt="Spiel starten">
+
+            </div>
+
+            <div class="menu-right">
+
+                <div
+                    id="music-btn"
+                    class="music-button">
+
+                    <img
+                        src="img/9_intro_outro_screens/start/Lautsprecher.png"
+                        alt="Musik">
+
+                </div>
+
+            </div>
+
         </div>
-      </div>
+
     </div>
 
-    <!-- ========================= -->
-    <!-- Overlay AUSSERHALB vom Spiel -->
-    <!-- ========================= -->
-
+    <!-- Overlay -->
     <div id="overlay">
-      <div class="overlay-content" id="overlay-content">
-        <div class="overlay-wrapper">
-          <div id="overlay-body"></div>
 
-          <img
-            id="close-btn"
-            src="img/9_intro_outro_screens/start/close_overlay.png"
-            alt="Schließen"
-          />
+        <div
+            class="overlay-content"
+            id="overlay-content">
+
+            <div class="overlay-wrapper">
+
+                <div id="overlay-body"></div>
+
+                <img
+                    id="close-btn"
+                    src="img/9_intro_outro_screens/start/close_overlay.png"
+                    alt="Schließen">
+
+            </div>
+
         </div>
-      </div>
+
     </div>
 
+    <!-- Klassen -->
     <script src="models/drawable-object.class.js"></script>
     <script src="models/movable-object.class.js"></script>
     <script src="models/character.class.js"></script>
     <script src="models/background-object.class.js"></script>
     <script src="levels/level.class.js"></script>
     <script src="models/world.class.js"></script>
-    <!--
-     <script src="models/movable-object.class.js"></script>
-       <script src="models/character.class.js"></script>
-    <script src="models/chicken.class.js"></script>
--->
+
     <!-- UI -->
     <script src="js/overlay-content.js"></script>
     <script src="js/overlay.js"></script>
     <script src="js/audio.js"></script>
     <script src="js/menu.js"></script>
 
-
     <!-- Spiel -->
-     <script src="js/keyboard.js"></script>
+    <script src="js/keyboard.js"></script>
+    <script src="js/touch.js"></script>
     <script src="js/game.js"></script>
 
-    <!-- Initialisierung immer ganz zum Schluss -->
-<script src="js/init.js"></script>
+    <!-- Initialisierung -->
+    <script src="js/init.js"></script>
 
-  </body>
+</body>
+
 </html>

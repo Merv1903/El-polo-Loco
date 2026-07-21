@@ -36,6 +36,8 @@ function init() {
 
     world = new World(canvas);
 
+    initTouchControls();
+
 }
 
 function resizeGame() {
@@ -148,6 +150,8 @@ function startGame() {
 
     }
 
+    document.getElementById("mobile-controls").style.display = "flex";
+
     world.startLevel();
 
 }
@@ -156,6 +160,8 @@ function backToMenu() {
 
     levelMusic.pause();
     levelMusic.currentTime = 0;
+
+    document.getElementById("mobile-controls").style.display = "none";
 
     if (musicOn) {
 
@@ -167,5 +173,45 @@ function backToMenu() {
 
     document.querySelector(".game-container").style.animation =
         "floatGame 4s ease-in-out infinite";
+
+}
+
+
+
+function initMobileControls() {
+
+    addMobileButton("btn-left", "LEFT");
+    addMobileButton("btn-right", "RIGHT");
+    addMobileButton("btn-jump", "SPACE");
+    addMobileButton("btn-throw", "D");
+
+}
+
+
+function addMobileButton(buttonId, key) {
+
+    const button = document.getElementById(buttonId);
+
+    button.addEventListener("touchstart", (event) => {
+
+        event.preventDefault();
+
+        keyboard[key] = true;
+
+    });
+
+    button.addEventListener("touchend", (event) => {
+
+        event.preventDefault();
+
+        keyboard[key] = false;
+
+    });
+
+    button.addEventListener("touchcancel", () => {
+
+        keyboard[key] = false;
+
+    });
 
 }

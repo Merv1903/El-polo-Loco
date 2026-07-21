@@ -353,8 +353,82 @@ justify-content: space-between;
     font-size:1.2rem;
 }
 
-/*------------------------------------------------*/
-/* RESPONSIVE */
+
+
+/*-----------------------------------------------*/
+/* MOBILE CONTROLS */
+
+
+
+#mobile-controls {
+
+    display: none;
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 30;
+
+    pointer-events: none;
+
+}
+
+#mobile-controls button {
+
+    position: absolute;
+
+    width: 70px;
+    height: 70px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.25);
+
+    color: white;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    pointer-events: auto;
+
+    user-select: none;
+
+    touch-action: manipulation;
+
+}
+
+#btn-throw {
+
+    left: 20px;
+    bottom: 110px;
+
+}
+
+#btn-left {
+
+    left: 20px;
+    bottom: 20px;
+
+}
+
+#btn-jump {
+
+    right: 20px;
+    bottom: 110px;
+
+}
+
+#btn-right {
+
+    right: 20px;
+    bottom: 20px;
+
+}
+
+
 
 /*------------------------------------------------*/
 /* RESPONSIVE */
@@ -499,9 +573,14 @@ justify-content: space-between;
 
         display:none;
     }
+
+    #mobile-controls {
+
+    display: none;
+
+}
 }
 
-/*IPHONE SE */
 
 
 
@@ -568,3 +647,7 @@ justify-content: space-between;
 
     font-size:clamp(14px,1.3vw,20px);
 }
+
+
+
+
