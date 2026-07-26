@@ -44,11 +44,44 @@ function resizeGame() {
 
     const size = getGameSize();
 
+    console.log(
+        "Screen:",
+        window.innerWidth,
+        window.innerHeight,
+        "Game:",
+        size.width,
+        size.height
+    );
+
     resizeContainer(size.width, size.height);
 
     resizeOverlay(size.width);
 
     scaleMenu(size.width);
+
+scaleMobileControls(size.width, size.height);
+
+}
+
+function scaleMobileControls(width){
+
+    const scale = width / 720;
+
+    const controls = document.getElementById("mobile-controls");
+
+    if(!controls) return;
+
+    document.querySelector(".top-controls").style.bottom =
+        `${170 * scale}px`;
+
+    document.querySelector(".bottom-controls").style.bottom =
+        `${20 * scale}px`;
+
+    document.getElementById("btn-throw").style.left =
+        `${-50 * scale}px`;
+
+    document.getElementById("btn-jump").style.right =
+        `${-50 * scale}px`;
 
 }
 
@@ -144,12 +177,7 @@ window.addEventListener("load", init);
 
 function startGame() {
 
-    if (musicOn) {
-
-        playLevelMusic();
-
-    }
-
+   
     document.getElementById("mobile-controls").style.display = "flex";
 
     world.startLevel();

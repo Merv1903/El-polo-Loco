@@ -355,79 +355,167 @@ justify-content: space-between;
 
 
 
-/*-----------------------------------------------*/
+/*------------------------------------------------*/
 /* MOBILE CONTROLS */
 
+#mobile-controls{
 
 
-#mobile-controls {
+    display:none;
 
-    display: none;
+    position:absolute;
 
-    position: absolute;
+    top:18px;
+    left:22px;
+    right:22px;
+    bottom:53px;
 
-    inset: 0;
+    z-index:30;
 
-    z-index: 30;
-
-    pointer-events: none;
+    pointer-events:none;
 
 }
+
+.top-controls,
+.bottom-controls{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+
+}
+
+.top-controls{
+
+    bottom:200px;
+
+}
+
+.bottom-controls{
+
+    bottom:100px;
+
+}
+
+#mobile-controls button{
+
+    position:absolute;
+
+    width:calc(60px * var(--control-scale));
+    height:calc(60px * var(--control-scale));
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.25);
+
+    color:white;
+
+    font-size:26px;
+
+    cursor:pointer;
+
+    pointer-events:auto;
+
+    user-select:none;
+
+    touch-action:manipulation;
+}
+
 
 #mobile-controls button {
+    overflow: hidden;
+    padding: 0;
+}
 
-    position: absolute;
+#mobile-controls button img {
+    width: 32px;      /* oder 36px / 40px */
+    height: 32px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+    pointer-events: none;
+}
 
-    width: 70px;
-    height: 70px;
 
-    border: none;
-    border-radius: 50%;
+/* obere Reihe */
 
-    background: rgba(255,255,255,.25);
+#btn-throw{
+    left:20px;
+}
 
-    color: white;
+#btn-jump{
+    right:20px;
+}
 
-    font-size: 28px;
 
-    cursor: pointer;
+/* untere Reihe */
 
-    pointer-events: auto;
+#btn-left{
+    left:20px;
+}
 
-    user-select: none;
+#btn-right{
+    right:20px;
+}
 
-    touch-action: manipulation;
+#music-btn-mobile{
+
+    position:absolute;
+
+    left:50%;
+    transform:translateX(-105px);
+
+    width:60px;
+    height:60px;
+
+    background:transparent;
+    border:none;
+    padding:0;
+
+    cursor:pointer;
+}
+
+#music-btn-mobile.muted::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    left:8%;
+
+    width:84%;
+    height:4px;
+
+    background:#d61c1c;
+
+    border-radius:10px;
+
+    transform:translateY(-50%) rotate(-45deg);
+
+    pointer-events:none;
+
+    z-index:5;
+}
+
+#pause-btn{
+
+    left:50%;
+
+    transform:translateX(-30px);
 
 }
 
-#btn-throw {
+#home-btn{
 
-    left: 20px;
-    bottom: 110px;
+    left:50%;
 
-}
-
-#btn-left {
-
-    left: 20px;
-    bottom: 20px;
+    transform:translateX(45px);
 
 }
-
-#btn-jump {
-
-    right: 20px;
-    bottom: 110px;
-
-}
-
-#btn-right {
-
-    right: 20px;
-    bottom: 20px;
-
-}
-
 
 
 /*------------------------------------------------*/
@@ -443,27 +531,27 @@ justify-content: space-between;
         left:3%;
         right:3%;
         bottom:11%;
+
     }
 
-    /* Innenabstand vom Menü */
-    #menu{
-
-       /* padding:3% 4% 3%;*/
-    }
 
     /* Lautsprecher */
 
     .music-button{
 
         width:clamp(42px,7vw,60px);
+
     }
+
 
     /* Startbutton */
 
     #start-btn{
 
         width:clamp(180px,34vw,260px);
+
     }
+
 
     /* Footer */
 
@@ -474,22 +562,28 @@ justify-content: space-between;
         margin:0 auto;
 
         display:flex;
+
         flex-direction:column;
 
         gap:12px;
+
     }
+
 
     .footer-row{
 
         display:flex;
 
         justify-content:space-between;
+
         align-items:center;
 
         gap:18px;
+
     }
 
-    /* Buttons */
+
+    /* Menü Buttons */
 
     #manual-btn,
     #controls-btn,
@@ -499,40 +593,47 @@ justify-content: space-between;
         width:clamp(100px,21vw,110px);
 
         flex-shrink:0;
+
     }
+
 }
+
 
 /*------------------------------------------------*/
 /* SEHR KLEINE DISPLAYS */
 
 @media (max-width:700px){
 
-    #menu{
-
-       /* padding:2.5% 3% 2%;*/
-    }
 
     .music-button{
 
         width:clamp(38px,7vw,60px);
+
     }
+
 
     #start-btn{
 
         width:clamp(150px,38vw,220px);
+
     }
+
 
     .menu-footer{
 
         width:92%;
 
         gap:8px;
+
     }
+
 
     .footer-row{
 
         gap:10px;
+
     }
+
 
     #manual-btn,
     #controls-btn,
@@ -540,7 +641,105 @@ justify-content: space-between;
     #imprint-btn{
 
         width:clamp(105px,22vw,130px);
+
     }
+
+
+    /*--------------------------------------------*/
+    /* Mobile Controls */
+
+
+.top-controls{
+
+    bottom:170px;
+
+}
+
+
+.bottom-controls{
+
+    bottom:20px;
+
+}
+
+    /* Flasche und Springen etwas nach außen */
+
+#btn-throw{
+
+    left:-20px;
+
+}
+
+
+#btn-jump{
+
+    right:-20px;
+
+}
+
+    /* Home Button ohne Hintergrund */
+
+    #home-btn{
+
+        background:transparent;
+
+        transform:translateX(50px);
+
+    }
+
+
+    #home-btn img{
+
+        width:100%;
+
+        height:100%;
+
+    }
+
+}
+
+
+/*------------------------------------------------*/
+/* PORTRAIT */
+
+@media (max-width:1025px) and (orientation:portrait){
+
+
+    .game-container{
+
+        display:none;
+
+    }
+
+
+    #rotate-device{
+
+        display:flex;
+
+    }
+
+}
+
+
+/*------------------------------------------------*/
+/* LANDSCAPE */
+
+@media (max-width:1025px) and (orientation:landscape){
+
+
+    .game-container{
+
+        display:block;
+
+    }
+
+
+    #rotate-device{
+
+        display:none;
+
+    }
+
 }
 
 /*------------------------------------------------*/
@@ -574,11 +773,12 @@ justify-content: space-between;
         display:none;
     }
 
-    #mobile-controls {
+ #mobile-controls{
 
-    display: none;
+    display:none;
 
 }
+
 }
 
 

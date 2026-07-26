@@ -14,12 +14,10 @@ function addTouchButton(buttonId, key) {
     if (!button) return;
 
     button.addEventListener("touchstart", (event) => {
-
-        event.preventDefault();
-
-        keyboard[key] = true;
-
-    });
+    console.log(buttonId + " gedrückt");
+    event.preventDefault();
+    keyboard[key] = true;
+});
 
     button.addEventListener("touchend", (event) => {
 
