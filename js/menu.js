@@ -1,17 +1,16 @@
 function initMenu(){
 
-    ui.start.onclick = () => {
+ui.start.onclick = () => {
 
-        ui.menu.style.display = "none";
+    console.log("Start Button");
 
-        document.querySelector(".game-container").style.animation = "none";
+    ui.menu.style.display = "none";
 
-        playLevelMusic();
+    document.querySelector(".game-container").style.animation = "none";
 
-        startGame();
+    startGame();
 
-    };
-
+};
     ui.manual.onclick = () => openOverlay("manual");
 
     ui.controls.onclick = () => openOverlay("controls");

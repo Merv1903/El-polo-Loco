@@ -26,13 +26,16 @@ levelMusic.volume = 0.25;
 
 function playMenuMusic() {
 
+    console.log("playMenuMusic");
+
     if (!musicOn) return;
 
     levelMusic.pause();
     levelMusic.currentTime = 0;
 
-    menuMusic.play().catch(() => {});
+    menuMusic.play().catch(error => console.log(error));
 }
+
 
 /* ===========================
    LEVEL MUSIC STARTEN
@@ -40,15 +43,15 @@ function playMenuMusic() {
 
 function playLevelMusic() {
 
+    console.log("playLevelMusic");
+
     if (!musicOn) return;
 
     menuMusic.pause();
     menuMusic.currentTime = 0;
 
-    levelMusic.play();
+    levelMusic.play().catch(error => console.log(error));
 }
-
-
 /* ===========================
    ALLE MUSIK STOPPEN
 =========================== */
@@ -145,7 +148,31 @@ function initAudio() {
         homeButton.onclick = backToMenu;
     }
 
-    setTimeout(() => {
-        menuMusic.play().catch(() => {});
-    }, 2000);
+    playMenuMusic();
+
+}
+
+const pauseButton = document.getElementById("pause-btn");
+
+if (pauseButton) {
+
+    pauseButton.onclick = () => {
+
+        if (world) {
+
+            world.togglePause();
+
+        }
+
+    };
+
+}
+
+
+function startMenuMusicOnce() {
+
+    if (musicOn) {
+        playMenuMusic();
+    }
+
 }

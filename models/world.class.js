@@ -1,152 +1,160 @@
 class World {
+  canvas;
+  ctx;
 
-    canvas;
-    ctx;
+  gameRunning = false;
+  paused = false;
 
-    startScreen = new Image();
+  startScreen = new Image();
 
-    level;
-    character;
+  level;
+  character;
 
-    showStartScreen = true;
+  showStartScreen = true;
 
-    camera_x = 0;
+  camera_x = 0;
 
-    constructor(canvas) {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");
 
-        this.canvas = canvas;
-        this.ctx = canvas.getContext("2d");
+    this.level = new Level();
+    this.character = new Character(keyboard, this);
 
-        this.level = new Level();
-        this.character = new Character(keyboard);
+    this.startScreen.src = "img/9_intro_outro_screens/start/startscreen_1.png";
 
-        this.startScreen.src =
-            "img/9_intro_outro_screens/start/startscreen_1.png";
+    this.startScreen.onload = () => {
+      this.draw();
+    };
+  }
 
-        this.startScreen.onload = () => {
+run() {
+
+    if (this.gameRunning) return;
+
+    this.gameRunning = true;
+
+    this.gameLoop = setInterval(() => {
+
+        if (!this.paused) {
 
             this.draw();
 
-        };
-
-    }
-
-    run() {
-
-        setInterval(() => {
-
-            this.draw();
-
-        }, 1000 / 60);
-
-    }
-
-    clearCanvas() {
-
-        this.ctx.clearRect(
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height
-        );
-
-    }
-
-    draw() {
-
-        this.clearCanvas();
-
-        if (this.showStartScreen) {
-
-            this.drawStartScreen();
-
-        } else {
-
-            this.drawLevel();
-
         }
 
+    }, 1000 / 60);
+
+}
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  draw() {
+    this.clearCanvas();
+
+    if (this.showStartScreen) {
+      this.drawStartScreen();
+    } else {
+      this.drawLevel();
+    }
+  }
+
+  drawStartScreen() {
+    this.ctx.drawImage(
+      this.startScreen,
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height,
+    );
+  }
+
+  drawLevel() {
+    this.ctx.save();
+
+    this.ctx.translate(this.camera_x, 0);
+
+    this.drawBackground();
+    this.drawCharacter();
+
+    this.ctx.restore();
+  }
+
+  drawBackground() {
+    this.level.backgrounds.forEach((background) => {
+      background.draw(this.ctx);
+    });
+  }
+
+  drawCharacter() {
+    if (this.character.otherDirection) {
+      this.drawFlippedCharacter();
+      return;
     }
 
-    drawStartScreen() {
+    this.character.draw(this.ctx);
+  }
 
-        this.ctx.drawImage(
-            this.startScreen,
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height
-        );
+  drawFlippedCharacter() {
+    this.ctx.save();
 
-    }
+    this.ctx.translate(this.character.x + this.character.width, 0);
 
-    drawLevel() {
+    this.ctx.scale(-1, 1);
 
-        this.ctx.save();
+    this.ctx.drawImage(
+      this.character.img,
+      0,
+      this.character.y,
+      this.character.width,
+      this.character.height,
+    );
 
-        this.ctx.translate(this.camera_x, 0);
+    this.ctx.restore();
+  }
 
-        this.drawBackground();
-        this.drawCharacter();
+  startLevel() {
+    this.showStartScreen = false;
 
-        this.ctx.restore();
+    this.camera_x = 0;
 
-    }
+    this.run();
+  }
 
-    drawBackground() {
+  stopLevel() {
+    this.gameRunning = false;
 
-        this.level.backgrounds.forEach(background => {
+    clearInterval(this.gameLoop);
+  }
 
-            background.draw(this.ctx);
+  backToMenu() {
+    this.stopLevel();
 
-        });
+    this.showStartScreen = true;
 
-    }
+    this.camera_x = 0;
 
-    drawCharacter() {
+    this.draw();
+  }
 
-        if (this.character.otherDirection) {
 
-            this.drawFlippedCharacter();
-            return;
+  pauseGame() {
 
-        }
+    this.paused = true;
 
-        this.character.draw(this.ctx);
+}
 
-    }
 
-    drawFlippedCharacter() {
+resumeGame() {
 
-        this.ctx.save();
+    this.paused = false;
 
-        this.ctx.translate(
-            this.character.x + this.character.width,
-            0
-        );
+}
 
-        this.ctx.scale(-1, 1);
 
-        this.ctx.drawImage(
-            this.character.img,
-            0,
-            this.character.y,
-            this.character.width,
-            this.character.height
-        );
+togglePause() {
 
-        this.ctx.restore();
+    this.paused = !this.paused;
 
-    }
-
-    startLevel() {
-
-        this.showStartScreen = false;
-
-        this.camera_x = 0;
-
-        this.run();
-
-    }
-
+}
 }

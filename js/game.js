@@ -177,7 +177,14 @@ window.addEventListener("load", init);
 
 function startGame() {
 
-   
+    if (musicOn) {
+
+        stopMusic();
+
+        playLevelMusic();
+
+    }
+
     document.getElementById("mobile-controls").style.display = "flex";
 
     world.startLevel();
@@ -186,21 +193,26 @@ function startGame() {
 
 function backToMenu() {
 
-    levelMusic.pause();
-    levelMusic.currentTime = 0;
+    if (world) {
+
+        world.backToMenu();
+
+    }
+
+    stopMusic();
 
     document.getElementById("mobile-controls").style.display = "none";
+
+    ui.menu.style.display = "flex";
+
+    document.querySelector(".game-container").style.animation =
+        "floatGame 4s ease-in-out infinite";
 
     if (musicOn) {
 
         playMenuMusic();
 
     }
-
-    ui.menu.style.display = "flex";
-
-    document.querySelector(".game-container").style.animation =
-        "floatGame 4s ease-in-out infinite";
 
 }
 
