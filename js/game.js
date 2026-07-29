@@ -75,13 +75,13 @@ function scaleMobileControls(width){
         `${170 * scale}px`;
 
     document.querySelector(".bottom-controls").style.bottom =
-        `${20 * scale}px`;
+        `${5 * scale}px`;
 
     document.getElementById("btn-throw").style.left =
-        `${-50 * scale}px`;
+        `${-25 * scale}px`;
 
     document.getElementById("btn-jump").style.right =
-        `${-50 * scale}px`;
+        `${-25 * scale}px`;
 
 }
 

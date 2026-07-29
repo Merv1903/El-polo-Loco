@@ -1,5 +1,7 @@
 class Level {
 
+        level_end_x = 4320;
+
     backgrounds = [];
 
     constructor() {
