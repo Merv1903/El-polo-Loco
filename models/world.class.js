@@ -30,13 +30,19 @@ class World {
     };
   }
 
-run() {
+  run() {
 
     if (this.gameRunning) return;
 
     this.gameRunning = true;
 
     this.gameLoop = setInterval(() => {
+
+        if (this.paused) return;
+
+        this.character.move();
+
+        this.character.animate();
 
         this.draw();
 

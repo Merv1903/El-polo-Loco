@@ -41,44 +41,48 @@ class Character extends MovableObject {
     this.width = 120;
     this.height = 250;
 
-    this.animate();
-    this.move();
+   
   }
 
   animate() {
-    setInterval(() => {
-      if (this.world.paused) return;
 
-      if (this.keyboard.RIGHT || this.keyboard.LEFT) {
+    if (this.world.paused) return;
+
+    if (this.keyboard.RIGHT || this.keyboard.LEFT) {
+
         this.playAnimation(this.IMAGES_WALKING);
-      } else {
+
+    } else {
+
         this.playAnimation(this.IMAGES_IDLE);
-      }
-    }, 180);
-  }
 
-move() {
-    setInterval(() => {
+    }
 
-        if (this.world.paused) return;
+}
 
+  move() {
 
-        if (this.keyboard.RIGHT && this.x < this.world.level.level_end_x - this.width) {
+    if (this.world.paused) return;
 
-            this.otherDirection = false;
-            this.x += 5;
+    if (
+        this.keyboard.RIGHT &&
+        this.x < this.world.level.level_end_x - this.width
+    ) {
 
-        }
+        this.otherDirection = false;
+        this.x += 5;
 
+    }
 
-        if (this.keyboard.LEFT && this.x > 0) {
+    if (
+        this.keyboard.LEFT &&
+        this.x > 0
+    ) {
 
-            this.otherDirection = true;
-            this.x -= 5;
+        this.otherDirection = true;
+        this.x -= 5;
 
-        }
+    }
 
-
-    }, 1000 / 60);
 }
 }
