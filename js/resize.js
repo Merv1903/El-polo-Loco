@@ -26,7 +26,7 @@ function scaleMobileControls(width) {
 
     const scale = width / 720;
 
-    const controls = document.getElementById("mobile-controls");
+    const controls = document.getElementById("game-controls");
 
     if (!controls) return;
 

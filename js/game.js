@@ -41,7 +41,7 @@ function init() {
 }
 
 window.addEventListener("resize", resizeGame);
-window.addEventListener("load", init);
+
 
 function startGame() {
 
@@ -52,7 +52,7 @@ function startGame() {
 
     }
 
-    document.getElementById("mobile-controls").style.display = "flex";
+    document.getElementById("game-controls").style.display = "flex";
 
     world.startLevel();
 
@@ -68,7 +68,7 @@ function backToMenu() {
 
     stopMusic();
 
-    document.getElementById("mobile-controls").style.display = "none";
+    document.getElementById("game-controls").style.display = "none";
 
     ui.menu.style.display = "flex";
 

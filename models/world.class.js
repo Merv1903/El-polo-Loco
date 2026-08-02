@@ -5,6 +5,8 @@ class World {
   gameRunning = false;
   paused = false;
 
+  lastAnimation = 0;
+  
   startScreen = new Image();
   pauseOverlay = new Image();
 
@@ -38,15 +40,31 @@ class World {
 
     this.gameLoop = setInterval(() => {
 
-        if (this.paused) return;
+        if (!this.paused) {
 
-        this.character.move();
+            this.updateCharacter();
 
-        this.character.animate();
+        }
 
         this.draw();
 
     }, 1000 / 60);
+
+}
+
+updateCharacter() {
+
+  this.character.move();
+
+  const now = Date.now();
+
+  if (now - this.lastAnimation >= 180) {
+
+      this.character.animate();
+
+      this.lastAnimation = now;
+
+  }
 
 }
   clearCanvas() {

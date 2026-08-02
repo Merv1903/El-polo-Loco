@@ -13,18 +13,33 @@ function addTouchButton(buttonId, key) {
 
     if (!button) return;
 
-    button.addEventListener("touchstart", (event) => {
-    console.log(buttonId + " gedrückt");
-    event.preventDefault();
-    keyboard[key] = true;
-});
+    addPointerDown(button, key);
+    addPointerUp(button, key);
 
-    button.addEventListener("touchend", (event) => {
+}
+
+function addPointerDown(button, key) {
+
+    button.addEventListener("pointerdown", (event) => {
 
         event.preventDefault();
-
-        keyboard[key] = false;
+        keyboard[key] = true;
 
     });
+
+}
+
+function addPointerUp(button, key) {
+
+    function release(event) {
+
+        event.preventDefault();
+        keyboard[key] = false;
+
+    }
+
+    button.addEventListener("pointerup", release);
+    button.addEventListener("pointerleave", release);
+    button.addEventListener("pointercancel", release);
 
 }

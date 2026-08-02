@@ -1,0 +1,99 @@
+/*------------------------------------------------*/
+/* OVERLAY */
+
+#overlay{
+    position:fixed;
+    inset:0;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(255,255,255,.65);
+
+    z-index:100;
+}
+
+.overlay-wrapper{
+    position:relative;
+    display:inline-block;
+}
+
+.overlay-content{
+    width:min(92vw,720px);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.overlay-image{
+    width:95%;
+    height:auto;
+
+    display:block;
+    margin:auto;
+}
+
+#close-btn{
+    position:absolute;
+
+    top:2%;
+    right:2%;
+
+    width:clamp(34px,5vw,50px);
+    height:clamp(34px,5vw,50px);
+
+    border:none;
+    cursor:pointer;
+
+    z-index:1000;
+}
+
+/*------------------------------------------------*/
+/* IMPRINT OVERLAY */
+
+.imprint-container{
+    position:relative;
+
+    width:100%;
+    height:100%;
+}
+
+.overlay-imprint{
+    width:92%;
+    height:92%;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.imprint-text{
+    position:absolute;
+
+    top:22%;
+    left:12%;
+    right:12%;
+    bottom:10%;
+
+    overflow-y:auto;
+
+    color:#4d2c17;
+
+    text-align:center;
+    line-height:1.6;
+}
+
+.imprint-text h3{
+    margin:18px 0 8px;
+    font-size:clamp(18px,2vw,28px);
+}
+
+.imprint-text p{
+    margin-bottom:18px;
+    font-size:clamp(14px,1.3vw,20px);
+}

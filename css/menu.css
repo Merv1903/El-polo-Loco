@@ -1,0 +1,107 @@
+/*------------------------------------------------*/
+/* MENÜ */
+
+#menu{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    z-index:20;
+}
+
+/*------------------------------------------------*/
+/* HEADER */
+
+.menu-header{
+    display:flex;
+    justify-content:flex-end;
+    align-items:flex-start;
+}
+
+.menu-navigation{
+    display:flex;
+    justify-content:space-between;
+}
+
+/*------------------------------------------------*/
+/* MUSIK BUTTON */
+
+.music-button{
+    position:relative;
+    width:clamp(50px,8vw,60px);
+    cursor:pointer;
+}
+
+.music-button img{
+    width:100%;
+    display:block;
+    transition:.25s;
+}
+
+.music-button:hover img{
+    transform:scale(1.08);
+    filter:drop-shadow(0 0 12px rgba(255,255,255,.75));
+}
+
+.music-button.muted::after{
+    content:"";
+
+    position:absolute;
+    top:50%;
+    left:8%;
+
+    width:84%;
+    height:4px;
+
+    background:#d61c1c;
+    border-radius:10px;
+
+    transform:translateY(-50%) rotate(-45deg);
+
+    pointer-events:none;
+    z-index:5;
+}
+
+/*------------------------------------------------*/
+/* MITTE */
+
+.menu-center{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin-top:auto;
+    margin-bottom:-21px;
+}
+
+#start-btn{
+    width:clamp(180px,36%,260px);
+}
+
+/*------------------------------------------------*/
+/* NAVIGATION BUTTONS */
+
+#manual-btn,
+#controls-btn,
+#about-btn,
+#imprint-btn{
+    width:clamp(140px,22vw,150px);
+    flex:0 1 auto;
+}
+
+/*------------------------------------------------*/
+/* MENU ICONS */
+
+.menu-icon{
+    cursor:pointer;
+    user-select:none;
+    transition:.25s;
+}
+
+.menu-icon:hover{
+    transform:scale(1.08);
+    filter:drop-shadow(0 0 12px rgba(255,255,255,.75));
+}

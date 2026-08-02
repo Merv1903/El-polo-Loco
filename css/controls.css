@@ -1,0 +1,168 @@
+/*------------------------------------------------*/
+/* GAME CONTROLS */
+
+#game-controls{
+
+    display:none;
+
+    position:absolute;
+
+    top:18px;
+    left:22px;
+    right:22px;
+    bottom:53px;
+
+    z-index:30;
+
+    pointer-events:none;
+}
+
+/*------------------------------------------------*/
+/* CONTROL GROUPS */
+
+.top-controls,
+.bottom-controls{
+
+    position:absolute;
+
+    left:0;
+    right:0;
+}
+
+.top-controls{
+
+    bottom:200px;
+}
+
+.bottom-controls{
+
+    bottom:100px;
+}
+
+/*------------------------------------------------*/
+/* BUTTONS */
+
+#game-controls button{
+
+    position:absolute;
+
+    width:60px;
+    height:60px;
+
+    border:none;
+    border-radius:50%;
+
+    background:rgba(255,255,255,.25);
+
+    cursor:pointer;
+
+    pointer-events:auto;
+
+    user-select:none;
+
+    touch-action:manipulation;
+}
+
+#game-controls button{
+
+    overflow:hidden;
+
+    padding:0;
+}
+
+#game-controls button img{
+
+    width:32px;
+    height:32px;
+
+    object-fit:contain;
+
+    display:block;
+
+    margin:auto;
+
+    pointer-events:none;
+}
+
+/*------------------------------------------------*/
+/* TOP BUTTONS */
+
+#btn-throw{
+
+    left:20px;
+}
+
+#btn-jump{
+
+    right:20px;
+}
+
+/*------------------------------------------------*/
+/* BOTTOM BUTTONS */
+
+#btn-left{
+
+    left:20px;
+}
+
+#btn-right{
+
+    right:20px;
+}
+
+#music-btn-mobile{
+
+    position:absolute;
+
+    left:50%;
+
+    transform:translateX(-105px);
+
+    width:60px;
+    height:60px;
+
+    background:transparent;
+
+    border:none;
+
+    padding:0;
+
+    cursor:pointer;
+}
+
+#music-btn-mobile.muted::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    left:8%;
+
+    width:84%;
+    height:4px;
+
+    background:#d61c1c;
+
+    border-radius:10px;
+
+    transform:translateY(-50%) rotate(-45deg);
+
+    pointer-events:none;
+
+    z-index:5;
+}
+
+#pause-btn{
+
+    left:50%;
+
+    transform:translateX(-30px);
+}
+
+#home-btn{
+
+    left:50%;
+
+    transform:translateX(45px);
+}
