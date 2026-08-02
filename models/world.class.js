@@ -12,7 +12,7 @@ class World {
 
   level;
   character;
-
+    statusBar;
   showStartScreen = true;
 
   camera_x = 0;
@@ -23,6 +23,7 @@ class World {
 
     this.level = new Level();
     this.character = new Character(keyboard, this);
+    this.statusBar = new StatusBar();
 
     this.startScreen.src = "img/9_intro_outro_screens/start/startscreen_1.png";
     this.pauseOverlay.src = "img/9_intro_outro_screens/start/controls_overlay.png";
@@ -107,6 +108,9 @@ drawLevel() {
     this.drawCharacter();
 
     this.ctx.restore();
+
+    this.drawStatusBar();
+
 }
 
 updateCamera() {
@@ -153,6 +157,12 @@ checkCameraLimits() {
 
     this.character.draw(this.ctx);
   }
+
+  drawStatusBar() {
+
+    this.statusBar.draw(this.ctx);
+
+}
 
   drawFlippedCharacter() {
     this.ctx.save();
