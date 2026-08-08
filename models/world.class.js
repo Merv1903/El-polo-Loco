@@ -55,19 +55,47 @@ class World {
 
 updateCharacter() {
 
-  this.character.move();
+    this.character.move();
 
-  const now = Date.now();
+    this.collectItems();
 
-  if (now - this.lastAnimation >= 180) {
+    const now = Date.now();
 
-      this.character.animate();
+    if (now - this.lastAnimation >= 180) {
 
-      this.lastAnimation = now;
+        this.character.animate();
 
-  }
+        this.lastAnimation = now;
+
+    }
 
 }
+
+collectItems() {
+
+    this.level.coins.forEach((coin) => {
+
+        if (this.character.isColliding(coin)) {
+
+            coin.collected = true;
+
+        }
+
+    });
+
+    this.level.bottles.forEach((bottle) => {
+
+        if (this.character.isColliding(bottle)) {
+
+            bottle.collected = true;
+
+        }
+
+    });
+
+}
+
+
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
@@ -104,8 +132,10 @@ drawLevel() {
 
     this.ctx.translate(this.camera_x, 0);
 
-    this.drawBackground();
-    this.drawCharacter();
+this.drawBackground();
+this.drawCoins();
+this.drawBottles();
+this.drawCharacter();
 
     this.ctx.restore();
 
@@ -149,14 +179,52 @@ checkCameraLimits() {
     });
   }
 
-  drawCharacter() {
+
+drawCoins() {
+
+    this.level.coins.forEach((coin) => {
+
+        if (!coin.collected) {
+
+            coin.draw(this.ctx);
+            coin.drawHitbox(this.ctx);
+
+        }
+
+    });
+
+}
+
+drawBottles() {
+
+    this.level.bottles.forEach((bottle) => {
+
+        if (!bottle.collected) {
+
+            bottle.draw(this.ctx);
+            bottle.drawHitbox(this.ctx);
+
+        }
+
+    });
+
+}
+
+drawCharacter() {
+
     if (this.character.otherDirection) {
-      this.drawFlippedCharacter();
-      return;
+
+        this.drawFlippedCharacter();
+
+    } else {
+
+        this.character.draw(this.ctx);
+
     }
 
-    this.character.draw(this.ctx);
-  }
+    this.character.drawHitbox(this.ctx);
+
+}
 
   drawStatusBar() {
 
@@ -182,13 +250,17 @@ checkCameraLimits() {
     this.ctx.restore();
   }
 
-  startLevel() {
+startLevel() {
+
     this.showStartScreen = false;
 
     this.camera_x = 0;
 
+    console.log("START LEVEL:", this.showStartScreen);
+
     this.run();
-  }
+
+}
 
   stopLevel() {
     this.gameRunning = false;

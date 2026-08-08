@@ -4,6 +4,9 @@ class Level {
 
     backgrounds = [];
 
+        coins = [];
+        bottles = [];
+
     constructor() {
 
         this.backgrounds = [
@@ -63,6 +66,45 @@ class Level {
             new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 3600)
 
         ];
+
+this.coins = [
+
+    // Abschnitt 1
+    new Coin(500, 350),
+    new Coin(650, 250),
+
+    new Coin(950, 330),
+
+    new Coin(1250, 330),
+
+    // Abschnitt 2
+    new Coin(1600, 350),
+    new Coin(1750, 280),
+
+    new Coin(2100, 220),
+    new Coin(2250, 150),
+
+
+    // Abschnitt 3
+    new Coin(2800, 350),
+
+
+    new Coin(3300, 300),
+    new Coin(3450, 180),
+
+    // Richtung Endboss
+    new Coin(3800, 350),
+
+
+];
+
+this.bottles = [
+
+    new Bottle(700, 330),
+    new Bottle(1200, 320),
+    new Bottle(500, 350)
+
+];
 
     }
 
