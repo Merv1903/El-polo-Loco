@@ -13,6 +13,8 @@ class World {
   level;
   character;
     statusBar;
+    coinBar;
+bottleBar;
   showStartScreen = true;
 
   camera_x = 0;
@@ -24,6 +26,8 @@ class World {
     this.level = new Level();
     this.character = new Character(keyboard, this);
     this.statusBar = new StatusBar();
+this.coinBar = new CoinBar();
+this.bottleBar = new BottleBar();
 
     this.startScreen.src = "img/9_intro_outro_screens/start/startscreen_1.png";
     this.pauseOverlay.src = "img/9_intro_outro_screens/start/controls_overlay.png";
@@ -73,28 +77,41 @@ updateCharacter() {
 
 collectItems() {
 
-    this.level.coins.forEach((coin) => {
+    this.collect(this.level.coins, "coins");
+    this.collect(this.level.bottles, "bottles");
 
-        if (this.character.isColliding(coin)) {
+}
 
-            coin.collected = true;
+collect(items, property) {
 
-        }
+    items.forEach((item) => {
 
-    });
+        if (!item.collected && this.character.isColliding(item)) {
 
-    this.level.bottles.forEach((bottle) => {
+            item.collected = true;
+            this.character[property]++;
 
-        if (this.character.isColliding(bottle)) {
+            if (property === "coins") {
 
-            bottle.collected = true;
+                this.coinBar.setPercentage(
+                    this.character.coins * 10
+                );
+
+            }
+
+            if (property === "bottles") {
+
+                this.bottleBar.setPercentage(
+                    this.character.bottles * 10
+                );
+
+            }
 
         }
 
     });
 
 }
-
 
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -140,7 +157,8 @@ this.drawCharacter();
     this.ctx.restore();
 
     this.drawStatusBar();
-
+    this.drawCoinBar();
+this.drawBottleBar();
 }
 
 updateCamera() {
@@ -229,6 +247,18 @@ drawCharacter() {
   drawStatusBar() {
 
     this.statusBar.draw(this.ctx);
+
+}
+
+drawCoinBar() {
+
+    this.coinBar.draw(this.ctx);
+
+}
+
+drawBottleBar() {
+
+    this.bottleBar.draw(this.ctx);
 
 }
 
