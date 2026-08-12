@@ -60,7 +60,8 @@ this.bottleBar = new BottleBar();
 updateCharacter() {
 
     this.character.move();
-
+    this.updateEnemies();
+    this.checkEnemyCollisions();
     this.collectItems();
 
     const now = Date.now();
@@ -72,6 +73,33 @@ updateCharacter() {
         this.lastAnimation = now;
 
     }
+
+}
+updateEnemies() {
+
+    this.level.chickens.forEach((chicken) => {
+
+        chicken.move();
+
+    });
+
+}
+
+checkEnemyCollisions() {
+
+    this.level.chickens.forEach((chicken) => {
+
+        if (this.character.isColliding(chicken)) {
+
+            this.character.energy -= 20;
+
+            this.statusBar.setPercentage(
+                this.character.energy
+            );
+
+        }
+
+    });
 
 }
 
@@ -149,16 +177,18 @@ drawLevel() {
 
     this.ctx.translate(this.camera_x, 0);
 
-this.drawBackground();
-this.drawCoins();
-this.drawBottles();
-this.drawCharacter();
+    this.drawBackground();
+    this.drawCoins();
+    this.drawBottles();
+    this.drawEnemies();
+    this.drawCharacter();
 
     this.ctx.restore();
 
     this.drawStatusBar();
     this.drawCoinBar();
-this.drawBottleBar();
+    this.drawBottleBar();
+
 }
 
 updateCamera() {
@@ -197,6 +227,13 @@ checkCameraLimits() {
     });
   }
 
+  drawEnemies() {
+
+    this.level.chickens.forEach((chicken) => {
+        chicken.draw(this.ctx);
+    });
+
+}
 
 drawCoins() {
 

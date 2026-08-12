@@ -6,6 +6,7 @@ class Level {
 
         coins = [];
         bottles = [];
+            chickens = [];
 
     constructor() {
 
@@ -106,6 +107,16 @@ this.bottles = [
 
 ];
 
+this.chickens = [
+
+new Chicken(1000, 370),
+new Chicken(1600, 370),
+new Chicken(2300, 370),
+new Chicken(3000, 370)
+
+];
+
     }
 
+    
 }
