@@ -94,28 +94,49 @@ checkEnemyCollisions() {
     this.level.chickens.forEach((chicken) => {
 
         if (!chicken.alive) return;
-
         if (!this.character.isColliding(chicken)) return;
 
-        if (this.character.isFalling()) {
-
-            chicken.die();
-
-            this.character.speedY = 20;
-
-        } else {
-
-            this.character.energy -= 20;
-
-            this.statusBar.setPercentage(
-                this.character.energy
-            );
-
-        }
+        this.handleChickenCollision(chicken);
 
     });
 
 }
+
+handleChickenCollision(chicken) {
+
+    if (this.character.isFalling()) {
+
+        this.killChicken(chicken);
+        return;
+
+    }
+
+    this.hitCharacter(chicken);
+
+}
+
+
+killChicken(chicken) {
+
+    chicken.die();
+
+    this.character.speedY = 20;
+
+}
+
+
+hitCharacter(chicken) {
+
+    this.character.energy -= chicken.damage;
+
+    this.character.hurt();
+
+    this.statusBar.setPercentage(
+        this.character.energy
+    );
+
+}
+
 
 collectItems() {
 
