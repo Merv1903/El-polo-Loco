@@ -75,6 +75,7 @@ updateCharacter() {
     }
 
 }
+
 updateEnemies() {
 
     this.level.chickens.forEach((chicken) => {
@@ -83,13 +84,26 @@ updateEnemies() {
 
     });
 
+    this.level.chickens =
+        this.level.chickens.filter((chicken) => !chicken.remove);
+
 }
 
 checkEnemyCollisions() {
 
     this.level.chickens.forEach((chicken) => {
 
-        if (this.character.isColliding(chicken)) {
+        if (!chicken.alive) return;
+
+        if (!this.character.isColliding(chicken)) return;
+
+        if (this.character.isFalling()) {
+
+            chicken.die();
+
+            this.character.speedY = 20;
+
+        } else {
 
             this.character.energy -= 20;
 
