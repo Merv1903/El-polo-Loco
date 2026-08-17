@@ -97,13 +97,15 @@
         bottom:20px;
     }
 
-    #btn-throw{
-        left:-20px;
-    }
+  #btn-throw{
+    left:-20px;
+}
 
-    #btn-jump{
-        right:-20px;
-    }
+#btn-jump{
+    left:-20px;
+    right:auto;
+    top:60px;
+}
 
     #home-btn{
         background:transparent;
