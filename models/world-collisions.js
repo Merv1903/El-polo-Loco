@@ -1,9 +1,10 @@
 World.prototype.checkEnemyCollisions = function () {
 
+    if (this.character.isDead) return;
+
     this.level.chickens.forEach((chicken) => {
 
         if (!chicken.alive) return;
-
         if (!this.character.isColliding(chicken)) return;
 
         this.handleChickenCollision(chicken);
@@ -38,15 +39,30 @@ World.prototype.killChicken = function (chicken) {
 
 World.prototype.hitCharacter = function (chicken) {
 
-    this.character.energy -= chicken.damage;
+    const newEnergy =
+        this.character.energy - chicken.damage;
 
-    this.character.hurt();
+    this.character.energy =
+        Math.max(0, newEnergy);
+
+    console.log("Energie:", this.character.energy);
 
     this.statusBar.setPercentage(
         this.character.energy
     );
 
+    if (this.character.energy === 0) {
+
+        this.character.die();
+        return;
+
+    }
+
+    this.character.hurt();
+
 };
+
+
 
 
 World.prototype.collectItems = function () {

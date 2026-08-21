@@ -5,11 +5,13 @@ class World {
 
     gameRunning = false;
     paused = false;
+    gameOver = false;
 
     lastAnimation = 0;
 
     startScreen = new Image();
     pauseOverlay = new Image();
+    gameOverScreen = new Image();
 
     level;
     character;
@@ -41,22 +43,30 @@ class World {
     }
 
 
-    loadScreens() {
+ loadScreens() {
 
-        this.startScreen.src =
-            "img/9_intro_outro_screens/start/startscreen_1.png";
+    this.startScreen.src =
+        "img/9_intro_outro_screens/start/startscreen_1.png";
 
-        this.pauseOverlay.src =
-            "img/9_intro_outro_screens/start/controls_overlay.png";
+    this.pauseOverlay.src =
+        "img/9_intro_outro_screens/start/controls_overlay.png";
 
-        this.startScreen.onload = () => {
+    this.gameOverScreen.src =
+        "img/9_intro_outro_screens/game_over/oh no you lost!.png";
 
-            this.draw();
+    this.startScreen.onload = () => {
 
-        };
+        this.draw();
 
-    }
+    };
 
+    this.gameOverScreen.onload = () => {
+
+        console.log("Game Over Bild geladen");
+
+    };
+
+}
 
     run() {
 
@@ -79,14 +89,23 @@ class World {
     }
 
 
-    updateGame() {
+updateGame() {
+
+    if (this.character.isDead) {
 
         this.updateCharacter();
-        this.updateEnemies();
-        this.checkEnemyCollisions();
-        this.collectItems();
+        this.checkGameOver();
+
+        return;
 
     }
+
+    this.updateCharacter();
+    this.updateEnemies();
+    this.checkEnemyCollisions();
+    this.collectItems();
+
+}
 
 
     updateCharacter() {
@@ -130,16 +149,17 @@ class World {
 
     }
 
+startLevel() {
 
-    startLevel() {
+    this.showStartScreen = false;
 
-        this.showStartScreen = false;
+    this.gameOver = false;
 
-        this.camera_x = 0;
+    this.camera_x = 0;
 
-        this.run();
+    this.run();
 
-    }
+}
 
 
     stopLevel() {
@@ -183,5 +203,50 @@ class World {
         this.paused = !this.paused;
 
     }
+
+
+    checkGameOver() {
+
+    if (
+        this.gameOver ||
+        !this.character.deadAnimationFinished
+    ) {
+
+        return;
+
+    }
+
+    this.gameOver = true;
+
+    this.showGameOverScreen();
+
+}
+
+showGameOverScreen() {
+
+    this.stopLevel();
+
+    this.drawGameOverScreen();
+
+}
+
+drawGameOverScreen() {
+
+    this.ctx.clearRect(
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+    );
+
+    this.ctx.drawImage(
+        this.gameOverScreen,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+    );
+
+}
 
 }

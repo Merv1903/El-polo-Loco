@@ -9,7 +9,8 @@ class Character extends MovableObject {
     bottles = 0;
 
     isHurt = false;
-
+isDead = false;
+deadFrame = 0;
 
     speedY = 0;
     acceleration = 2.5;
@@ -58,6 +59,16 @@ class Character extends MovableObject {
     "img/2_character_pepe/4_hurt/H-43.png"
 ];
 
+IMAGES_DEAD = [
+    "img/2_character_pepe/5_dead/D-51.png",
+    "img/2_character_pepe/5_dead/D-52.png",
+    "img/2_character_pepe/5_dead/D-53.png",
+    "img/2_character_pepe/5_dead/D-54.png",
+    "img/2_character_pepe/5_dead/D-55.png",
+    "img/2_character_pepe/5_dead/D-56.png",
+    "img/2_character_pepe/5_dead/D-57.png"
+];
+
     constructor(keyboard, world) {
 
         super();
@@ -71,6 +82,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
 
         this.applyGravity();
 
@@ -94,6 +106,13 @@ animate() {
 
     if (this.world.paused) return;
 
+    if (this.isDead) {
+
+        this.playDeadAnimation();
+        return;
+
+    }
+
     if (this.isHurt) {
 
         this.playHurtAnimation();
@@ -111,6 +130,23 @@ playHurtAnimation() {
 
 }
 
+playDeadAnimation() {
+
+    if (this.deadAnimationFinished) return;
+
+    this.loadImage(this.IMAGES_DEAD[this.deadFrame]);
+
+    if (this.deadFrame < this.IMAGES_DEAD.length - 1) {
+
+        this.deadFrame++;
+
+    } else {
+
+        this.deadAnimationFinished = true;
+
+    }
+
+}
 
 playMovementAnimation() {
 
@@ -135,9 +171,11 @@ playMovementAnimation() {
 
 
 
-    move() {
+move() {
 
     if (this.world.paused) return;
+
+    if (this.isDead) return;
 
     this.moveHorizontal();
     this.handleJump();
@@ -272,5 +310,17 @@ pushBack() {
 
 }
 
+
+die() {
+
+    if (this.isDead) return;
+
+    this.isDead = true;
+    this.isHurt = false;
+
+    this.deadFrame = 0;
+    this.deadAnimationFinished = false;
+
+}
 
 }

@@ -21,6 +21,13 @@ World.prototype.draw = function () {
 
     }
 
+    if (this.gameOver) {
+
+        this.drawGameOver();
+        return;
+
+    }
+
     this.drawLevel();
 
     if (this.paused) {
@@ -36,6 +43,18 @@ World.prototype.drawStartScreen = function () {
 
     this.ctx.drawImage(
         this.startScreen,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+    );
+
+};
+
+World.prototype.drawGameOver = function () {
+
+    this.ctx.drawImage(
+        this.gameOverScreen,
         0,
         0,
         this.canvas.width,
