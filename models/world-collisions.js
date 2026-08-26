@@ -39,17 +39,9 @@ World.prototype.killChicken = function (chicken) {
 
 World.prototype.hitCharacter = function (chicken) {
 
-    const newEnergy =
-        this.character.energy - chicken.damage;
+    if (this.character.isInvincible) return;
 
-    this.character.energy =
-        Math.max(0, newEnergy);
-
-    console.log("Energie:", this.character.energy);
-
-    this.statusBar.setPercentage(
-        this.character.energy
-    );
+    this.reduceCharacterEnergy(chicken.damage);
 
     if (this.character.energy === 0) {
 
@@ -62,7 +54,25 @@ World.prototype.hitCharacter = function (chicken) {
 
 };
 
+World.prototype.reduceCharacterEnergy = function (damage) {
 
+    const newEnergy =
+        this.character.energy - damage;
+
+    this.character.energy =
+        Math.max(0, newEnergy);
+
+    this.updateHealthBar();
+
+};
+
+World.prototype.updateHealthBar = function () {
+
+    this.statusBar.setPercentage(
+        this.character.energy
+    );
+
+};
 
 
 World.prototype.collectItems = function () {

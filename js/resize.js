@@ -19,6 +19,8 @@ function resizeGame() {
 
     scaleMobileControls(size.width);
 
+    scaleGameOverMenu(size.width);   // ← NEU
+
 }
 
 
@@ -44,6 +46,31 @@ function scaleMobileControls(width) {
 
 }
 
+
+function scaleGameOverMenu(width) {
+
+    const scale = width / 720;
+
+    const menu = document.getElementById("game-over-menu");
+
+    if (!menu) return;
+
+    menu.style.paddingBottom =
+        `${120 * scale}px`;
+
+            menu.style.paddingTop =
+        `${70 * scale}px`;
+
+    menu.style.gap =
+        `${220 * scale}px`;
+
+    document.getElementById("restart-btn").style.width =
+        `${200 * scale}px`;
+
+    document.getElementById("gameover-home-btn").style.width =
+        `${90 * scale}px`;
+
+}
 
 function getGameSize() {
 

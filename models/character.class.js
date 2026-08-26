@@ -9,6 +9,7 @@ class Character extends MovableObject {
     bottles = 0;
 
     isHurt = false;
+    isInvincible = false;
 isDead = false;
 deadFrame = 0;
 
@@ -281,17 +282,20 @@ handleJump() {
 
 hurt() {
 
-    if (this.isHurt) return;
+    if (this.isInvincible || this.isDead) return;
 
     this.isHurt = true;
+    this.isInvincible = true;
 
-    this.pushBack();
+    this.pushBack();   
+    
+    setTimeout(() => {
+        this.isHurt = false;
+    }, 300);
 
     setTimeout(() => {
-
-        this.isHurt = false;
-
-    }, 500);
+        this.isInvincible = false;
+    }, 1000);
 
 }
 

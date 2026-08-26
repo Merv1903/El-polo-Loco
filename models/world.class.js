@@ -43,30 +43,33 @@ class World {
     }
 
 
- loadScreens() {
+    loadScreens() {
 
-    this.startScreen.src =
-        "img/9_intro_outro_screens/start/startscreen_1.png";
+        this.startScreen.src =
+            "img/9_intro_outro_screens/start/startscreen_1.png";
 
-    this.pauseOverlay.src =
-        "img/9_intro_outro_screens/start/controls_overlay.png";
+        this.pauseOverlay.src =
+            "img/9_intro_outro_screens/start/controls_overlay.png";
 
-    this.gameOverScreen.src =
-        "img/9_intro_outro_screens/game_over/oh no you lost!.png";
+        this.gameOverScreen.src =
+            "img/9_intro_outro_screens/game_over/oh no you lost!.png";
 
-    this.startScreen.onload = () => {
 
-        this.draw();
+        this.startScreen.onload = () => {
 
-    };
+            this.draw();
 
-    this.gameOverScreen.onload = () => {
+        };
 
-        console.log("Game Over Bild geladen");
 
-    };
+        this.gameOverScreen.onload = () => {
 
-}
+            console.log("Game Over Bild geladen");
+
+        };
+
+    }
+
 
     run() {
 
@@ -76,7 +79,7 @@ class World {
 
         this.gameLoop = setInterval(() => {
 
-            if (!this.paused) {
+            if (!this.paused && !this.gameOver) {
 
                 this.updateGame();
 
@@ -89,23 +92,27 @@ class World {
     }
 
 
-updateGame() {
+    updateGame() {
 
-    if (this.character.isDead) {
+        if (this.character.isDead) {
+
+            this.updateCharacter();
+
+            this.checkGameOver();
+
+            return;
+
+        }
 
         this.updateCharacter();
-        this.checkGameOver();
 
-        return;
+        this.updateEnemies();
+
+        this.checkEnemyCollisions();
+
+        this.collectItems();
 
     }
-
-    this.updateCharacter();
-    this.updateEnemies();
-    this.checkEnemyCollisions();
-    this.collectItems();
-
-}
 
 
     updateCharacter() {
@@ -149,13 +156,42 @@ updateGame() {
 
     }
 
+
+    resetLevel() {
+
+        this.level = new Level();
+
+        this.character =
+            new Character(keyboard, this);
+
+        this.statusBar = new StatusBar();
+
+        this.coinBar = new CoinBar();
+
+        this.bottleBar = new BottleBar();
+
+        this.camera_x = 0;
+
+        this.gameOver = false;
+
+    }
+
+
 startLevel() {
+
+    hideGameOverMenu();
+
+    this.resetLevel();
 
     this.showStartScreen = false;
 
     this.gameOver = false;
 
     this.camera_x = 0;
+
+    document.getElementById("menu").style.display = "none";
+
+    document.getElementById("game-controls").style.display = "flex";
 
     this.run();
 
@@ -171,19 +207,23 @@ startLevel() {
     }
 
 
-    backToMenu() {
+backToMenu() {
 
-        this.stopLevel();
+    this.stopLevel();
 
-        this.showStartScreen = true;
+    hideGameOverMenu();
 
-        this.camera_x = 0;
+    this.resetLevel();
 
-        this.draw();
+    this.showStartScreen = true;
 
-    }
+    this.draw();
 
+    document.getElementById("menu").style.display = "flex";
 
+    document.getElementById("game-controls").style.display = "none";
+
+}
     pauseGame() {
 
         this.paused = true;
@@ -207,46 +247,50 @@ startLevel() {
 
     checkGameOver() {
 
-    if (
-        this.gameOver ||
-        !this.character.deadAnimationFinished
-    ) {
+        if (
+            this.gameOver ||
+            !this.character.deadAnimationFinished
+        ) {
 
-        return;
+            return;
+
+        }
+
+        this.gameOver = true;
+
+        this.showGameOverScreen();
 
     }
 
-    this.gameOver = true;
 
-    this.showGameOverScreen();
-
-}
-
-showGameOverScreen() {
+   showGameOverScreen() {
 
     this.stopLevel();
 
     this.drawGameOverScreen();
 
-}
-
-drawGameOverScreen() {
-
-    this.ctx.clearRect(
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height
-    );
-
-    this.ctx.drawImage(
-        this.gameOverScreen,
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height
-    );
+    showGameOverMenu();
 
 }
+
+
+    drawGameOverScreen() {
+
+        this.ctx.clearRect(
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height
+        );
+
+        this.ctx.drawImage(
+            this.gameOverScreen,
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height
+        );
+
+    }
 
 }
