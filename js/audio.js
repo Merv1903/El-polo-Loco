@@ -21,6 +21,20 @@ levelMusic.volume = 0.25;
 
 
 /* ===========================
+   GAME SOUNDS
+=========================== */
+
+const characterDeathSound =
+    new Audio("audio/character_death.mp3");
+
+const gameOverSound =
+    new Audio("audio/game_over.mp3");
+
+characterDeathSound.volume = 0.5;
+gameOverSound.volume = 0.5;
+
+
+/* ===========================
    MENU MUSIC STARTEN
 =========================== */
 
@@ -63,6 +77,62 @@ function stopMusic() {
 
     menuMusic.currentTime = 0;
     levelMusic.currentTime = 0;
+}
+
+
+/* ===========================
+   ALLE MUSIK STOPPEN
+=========================== */
+
+function stopMusic() {
+
+    menuMusic.pause();
+    levelMusic.pause();
+
+    menuMusic.currentTime = 0;
+    levelMusic.currentTime = 0;
+
+}
+
+
+/* ===========================
+   GAME SOUNDS STOPPEN
+=========================== */
+
+function stopGameSounds() {
+
+    characterDeathSound.pause();
+    characterDeathSound.currentTime = 0;
+
+    gameOverSound.pause();
+    gameOverSound.currentTime = 0;
+
+}
+
+
+/* ===========================
+   GAME SOUNDS ABSPIELEN
+=========================== */
+
+function playCharacterDeathSound() {
+
+    if (!musicOn) return;
+
+    characterDeathSound.currentTime = 0;
+    characterDeathSound.play()
+        .catch(error => console.log(error));
+
+}
+
+
+function playGameOverSound() {
+
+    if (!musicOn) return;
+
+    gameOverSound.currentTime = 0;
+    gameOverSound.play()
+        .catch(error => console.log(error));
+
 }
 
 /* ===========================

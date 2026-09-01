@@ -177,26 +177,26 @@ class World {
     }
 
 
-startLevel() {
+    startLevel() {
 
-    hideGameOverMenu();
-
-    this.resetLevel();
-
-    this.showStartScreen = false;
-
-    this.gameOver = false;
-
-    this.camera_x = 0;
-
-    document.getElementById("menu").style.display = "none";
-
-    document.getElementById("game-controls").style.display = "flex";
-
-    this.run();
-
-}
-
+        hideGameOverMenu();
+    
+        stopGameSounds();   // ← HIER
+    
+        this.resetLevel();
+    
+        this.showStartScreen = false;
+        this.gameOver = false;
+        this.camera_x = 0;
+    
+        document.getElementById("menu").style.display = "none";
+        document.getElementById("game-controls").style.display = "flex";
+    
+        playLevelMusic();
+    
+        this.run();
+    
+    }
 
     stopLevel() {
 
@@ -207,23 +207,27 @@ startLevel() {
     }
 
 
-backToMenu() {
+    backToMenu() {
 
-    this.stopLevel();
-
-    hideGameOverMenu();
-
-    this.resetLevel();
-
-    this.showStartScreen = true;
-
-    this.draw();
-
-    document.getElementById("menu").style.display = "flex";
-
-    document.getElementById("game-controls").style.display = "none";
-
-}
+        this.stopLevel();
+    
+        stopGameSounds();   // ← HIER
+    
+        hideGameOverMenu();
+    
+        this.resetLevel();
+    
+        this.showStartScreen = true;
+    
+        playMenuMusic();
+    
+        this.draw();
+    
+        document.getElementById("menu").style.display = "flex";
+        document.getElementById("game-controls").style.display = "none";
+    
+    }
+    
     pauseGame() {
 
         this.paused = true;
@@ -263,15 +267,21 @@ backToMenu() {
     }
 
 
-   showGameOverScreen() {
+    showGameOverScreen() {
 
-    this.stopLevel();
-
-    this.drawGameOverScreen();
-
-    showGameOverMenu();
-
-}
+        this.stopLevel();
+    
+        stopMusic();
+    
+        document.getElementById("game-controls").style.display = "none";
+    
+        this.drawGameOverScreen();
+    
+        showGameOverMenu();
+    
+        playGameOverSound();
+    
+    }
 
 
     drawGameOverScreen() {

@@ -314,7 +314,6 @@ pushBack() {
 
 }
 
-
 die() {
 
     if (this.isDead) return;
@@ -324,6 +323,8 @@ die() {
 
     this.deadFrame = 0;
     this.deadAnimationFinished = false;
+
+    playCharacterDeathSound();
 
 }
 
