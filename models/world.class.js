@@ -18,6 +18,7 @@ class World {
     statusBar;
     coinBar;
     bottleBar;
+    throwableBottles = [];
 
     showStartScreen = true;
 
@@ -34,6 +35,9 @@ class World {
         this.character =
             new Character(keyboard, this);
 
+            
+
+        this.throwableBottles = [];
         this.statusBar = new StatusBar();
         this.coinBar = new CoinBar();
         this.bottleBar = new BottleBar();

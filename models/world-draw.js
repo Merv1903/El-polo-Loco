@@ -75,6 +75,7 @@ World.prototype.drawLevel = function () {
     this.drawBackground();
     this.drawCoins();
     this.drawBottles();
+    this.drawThrowableBottles();
     this.drawEnemies();
     this.drawCharacter();
 
@@ -212,5 +213,15 @@ World.prototype.drawPauseOverlay = function () {
         this.canvas.width,
         this.canvas.height
     );
+
+};
+
+World.prototype.drawThrowableBottles = function () {
+
+    this.throwableBottles.forEach((bottle) => {
+
+        bottle.draw(this.ctx);
+
+    });
 
 };
