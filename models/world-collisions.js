@@ -13,7 +13,29 @@ World.prototype.checkEnemyCollisions = function () {
 
 };
 
+World.prototype.checkBottleCollisions = function () {
 
+    this.throwableBottles.forEach((bottle) => {
+
+        if (bottle.splash) return;
+
+        this.level.chickens.forEach((chicken) => {
+
+            if (!chicken.alive) return;
+
+            if (bottle.isColliding(chicken)) {
+
+                chicken.die();
+
+                bottle.startSplash();
+
+            }
+
+        });
+
+    });
+
+};
 World.prototype.handleChickenCollision = function (chicken) {
 
     if (this.character.isFalling()) {

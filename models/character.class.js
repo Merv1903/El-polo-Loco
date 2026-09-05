@@ -180,6 +180,7 @@ move() {
 
     this.moveHorizontal();
     this.handleJump();
+    this.handleThrow();
 
 }
 
@@ -235,6 +236,35 @@ handleJump() {
 
 }
 
+handleThrow() {
+
+    if (this.keyboard.D) {
+
+        this.throwBottle();
+
+        this.keyboard.D = false;
+
+    }
+
+}
+
+throwBottle() {
+
+    if (this.bottles <= 0) return;
+
+    const bottle = new ThrowableBottle(
+        this.x + 60,
+        this.y + 100,
+        this.otherDirection
+    );
+
+    this.world.throwableBottles.push(bottle);
+
+    this.bottles--;
+
+    this.world.updateItemBar("bottles");
+
+}
 
     isAboveGround() {
 

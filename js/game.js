@@ -13,6 +13,8 @@ window.addEventListener("keydown", (event) => {
 
     if (event.key === "ArrowUp") keyboard.UP = true;
 
+    if (event.key.toLowerCase() === "d") keyboard.D = true;
+
 });
 
 window.addEventListener("keyup", (event) => {

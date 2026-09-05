@@ -112,7 +112,13 @@ class World {
 
         this.updateEnemies();
 
+        this.updateThrowableBottles();
+
+        this.removeThrowableBottles();
+
         this.checkEnemyCollisions();
+
+        this.checkBottleCollisions();
 
         this.collectItems();
 
@@ -148,6 +154,26 @@ class World {
 
         this.removeDeadEnemies();
 
+    }
+
+
+    updateThrowableBottles() {
+
+        this.throwableBottles.forEach((bottle) => {
+    
+            bottle.move();
+    
+        });
+    
+    }
+
+    removeThrowableBottles() {
+
+        this.throwableBottles =
+            this.throwableBottles.filter(
+                (bottle) => !bottle.remove
+            );
+    
     }
 
 

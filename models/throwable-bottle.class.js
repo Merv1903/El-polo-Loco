@@ -11,9 +11,9 @@ class ThrowableBottle extends MovableObject {
         "img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
         "img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
         "img/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
-        "img/6_salsa_bottle/bottle_rotation/4_bottle_splash.png",
-        "img/6_salsa_bottle/bottle_rotation/5_bottle_splash.png",
-        "img/6_salsa_bottle/bottle_rotation/6_bottle_splash.png"
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+        "img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png"
     ];
 
 
@@ -33,7 +33,7 @@ class ThrowableBottle extends MovableObject {
         this.height = 50;
 
         this.speedX = direction ? -10 : 10;
-        this.speedY = 5;
+        this.speedY = 12;
 
         this.rotationFrame = 0;
         this.lastRotation = 0;
@@ -43,19 +43,30 @@ class ThrowableBottle extends MovableObject {
 
     }
 
+    checkGround() {
+
+        if (this.y + this.height >= 420) {
+    
+            this.y = 420 - this.height;
+    
+            this.startSplash();
+    
+        }
+    
+    }
 
     move() {
 
         if (this.splash) return;
-
+    
         this.x += this.speedX;
-
         this.y -= this.speedY;
-
-        this.speedY -= 0.5;
-
+    
+        this.speedY -= 1;
+    
         this.rotate();
-
+        this.checkGround();
+    
     }
 
 
@@ -79,6 +90,48 @@ class ThrowableBottle extends MovableObject {
             this.IMAGES_ROTATION[this.rotationFrame]
         );
 
+    
     }
+
+    startSplash() {
+
+        this.splash = true;
+        this.splashFrame = 0;
+    
+        this.loadSplashImage();
+    
+        this.playSplashAnimation();
+    
+    }
+
+    loadSplashImage() {
+
+        this.loadImage(
+            this.IMAGES_SPLASH[this.splashFrame]
+        );
+    
+    }
+
+    playSplashAnimation() {
+
+        const splashInterval = setInterval(() => {
+    
+            this.splashFrame++;
+    
+            if (this.splashFrame >= this.IMAGES_SPLASH.length) {
+    
+                clearInterval(splashInterval);
+                this.remove = true;
+    
+                return;
+    
+            }
+    
+            this.loadSplashImage();
+    
+        }, 100);
+    
+    }
+
 
 }
