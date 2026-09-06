@@ -32,6 +32,8 @@ class World {
 
         this.level = new Level();
 
+        this.level.endboss.world = this;
+
         this.character =
             new Character(keyboard, this);
 
@@ -112,6 +114,8 @@ class World {
 
         this.updateEnemies();
 
+        this.level.endboss.move();
+
         this.updateThrowableBottles();
 
         this.removeThrowableBottles();
@@ -119,6 +123,8 @@ class World {
         this.checkEnemyCollisions();
 
         this.checkBottleCollisions();
+        
+        this.checkEndbossCollision();
 
         this.collectItems();
 

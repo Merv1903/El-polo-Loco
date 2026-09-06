@@ -77,6 +77,7 @@ World.prototype.drawLevel = function () {
     this.drawBottles();
     this.drawThrowableBottles();
     this.drawEnemies();
+    this.drawEndboss();
     this.drawCharacter();
 
     this.ctx.restore();
@@ -106,6 +107,15 @@ World.prototype.drawEnemies = function () {
         chicken.draw(this.ctx);
 
     });
+
+};
+
+
+World.prototype.drawEndboss = function () {
+
+    if (!this.level.endboss.alive) return;
+
+    this.level.endboss.draw(this.ctx);
 
 };
 

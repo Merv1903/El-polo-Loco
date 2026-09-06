@@ -102,8 +102,16 @@ this.coins = [
 this.bottles = [
 
     new Bottle(700, 330),
+    new Bottle(900, 330),
     new Bottle(1200, 320),
-    new Bottle(500, 350)
+    new Bottle(500, 350),
+    new Bottle(600, 350),
+    new Bottle(650, 350),
+    new Bottle(1400, 330),
+    new Bottle(1200, 320),
+    new Bottle(1900, 330),
+    new Bottle(3000, 320),
+    new Bottle(4000, 320),
 
 ];
 
@@ -119,7 +127,12 @@ this.chickens = [
 
 ];
 
+this.endboss = new Endboss(4000, 90);
+
     }
 
     
+    
 }
+
+

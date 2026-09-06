@@ -36,6 +36,31 @@ World.prototype.checkBottleCollisions = function () {
     });
 
 };
+
+
+World.prototype.checkEndbossCollision = function () {
+
+    const boss = this.level.endboss;
+
+    if (!boss.alive) return;
+
+    this.throwableBottles.forEach((bottle) => {
+
+        if (bottle.splash) return;
+
+        if (bottle.isColliding(boss)) {
+
+            boss.hit();
+
+            bottle.startSplash();
+
+        }
+
+    });
+
+};
+
+
 World.prototype.handleChickenCollision = function (chicken) {
 
     if (this.character.isFalling()) {
