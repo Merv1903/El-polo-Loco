@@ -40,8 +40,15 @@ class Endboss extends MovableObject {
 
         this.alive = true;
 
+        this.otherDirection = false;
+
         this.speed = 0.2;
-        this.targetSpeed = 0.2;
+
+        setInterval(() => {
+        
+            this.speed = 0.2 + Math.random() * 0.6;
+        
+        }, 2000);
 
         this.animate();
 
@@ -63,7 +70,7 @@ class Endboss extends MovableObject {
         }, 150);
 
     }
-
+    
     move() {
 
         if (!this.alive) return;
@@ -75,36 +82,22 @@ class Endboss extends MovableObject {
     
         if (distance < 700) {
     
-            this.updateSpeed();
+            if (this.world.character.x < this.x) {
     
-            this.x -= this.speed;
+                this.x -= this.speed;
+                this.otherDirection = false;
     
-        }
+            } else if (this.world.character.x > this.x) {
     
-    }
-
-    changeSpeed() {
-
-        this.targetSpeed =
-            0.2 + Math.random() * 0.6;
+                this.x += this.speed;
+                this.otherDirection = true;
     
-    }
-
-    updateSpeed() {
-
-        if (this.speed < this.targetSpeed) {
-    
-            this.speed += 0.01;
-    
-        }
-    
-        if (this.speed > this.targetSpeed) {
-    
-            this.speed -= 0.01;
+            }
     
         }
     
     }
+    
 
     die() {
 

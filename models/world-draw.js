@@ -115,10 +115,40 @@ World.prototype.drawEndboss = function () {
 
     if (!this.level.endboss.alive) return;
 
-    this.level.endboss.draw(this.ctx);
+    if (this.level.endboss.otherDirection) {
+
+        this.drawFlippedEndboss();
+
+    } else {
+
+        this.level.endboss.draw(this.ctx);
+
+    }
 
 };
 
+World.prototype.drawFlippedEndboss = function () {
+
+    this.ctx.save();
+
+    this.ctx.translate(
+        this.level.endboss.x + this.level.endboss.width,
+        0
+    );
+
+    this.ctx.scale(-1, 1);
+
+    this.ctx.drawImage(
+        this.level.endboss.img,
+        0,
+        this.level.endboss.y,
+        this.level.endboss.width,
+        this.level.endboss.height
+    );
+
+    this.ctx.restore();
+
+};
 
 World.prototype.drawCoins = function () {
 
