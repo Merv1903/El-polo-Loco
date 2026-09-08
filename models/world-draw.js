@@ -85,6 +85,9 @@ World.prototype.drawLevel = function () {
     this.drawStatusBar();
     this.drawCoinBar();
     this.drawBottleBar();
+    if (this.level.endboss.active) {
+        this.drawEndbossBar();
+    }
 
 };
 
@@ -240,6 +243,12 @@ World.prototype.drawCoinBar = function () {
 World.prototype.drawBottleBar = function () {
 
     this.bottleBar.draw(this.ctx);
+
+};
+
+World.prototype.drawEndbossBar = function () {
+
+    this.endbossBar.draw(this.ctx);
 
 };
 

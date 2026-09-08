@@ -43,6 +43,7 @@ class World {
         this.statusBar = new StatusBar();
         this.coinBar = new CoinBar();
         this.bottleBar = new BottleBar();
+        this.endbossBar = new EndbossBar();
 
         this.loadScreens();
 
@@ -205,6 +206,8 @@ class World {
         this.coinBar = new CoinBar();
 
         this.bottleBar = new BottleBar();
+
+        this.endbossBar = new EndbossBar();
 
         this.camera_x = 0;
 

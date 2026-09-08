@@ -39,6 +39,7 @@ class Endboss extends MovableObject {
         this.damage = 20;
 
         this.alive = true;
+        this.active = false;
 
         this.otherDirection = false;
 
@@ -79,8 +80,10 @@ class Endboss extends MovableObject {
     
         const distance =
             Math.abs(this.x - this.world.character.x);
+
+            this.active = distance < 700;
     
-        if (distance < 700) {
+     if (distance < 700 && distance > 100) {
     
             if (this.world.character.x < this.x) {
     
