@@ -7,8 +7,16 @@ class Endboss extends MovableObject {
         "img/4_enemie_boss_chicken/1_walk/G4.png"
     ];
 
-    IMAGE_ALERT =
-        "img/4_enemie_boss_chicken/2_alert/G5.png";
+    IMAGES_ALERT = [
+        "img/4_enemie_boss_chicken/2_alert/G5.png",
+        "img/4_enemie_boss_chicken/2_alert/G6.png",
+        "img/4_enemie_boss_chicken/2_alert/G7.png",
+        "img/4_enemie_boss_chicken/2_alert/G8.png",
+        "img/4_enemie_boss_chicken/2_alert/G9.png",
+        "img/4_enemie_boss_chicken/2_alert/G10.png",
+        "img/4_enemie_boss_chicken/2_alert/G11.png",
+        "img/4_enemie_boss_chicken/2_alert/G12.png"
+    ];
 
     IMAGE_ATTACK =
         "img/4_enemie_boss_chicken/3_attack/G11.png";
@@ -26,6 +34,7 @@ class Endboss extends MovableObject {
 
         this.loadImage(this.IMAGES_WALKING[0]);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_ALERT);
 
         this.x = x;
         this.y = y;
@@ -41,6 +50,12 @@ class Endboss extends MovableObject {
         this.alive = true;
         this.active = false;
 
+        this.state = "walking";
+
+        this.lastAnimation = 0;
+
+        this.isHurt = false;
+
         this.otherDirection = false;
 
         this.speed = 0.2;
@@ -51,26 +66,71 @@ class Endboss extends MovableObject {
         
         }, 2000);
 
+        this.alertFrame = 0;
+
         this.animate();
 
+    }
+
+    checkDistance() {
+
+        const distance =
+            Math.abs(this.x - this.world.character.x);
+    
+        if (distance > 700) {
+    
+            this.state = "walking";
+            return;
+    
+        }
+    
+        if (distance > 300) {
+    
+            this.state = "alert";
+            return;
+    
+        }
+    
+        this.state = "attack";
+    
+    }
+
+
+    update() {
+
+        this.checkDistance();
+        this.move();
+    
+        const now = Date.now();
+    
+        if (now - this.lastAnimation >= 180) {
+    
+            this.animate();
+            this.lastAnimation = now;
+    
+        }
+    
     }
 
 
     animate() {
 
-        setInterval(() => {
-
-            if (this.alive) {
-
-                this.playAnimation(
-                    this.IMAGES_WALKING
-                );
-
-            }
-
-        }, 150);
-
+        if (!this.alive) return;
+    
+        if (this.isHurt) {
+            this.playAnimation(this.IMAGES_HURT);
+            return;
+        }
+    
+        if (this.state === "alert") {
+            this.playAnimation(this.IMAGES_ALERT);
+            return;
+        }
+    
+        this.playAnimation(this.IMAGES_WALKING);
+    
     }
+
     
     move() {
 
@@ -82,6 +142,8 @@ class Endboss extends MovableObject {
             Math.abs(this.x - this.world.character.x);
 
             this.active = distance < 700;
+
+       
     
      if (distance < 700 && distance > 100) {
     

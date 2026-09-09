@@ -115,7 +115,7 @@ class World {
 
         this.updateEnemies();
 
-        this.level.endboss.move();
+        this.level.endboss.update();
 
         this.updateThrowableBottles();
 
