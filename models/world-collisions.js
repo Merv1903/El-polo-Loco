@@ -13,6 +13,18 @@ World.prototype.checkEnemyCollisions = function () {
 
 };
 
+World.prototype.checkEndbossCharacterCollision = function () {
+
+    const boss = this.level.endboss;
+
+    if (!boss.alive) return;
+
+    if (!this.character.isColliding(boss)) return;
+
+    console.log("🔥 PEPE KOLLIDIERT MIT ENDBOSS");
+
+};
+
 World.prototype.checkBottleCollisions = function () {
 
     this.throwableBottles.forEach((bottle) => {

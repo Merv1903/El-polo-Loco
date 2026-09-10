@@ -123,6 +123,8 @@ class World {
 
         this.checkEnemyCollisions();
 
+        this.checkEndbossCharacterCollision();
+
         this.checkBottleCollisions();
         
         this.checkEndbossCollision();

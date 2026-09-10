@@ -18,8 +18,16 @@ class Endboss extends MovableObject {
         "img/4_enemie_boss_chicken/2_alert/G12.png"
     ];
 
-    IMAGE_ATTACK =
-        "img/4_enemie_boss_chicken/3_attack/G11.png";
+    IMAGES_ATTACK = [
+        "img/4_enemie_boss_chicken/3_attack/G13.png",
+        "img/4_enemie_boss_chicken/3_attack/G14.png",
+        "img/4_enemie_boss_chicken/3_attack/G15.png",
+        "img/4_enemie_boss_chicken/3_attack/G16.png",
+        "img/4_enemie_boss_chicken/3_attack/G17.png",
+        "img/4_enemie_boss_chicken/3_attack/G18.png",
+        "img/4_enemie_boss_chicken/3_attack/G19.png",
+        "img/4_enemie_boss_chicken/3_attack/G20.png"
+    ];
 
     IMAGE_HURT =
         "img/4_enemie_boss_chicken/4_hurt/G21.png";
@@ -33,8 +41,10 @@ class Endboss extends MovableObject {
         super();
 
         this.loadImage(this.IMAGES_WALKING[0]);
+
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
+        this.loadImages(this.IMAGES_ATTACK);
 
         this.x = x;
         this.y = y;
@@ -59,112 +69,263 @@ class Endboss extends MovableObject {
         this.otherDirection = false;
 
         this.speed = 0.2;
+        this.speedY = 0;
+        this.acceleration = 2.5;
 
         setInterval(() => {
-        
+
             this.speed = 0.2 + Math.random() * 0.6;
-        
+
         }, 2000);
 
+       
         this.alertFrame = 0;
 
         this.animate();
+        this.applyGravity();
 
     }
 
-    checkDistance() {
 
-        const distance =
-            Math.abs(this.x - this.world.character.x);
+    applyGravity() {
+
+        setInterval(() => {
     
-        if (distance > 700) {
+            this.y -= this.speedY;
+            this.speedY -= this.acceleration;
     
-            this.state = "walking";
-            return;
+            if (this.y >= 80) {
+                this.y = 80;
+                this.speedY = 0;
+            }
     
-        }
-    
-        if (distance > 300) {
-    
-            this.state = "alert";
-            return;
-    
-        }
-    
-        this.state = "attack";
-    
+        }, 1000 / 25);
     }
 
+    jump() {
+
+        if (this.y === 80) {
+            this.speedY = 30;
+        }
+    
+    }
 
     update() {
 
         this.checkDistance();
         this.move();
+        this.animateWithDelay();
+
+    }
+
+    checkDistance() {
+
+        if (this.state === "alert") return;
     
-        const now = Date.now();
+        const distance =
+            Math.abs(this.x - this.world.character.x);
     
-        if (now - this.lastAnimation >= 180) {
+        this.handleDistance(distance);
+    }
     
-            this.animate();
-            this.lastAnimation = now;
-    
+
+    handleDistance(distance) {
+
+        console.log("STATE VORHER:", this.state, "DISTANZ:", distance);
+
+        if (this.isTooFar(distance)) {
+            this.resetDetection();
+            return;
         }
     
+        if (this.shouldAttack(distance)) {
+            this.state = "attack";
+            return;
+        }
+    
+        if (this.shouldAlert(distance)) {
+            this.startAlert();
+            return;
+        }
+    
+        if (this.hasSeenCharacter) return;
+
+this.state = "walking";
+    }
+
+
+    isTooFar(distance) {
+        return distance > 1000;
+    }
+
+    
+    resetDetection() {
+        this.hasSeenCharacter = false;
+        this.state = "walking";
+    }
+
+
+    shouldAlert(distance) {
+        return !this.hasSeenCharacter && distance <= 700;
+    }
+    
+    startAlert() {
+        this.state = "alert";
+        this.hasSeenCharacter = true;
+        this.alertFinished = false;
+        this.alertFrame = 0;
+    }
+
+    shouldAttack(distance) {
+        return distance <= 50;
+    }
+
+    move() {
+        if (!this.alive) return;
+        if (!this.world) return;
+        if (this.state === "alert") return;
+        if (this.state === "attack") return;
+    
+        this.moveHorizontal();
+    }
+
+
+    moveHorizontal() {
+
+        if (this.world.character.x < this.x) {
+
+            this.otherDirection = false;
+            this.moveLeft();
+
+        }
+
+        if (this.world.character.x > this.x) {
+
+            this.otherDirection = true;
+            this.moveRight();
+
+        }
+
+    }
+
+
+    moveLeft() {
+
+        this.x -= this.speed;
+
+    }
+
+
+    moveRight() {
+
+        this.x += this.speed;
+
+    }
+
+
+    animateWithDelay() {
+
+        const now = Date.now();
+
+        if (now - this.lastAnimation < 180) return;
+
+        this.animate();
+
+        this.lastAnimation = now;
+
     }
 
 
     animate() {
 
         if (!this.alive) return;
-    
+
         if (this.isHurt) {
-            this.playAnimation(this.IMAGES_HURT);
+
+            this.playHurtAnimation();
             return;
+
         }
-    
+
+        if (this.state === "walking") {
+
+            this.playWalkingAnimation();
+            return;
+
+        }
+
         if (this.state === "alert") {
-            this.playAnimation(this.IMAGES_ALERT);
+
+            console.log("🟡 STATE ALERT");
+            this.playAlertAnimation();
             return;
+        
         }
-    
+
+        if (this.state === "attack") {
+
+            this.playAttackAnimation();
+            return;
+
+        }
+
+    }
+
+
+    playWalkingAnimation() {
+
         this.playAnimation(this.IMAGES_WALKING);
-    
+
     }
 
-    
-    move() {
 
-        if (!this.alive) return;
-    
-        if (!this.world) return;
-    
-        const distance =
-            Math.abs(this.x - this.world.character.x);
+    playAlertAnimation() {
 
-            this.active = distance < 700;
-
-       
+        const i = this.alertFrame;
     
-     if (distance < 700 && distance > 100) {
+        this.img = this.imageCache[this.IMAGES_ALERT[i]];
     
-            if (this.world.character.x < this.x) {
+        this.alertFrame++;
     
-                this.x -= this.speed;
-                this.otherDirection = false;
-    
-            } else if (this.world.character.x > this.x) {
-    
-                this.x += this.speed;
-                this.otherDirection = true;
-    
-            }
-    
+        if (this.alertFrame >= this.IMAGES_ALERT.length) {
+            this.alertFrame = 0;
+            this.state = "walking";
         }
     
     }
+
+
+    playAttackAnimation() {
+
+        this.playAnimation(this.IMAGES_ATTACK);
     
+    }
+
+
+    playHurtAnimation() {
+
+        this.loadImage(this.IMAGE_HURT);
+
+    }
+
+
+    hit() {
+
+        this.energy -= 10;
+
+        if (this.energy <= 0) {
+
+            this.energy = 0;
+            this.die();
+
+        }
+
+    }
+
 
     die() {
+
+        if (!this.alive) return;
 
         this.alive = false;
 
@@ -176,20 +337,6 @@ class Endboss extends MovableObject {
 
         }, 1000);
 
-    }
-
-    hit() {
-
-        this.energy -= 10;
-    
-        if (this.energy <= 0) {
-    
-            this.energy = 0;
-    
-            this.die();
-    
-        }
-    
     }
 
 }
