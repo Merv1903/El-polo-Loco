@@ -360,7 +360,6 @@ class World {
     winGame() {
 
         this.stopLevel();
-    
         stopMusic();
     
         this.gameWon = true;
@@ -369,6 +368,7 @@ class World {
     
         this.drawWinScreen();
     
+        showGameOverMenu();
     }
 
     drawWinScreen() {

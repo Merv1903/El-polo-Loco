@@ -15,29 +15,26 @@ World.prototype.draw = function () {
     this.clearCanvas();
 
     if (this.showStartScreen) {
-
         this.drawStartScreen();
         return;
-
     }
 
     if (this.gameOver) {
-
         this.drawGameOver();
         return;
+    }
 
+    if (this.gameWon) {
+        this.drawWinScreen();
+        return;
     }
 
     this.drawLevel();
 
     if (this.paused) {
-
         this.drawPauseOverlay();
-
     }
-
 };
-
 
 World.prototype.drawStartScreen = function () {
 
