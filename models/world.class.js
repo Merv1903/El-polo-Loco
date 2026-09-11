@@ -6,6 +6,7 @@ class World {
     gameRunning = false;
     paused = false;
     gameOver = false;
+    winScreen = new Image();
 
     lastAnimation = 0;
 
@@ -62,6 +63,9 @@ class World {
             "img/9_intro_outro_screens/game_over/oh no you lost!.png";
 
 
+        this.winScreen.src =
+            "img/You won, you lost/You won A.png";    
+
         this.startScreen.onload = () => {
 
             this.draw();
@@ -117,7 +121,7 @@ class World {
 
         if (
             !this.level.endboss.active &&
-            this.character.x >= 3100
+            this.character.x >= 2900
         ) {
             this.level.endboss.active = true;
         }
@@ -221,6 +225,8 @@ class World {
         this.camera_x = 0;
 
         this.gameOver = false;
+
+        this.gameWon = false;
 
     }
 
@@ -350,5 +356,45 @@ class World {
         );
 
     }
+
+    winGame() {
+
+        this.stopLevel();
+    
+        stopMusic();
+    
+        this.gameWon = true;
+    
+        document.getElementById("game-controls").style.display = "none";
+    
+        this.drawWinScreen();
+    
+    }
+
+    drawWinScreen() {
+
+        this.ctx.clearRect(
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height
+        );
+    
+        const width = this.canvas.width * 0.9;
+        const height = this.canvas.height * 0.9;
+    
+        const x = (this.canvas.width - width) / 2;
+        const y = (this.canvas.height - height) / 2;
+    
+        this.ctx.drawImage(
+            this.winScreen,
+            x,
+            y,
+            width,
+            height
+        );
+    
+    }
+
 
 }

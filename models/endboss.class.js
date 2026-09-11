@@ -89,6 +89,7 @@ class Endboss extends MovableObject {
         this.alertFrame = 0;
         this.attackFrame = 0;
         this.hurtFrame = 0;
+        this.deadFrame = 0;
         this.nextJumpTime = Date.now() + this.getRandomJumpDelay();
 
         this.animate();
@@ -300,39 +301,40 @@ this.state = "walking";
 
     animate() {
 
-        if (!this.alive) return;
-
+        if (this.isDead) {
+            this.playDeadAnimation();
+            return;
+        }
+    
         if (this.isHurt) {
-
+    
             this.playHurtAnimation();
             return;
-
+    
         }
-
+    
         if (this.state === "walking") {
-
+    
             this.playWalkingAnimation();
             return;
-
+    
         }
-
+    
         if (this.state === "alert") {
-
-            console.log("🟡 STATE ALERT");
+    
             this.playAlertAnimation();
             return;
-        
+    
         }
-
+    
         if (this.state === "attack") {
-
+    
             this.playAttackAnimation();
             return;
-
+    
         }
-
+    
     }
-
 
     playWalkingAnimation() {
 
@@ -398,9 +400,29 @@ this.state = "walking";
     }
 
 
+    playDeadAnimation() {
+
+        const i = this.deadFrame;
+    
+        this.img = this.imageCache[this.IMAGES_DEAD[i]];
+    
+        this.deadFrame++;
+    
+        if (this.deadFrame >= this.IMAGES_DEAD.length) {
+    
+            this.deadFrame = this.IMAGES_DEAD.length - 1;
+    
+        }
+    
+    }
+
+
     hit() {
 
         this.energy -= 10;
+    
+        this.isHurt = true;
+        this.hurtFrame = 0;
     
         this.world.endbossBar.setPercentage(this.energy);
     
@@ -420,17 +442,19 @@ this.state = "walking";
     die() {
 
         if (!this.alive) return;
-
+    
         this.alive = false;
-
-        this.loadImage(this.IMAGE_DEAD);
-
+        this.isDead = true;
+        this.deadFrame = 0;
+    
         setTimeout(() => {
-
+    
             this.remove = true;
-
+    
+            this.world.winGame();
+    
         }, 1000);
-
+    
     }
 
 }

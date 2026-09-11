@@ -116,15 +116,17 @@ World.prototype.drawEnemies = function () {
 
 World.prototype.drawEndboss = function () {
 
-    if (!this.level.endboss.alive) return;
+    const boss = this.level.endboss;
 
-    if (this.level.endboss.otherDirection) {
+    if (!boss.alive && !boss.isDead) return;
+
+    if (boss.otherDirection) {
 
         this.drawFlippedEndboss();
 
     } else {
 
-        this.level.endboss.draw(this.ctx);
+        boss.draw(this.ctx);
 
     }
 
