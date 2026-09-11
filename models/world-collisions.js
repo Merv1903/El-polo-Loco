@@ -21,7 +21,9 @@ World.prototype.checkEndbossCharacterCollision = function () {
 
     if (!this.character.isColliding(boss)) return;
 
-    console.log("🔥 PEPE KOLLIDIERT MIT ENDBOSS");
+    console.log("🔥🔥🔥 COLLISION PEPE - ENDBOSS 🔥🔥🔥");
+
+    this.hitCharacter(boss);
 
 };
 

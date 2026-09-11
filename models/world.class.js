@@ -115,6 +115,13 @@ class World {
 
         this.updateEnemies();
 
+        if (
+            !this.level.endboss.active &&
+            this.character.x >= 3100
+        ) {
+            this.level.endboss.active = true;
+        }
+
         this.level.endboss.update();
 
         this.updateThrowableBottles();

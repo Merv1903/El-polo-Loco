@@ -29,12 +29,17 @@ class Endboss extends MovableObject {
         "img/4_enemie_boss_chicken/3_attack/G20.png"
     ];
 
-    IMAGE_HURT =
-        "img/4_enemie_boss_chicken/4_hurt/G21.png";
-
-    IMAGE_DEAD =
-        "img/4_enemie_boss_chicken/5_dead/G24.png";
-
+    IMAGES_HURT = [
+        "img/4_enemie_boss_chicken/4_hurt/G21.png",
+        "img/4_enemie_boss_chicken/4_hurt/G22.png",
+        "img/4_enemie_boss_chicken/4_hurt/G23.png"
+    ];
+    
+    IMAGES_DEAD = [
+        "img/4_enemie_boss_chicken/5_dead/G24.png",
+        "img/4_enemie_boss_chicken/5_dead/G25.png",
+        "img/4_enemie_boss_chicken/5_dead/G26.png"
+    ];
 
     constructor(x, y) {
 
@@ -45,6 +50,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
 
         this.x = x;
         this.y = y;
@@ -68,18 +75,21 @@ class Endboss extends MovableObject {
 
         this.otherDirection = false;
 
-        this.speed = 0.2;
+        this.speed = 0.8;
         this.speedY = 0;
         this.acceleration = 2.5;
 
         setInterval(() => {
 
-            this.speed = 0.2 + Math.random() * 0.6;
+            this.speed = 0.8 + Math.random() * 0.7;
 
         }, 2000);
 
        
         this.alertFrame = 0;
+        this.attackFrame = 0;
+        this.hurtFrame = 0;
+        this.nextJumpTime = Date.now() + this.getRandomJumpDelay();
 
         this.animate();
         this.applyGravity();
@@ -95,8 +105,14 @@ class Endboss extends MovableObject {
             this.speedY -= this.acceleration;
     
             if (this.y >= 80) {
+
                 this.y = 80;
                 this.speedY = 0;
+            
+                if (this.state === "jump") {
+                    this.state = "walking";
+                }
+            
             }
     
         }, 1000 / 25);
@@ -104,18 +120,57 @@ class Endboss extends MovableObject {
 
     jump() {
 
-        if (this.y === 80) {
-            this.speedY = 30;
+        if (this.y !== 80) return;
+    
+        this.speedY = 30;
+    
+        // Richtung zu Pepe bestimmen
+        if (this.world.character.x < this.x) {
+            this.jumpDirection = -1;
+            this.otherDirection = false;
+        } else {
+            this.jumpDirection = 1;
+            this.otherDirection = true;
         }
+    
+        this.state = "jump";
+    
+        this.nextJumpTime =
+            Date.now() + this.getRandomJumpDelay();
+    
+    }
+
+
+    moveJump() {
+
+        if (this.jumpDirection === -1) {
+            this.x -= 3;
+        } else {
+            this.x += 3;
+        }
+    
+    }
+
+    getRandomJumpDelay() {
+
+        return 3000 + Math.random() * 4000;
     
     }
 
     update() {
 
         this.checkDistance();
+    
+        if (
+            Date.now() >= this.nextJumpTime &&
+            this.state === "walking"
+        ) {
+            this.jump();
+        }
+    
         this.move();
         this.animateWithDelay();
-
+    
     }
 
     checkDistance() {
@@ -181,14 +236,21 @@ this.state = "walking";
     }
 
     move() {
+
         if (!this.alive) return;
         if (!this.world) return;
+    
         if (this.state === "alert") return;
         if (this.state === "attack") return;
     
+        if (this.state === "jump") {
+            this.moveJump();
+            return;
+        }
+    
         this.moveHorizontal();
+    
     }
-
 
     moveHorizontal() {
 
@@ -297,29 +359,61 @@ this.state = "walking";
 
     playAttackAnimation() {
 
-        this.playAnimation(this.IMAGES_ATTACK);
+        const i = this.attackFrame;
     
+        this.img = this.imageCache[this.IMAGES_ATTACK[i]];
+    
+        this.attackFrame++;
+    
+        if (this.attackFrame >= this.IMAGES_ATTACK.length) {
+    
+            this.attackFrame = 0;
+    
+            const distance =
+                Math.abs(this.x - this.world.character.x);
+    
+            if (distance <= 50) {
+                this.state = "attack";
+            } else {
+                this.state = "walking";
+            }
+        }
     }
-
 
     playHurtAnimation() {
 
-        this.loadImage(this.IMAGE_HURT);
-
+        const i = this.hurtFrame;
+    
+        this.img = this.imageCache[this.IMAGES_HURT[i]];
+    
+        this.hurtFrame++;
+    
+        if (this.hurtFrame >= this.IMAGES_HURT.length) {
+    
+            this.hurtFrame = 0;
+            this.isHurt = false;
+    
+        }
+    
     }
 
 
     hit() {
 
         this.energy -= 10;
-
+    
+        this.world.endbossBar.setPercentage(this.energy);
+    
         if (this.energy <= 0) {
-
+    
             this.energy = 0;
+    
+            this.world.endbossBar.setPercentage(0);
+    
             this.die();
-
+    
         }
-
+    
     }
 
 
