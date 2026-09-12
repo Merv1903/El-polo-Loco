@@ -123,7 +123,11 @@ this.chickens = [
 
     new Chicken(2300, 370),
 
-    new ChickenMedium(3000, 360)
+    new Chicken(2200, 370),
+
+    new ChickenMedium(3000, 360),
+
+    new ChickenMedium(3200, 360)
 
 ];
 

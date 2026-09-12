@@ -29,8 +29,8 @@ class ThrowableBottle extends MovableObject {
         this.x = x;
         this.y = y;
 
-        this.width = 50;
-        this.height = 50;
+        this.width = 52;
+        this.height = 52;
 
         this.speedX = direction ? -10 : 10;
         this.speedY = 12;
