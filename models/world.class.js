@@ -7,6 +7,7 @@ class World {
     paused = false;
     gameOver = false;
     winScreen = new Image();
+    victoryScreen;
 
     lastAnimation = 0;
 
@@ -30,6 +31,9 @@ class World {
 
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
+
+        this.victoryScreen =
+    new VictoryScreen(canvas);
 
         this.level = new Level();
 
@@ -233,6 +237,9 @@ class World {
 
     startLevel() {
 
+
+        this.victoryScreen.stop();
+
         hideGameOverMenu();
     
         stopGameSounds();   // ← HIER
@@ -262,6 +269,9 @@ class World {
 
 
     backToMenu() {
+
+
+        this.victoryScreen.stop();
 
         this.stopLevel();
     
@@ -358,7 +368,6 @@ class World {
     }
 
     winGame() {
-
         this.stopLevel();
         stopMusic();
     
@@ -367,34 +376,77 @@ class World {
         document.getElementById("game-controls").style.display = "none";
     
         this.drawWinScreen();
+        this.victoryScreen.start();
     
         showGameOverMenu();
+        playVictorySound();
     }
 
-    drawWinScreen() {
 
-        this.ctx.clearRect(
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height
-        );
-    
-        const width = this.canvas.width * 0.9;
-        const height = this.canvas.height * 0.9;
-    
-        const x = (this.canvas.width - width) / 2;
-        const y = (this.canvas.height - height) / 2;
-    
-        this.ctx.drawImage(
-            this.winScreen,
-            x,
-            y,
-            width,
-            height
-        );
-    
-    }
+drawWinScreen() {
+    this.clearWinScreen();
+    this.drawWinTitle();
+}
+
+
+clearWinScreen() {
+    this.ctx.clearRect(
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+    );
+}
+
+
+
+drawWinTitle() {
+    this.drawWinShadow();
+    this.drawWinText();
+}
+
+drawWinShadow() {
+
+    const x = this.canvas.width / 2;
+    const y = 140;
+
+    this.ctx.font = "bold 120px Arial Black";
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
+
+    this.ctx.fillStyle = "#8b2d16";
+
+    this.ctx.fillText(
+        "YOU WON!",
+        x + 8,
+        y + 8
+    );
+}
+
+
+drawWinText() {
+
+    const x = this.canvas.width / 2;
+    const y = 140;
+
+    const gradient = this.ctx.createLinearGradient(
+        0,
+        y - 50,
+        0,
+        y + 50
+    );
+
+    gradient.addColorStop(0, "#ffd928");
+    gradient.addColorStop(1, "#ff9d00");
+
+    this.ctx.fillStyle = gradient;
+    this.ctx.strokeStyle = "#c74618";
+    this.ctx.lineWidth = 5;
+
+    this.ctx.strokeText("YOU WON!", x, y);
+    this.ctx.fillText("YOU WON!", x, y);
+}
+
 
 
 }

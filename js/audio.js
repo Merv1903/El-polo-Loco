@@ -30,6 +30,11 @@ const characterDeathSound =
 const gameOverSound =
     new Audio("audio/game_over.mp3");
 
+    const victorySound =
+    new Audio("audio/level2_music.mp3");
+
+victorySound.volume = 0.5;
+
 characterDeathSound.volume = 0.5;
 gameOverSound.volume = 0.5;
 
@@ -107,6 +112,9 @@ function stopGameSounds() {
     gameOverSound.pause();
     gameOverSound.currentTime = 0;
 
+    victorySound.pause();
+    victorySound.currentTime = 0;
+
 }
 
 
@@ -131,6 +139,23 @@ function playGameOverSound() {
 
     gameOverSound.currentTime = 0;
     gameOverSound.play()
+        .catch(error => console.log(error));
+
+}
+
+
+
+/* ===========================
+  VICTORY SOUND ABSPIELEN
+=========================== */
+
+
+function playVictorySound() {
+
+    if (!musicOn) return;
+
+    victorySound.currentTime = 0;
+    victorySound.play()
         .catch(error => console.log(error));
 
 }
