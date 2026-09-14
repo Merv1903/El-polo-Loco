@@ -25,7 +25,6 @@ World.prototype.draw = function () {
     }
 
     if (this.gameWon) {
-        this.drawWinScreen();
         return;
     }
 
@@ -35,6 +34,8 @@ World.prototype.draw = function () {
         this.drawPauseOverlay();
     }
 };
+
+
 
 World.prototype.drawStartScreen = function () {
 
