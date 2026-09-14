@@ -124,7 +124,7 @@ class VictoryScreen {
             (this.canvas.width - width) / 2;
     
         const y =
-            this.canvas.height - height - 120;
+            this.canvas.height - height - 110;
     
         this.ctx.clearRect(
             x - 10,
@@ -151,7 +151,7 @@ class VictoryScreen {
             (this.canvas.width - width) / 2;
         
         const y =
-            this.canvas.height - height - 120;
+            this.canvas.height - height - 110;
 
 
         this.ctx.drawImage(

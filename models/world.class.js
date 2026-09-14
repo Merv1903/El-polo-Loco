@@ -124,7 +124,7 @@ class World {
 
         if (
             !this.level.endboss.active &&
-            this.character.x >= 2900
+            this.character.x >= 2500
         ) {
             this.level.endboss.active = true;
         }

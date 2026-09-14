@@ -222,7 +222,7 @@ this.state = "walking";
 
 
     shouldAlert(distance) {
-        return !this.hasSeenCharacter && distance <= 700;
+        return !this.hasSeenCharacter && distance <= 500;
     }
     
     startAlert() {
