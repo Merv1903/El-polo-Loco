@@ -6,7 +6,7 @@ class World {
     gameRunning = false;
     paused = false;
     gameOver = false;
-    winScreen = new Image();
+
     victoryScreen;
 
     lastAnimation = 0;
@@ -67,8 +67,7 @@ class World {
             "img/9_intro_outro_screens/game_over/oh no you lost!.png";
 
 
-        this.winScreen.src =
-            "img/You won, you lost/You won A.png";    
+    
 
         this.startScreen.onload = () => {
 
