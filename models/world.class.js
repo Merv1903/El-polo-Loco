@@ -100,44 +100,52 @@ class World {
     updateGame() {
 
         if (this.character.isDead) {
-
+    
             this.updateCharacter();
-
+    
             this.checkGameOver();
-
+    
             return;
-
+    
         }
-
+    
         this.updateCharacter();
-
+    
         this.updateEnemies();
+    
+        this.activateEndboss();
+    
+        this.level.endboss.update();
+    
+        this.updateThrowableBottles();
+    
+        this.removeThrowableBottles();
+    
+        this.checkEnemyCollisions();
+    
+        this.checkEndbossCharacterCollision();
+    
+        this.checkBottleCollisions();
+    
+        this.checkEndbossCollision();
+    
+        this.collectItems();
+    
+    }
+
+
+    activateEndboss() {
 
         if (
             !this.level.endboss.active &&
             this.character.x >= 2200
         ) {
+    
             this.level.endboss.active = true;
+    
         }
-
-        this.level.endboss.update();
-
-        this.updateThrowableBottles();
-
-        this.removeThrowableBottles();
-
-        this.checkEnemyCollisions();
-
-        this.checkEndbossCharacterCollision();
-
-        this.checkBottleCollisions();
-        
-        this.checkEndbossCollision();
-
-        this.collectItems();
-
+    
     }
-
 
     updateCharacter() {
 
@@ -224,17 +232,36 @@ class World {
 
     }
 
+    resetGameState() {
+
+        this.victoryScreen.stop();
+    
+        stopGameSounds();
+    
+        hideGameOverMenu();
+    
+        this.resetLevel();
+    
+    }
+
+    backToMenu() {
+
+        this.resetGameState();
+    
+        this.showStartScreen = true;
+    
+        playMenuMusic();
+    
+        this.draw();
+    
+        document.getElementById("menu").style.display = "flex";
+        document.getElementById("game-controls").style.display = "none";
+    
+    }
 
     startLevel() {
 
-
-        this.victoryScreen.stop();
-
-        hideGameOverMenu();
-    
-        stopGameSounds();   // ← HIER
-    
-        this.resetLevel();
+        this.resetGameState();
     
         this.showStartScreen = false;
         this.gameOver = false;
@@ -249,6 +276,8 @@ class World {
     
     }
 
+
+ 
     stopLevel() {
 
         this.gameRunning = false;
@@ -258,29 +287,7 @@ class World {
     }
 
 
-    backToMenu() {
 
-
-        this.victoryScreen.stop();
-
-        this.stopLevel();
-    
-        stopGameSounds();   // ← HIER
-    
-        hideGameOverMenu();
-    
-        this.resetLevel();
-    
-        this.showStartScreen = true;
-    
-        playMenuMusic();
-    
-        this.draw();
-    
-        document.getElementById("menu").style.display = "flex";
-        document.getElementById("game-controls").style.display = "none";
-    
-    }
     
     pauseGame() {
 

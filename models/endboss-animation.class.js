@@ -76,25 +76,39 @@ Endboss.prototype.playAttackAnimation = function () {
 
     this.attackFrame++;
 
-    if (this.attackFrame >= this.IMAGES_ATTACK.length) {
+    this.finishAttackAnimation();
 
-        this.attackFrame = 0;
+};
 
-        const distance =
-            Math.abs(
-                this.x -
-                this.world.character.x
-            );
 
-        if (distance <= 50) {
+Endboss.prototype.finishAttackAnimation = function () {
 
-            this.state = "attack";
+    if (this.attackFrame < this.IMAGES_ATTACK.length) {
+        return;
+    }
 
-        } else {
+    this.attackFrame = 0;
 
-            this.state = "walking";
+    this.setAttackState();
 
-        }
+};
+
+
+Endboss.prototype.setAttackState = function () {
+
+    const distance =
+        Math.abs(
+            this.x -
+            this.world.character.x
+        );
+
+    if (distance <= 50) {
+
+        this.state = "attack";
+
+    } else {
+
+        this.state = "walking";
 
     }
 

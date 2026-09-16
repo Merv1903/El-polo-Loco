@@ -210,29 +210,52 @@ drawWinText() {
     drawPepe() {
 
         const image =
+            this.getCurrentDanceImage();
+    
+        if (!image) return;
+    
+        const position =
+            this.getPepePosition();
+    
+        this.ctx.drawImage(
+            image,
+            position.x,
+            position.y,
+            position.width,
+            position.height
+        );
+    
+    }
+
+    getCurrentDanceImage() {
+
+        const image =
             this.danceImages[this.danceFrame];
+    
+        if (!image || !image.complete) return null;
+    
+        return image;
+    
+    }
 
-        if (!image || !image.complete) return;
-
+    getPepePosition() {
 
         const width = 180;
         const height = 180;
-        
+    
         const x =
             (this.canvas.width - width) / 2;
-        
+    
         const y =
             this.canvas.height - height - 110;
-
-
-        this.ctx.drawImage(
-            image,
+    
+        return {
             x,
             y,
             width,
             height
-        );
-
+        };
+    
     }
 
 
@@ -266,6 +289,51 @@ drawWinText() {
 
     drawConfetti() {
 
+        this.confetti.forEach(piece => {
+    
+            this.drawConfettiPiece(piece);
+    
+        });
+    
+    }
+
+
+    drawConfettiPiece(piece) {
+
+        this.prepareConfettiPiece(piece);
+    
+        this.ctx.fillRect(
+            -piece.size / 2,
+            -piece.size / 2,
+            piece.size,
+            piece.size
+        );
+    
+        this.ctx.restore();
+    
+    }
+
+
+    prepareConfettiPiece(piece) {
+
+        this.ctx.save();
+    
+        this.ctx.translate(
+            piece.x,
+            piece.y
+        );
+    
+        this.ctx.rotate(
+            piece.rotation
+        );
+    
+        this.ctx.fillStyle =
+            this.getConfettiColor();
+    
+    }
+
+    getConfettiColor() {
+
         const colors = [
             "#ff0000",
             "#00aaff",
@@ -275,43 +343,14 @@ drawWinText() {
             "#ff8800",
             "#ffffff"
         ];
-
-
-        this.confetti.forEach((piece) => {
-
-            this.ctx.save();
-
-            this.ctx.translate(
-                piece.x,
-                piece.y
-            );
-
-            this.ctx.rotate(
-                piece.rotation
-            );
-
-
-            this.ctx.fillStyle =
-                colors[
-                    Math.floor(
-                        Math.random() *
-                        colors.length
-                    )
-                ];
-
-
-            this.ctx.fillRect(
-                -piece.size / 2,
-                -piece.size / 2,
-                piece.size,
-                piece.size
-            );
-
-
-            this.ctx.restore();
-
-        });
-
+    
+        return colors[
+            Math.floor(
+                Math.random() * colors.length
+            )
+        ];
+    
     }
+
 
 }
