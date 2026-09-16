@@ -124,7 +124,7 @@ class World {
 
         if (
             !this.level.endboss.active &&
-            this.character.x >= 2500
+            this.character.x >= 2200
         ) {
             this.level.endboss.active = true;
         }
@@ -312,61 +312,8 @@ class World {
     }
 
 
-    checkGameOver() {
-
-        if (
-            this.gameOver ||
-            !this.character.deadAnimationFinished
-        ) {
-
-            return;
-
-        }
-
-        this.gameOver = true;
-
-        this.showGameOverScreen();
-
-    }
-
-
-    showGameOverScreen() {
-
-        this.stopLevel();
-    
-        stopMusic();
-    
-        document.getElementById("game-controls").style.display = "none";
-    
-        this.drawGameOverScreen();
-    
-        showGameOverMenu();
-    
-        playGameOverSound();
-    
-    }
-
-
-    drawGameOverScreen() {
-
-        this.ctx.clearRect(
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height
-        );
-
-        this.ctx.drawImage(
-            this.gameOverScreen,
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height
-        );
-
-    }
-
     winGame() {
+
         this.stopLevel();
         stopMusic();
     
@@ -374,77 +321,12 @@ class World {
     
         document.getElementById("game-controls").style.display = "none";
     
-        this.drawWinScreen();
         this.victoryScreen.start();
     
         showGameOverMenu();
         playVictorySound();
+    
     }
-
-
-drawWinScreen() {
-    this.clearWinScreen();
-    this.drawWinTitle();
-}
-
-
-clearWinScreen() {
-    this.ctx.clearRect(
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height
-    );
-}
-
-
-
-drawWinTitle() {
-    this.drawWinShadow();
-    this.drawWinText();
-}
-
-drawWinShadow() {
-
-    const x = this.canvas.width / 2;
-    const y = 140;
-
-    this.ctx.font = "bold 120px Arial Black";
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseline = "middle";
-
-    this.ctx.fillStyle = "#8b2d16";
-
-    this.ctx.fillText(
-        "YOU WON!",
-        x + 8,
-        y + 8
-    );
-}
-
-
-drawWinText() {
-
-    const x = this.canvas.width / 2;
-    const y = 140;
-
-    const gradient = this.ctx.createLinearGradient(
-        0,
-        y - 50,
-        0,
-        y + 50
-    );
-
-    gradient.addColorStop(0, "#ffd928");
-    gradient.addColorStop(1, "#ff9d00");
-
-    this.ctx.fillStyle = gradient;
-    this.ctx.strokeStyle = "#c74618";
-    this.ctx.lineWidth = 5;
-
-    this.ctx.strokeText("YOU WON!", x, y);
-    this.ctx.fillText("YOU WON!", x, y);
-}
 
 
 

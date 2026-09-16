@@ -47,11 +47,13 @@ class VictoryScreen {
 
         this.danceFrame = 0;
         this.lastDanceFrame = Date.now();
-
+    
         this.createConfetti();
-
+    
+        this.drawWinScreen();
+    
         this.animate();
-
+    
     }
 
 
@@ -66,6 +68,75 @@ class VictoryScreen {
         }
 
     }
+
+
+
+
+
+drawWinScreen() {
+    this.clearWinScreen();
+    this.drawWinTitle();
+}
+
+
+clearWinScreen() {
+    this.ctx.clearRect(
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+    );
+}
+
+
+
+drawWinTitle() {
+    this.drawWinShadow();
+    this.drawWinText();
+}
+
+drawWinShadow() {
+
+    const x = this.canvas.width / 2;
+    const y = 140;
+
+    this.ctx.font = "bold 120px Arial Black";
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
+
+    this.ctx.fillStyle = "#8b2d16";
+
+    this.ctx.fillText(
+        "YOU WON!",
+        x + 8,
+        y + 8
+    );
+}
+
+
+drawWinText() {
+
+    const x = this.canvas.width / 2;
+    const y = 140;
+
+    const gradient = this.ctx.createLinearGradient(
+        0,
+        y - 50,
+        0,
+        y + 50
+    );
+
+    gradient.addColorStop(0, "#ffd928");
+    gradient.addColorStop(1, "#ff9d00");
+
+    this.ctx.fillStyle = gradient;
+    this.ctx.strokeStyle = "#c74618";
+    this.ctx.lineWidth = 5;
+
+    this.ctx.strokeText("YOU WON!", x, y);
+    this.ctx.fillText("YOU WON!", x, y);
+}
+
 
 
     animate() {
@@ -174,16 +245,23 @@ class VictoryScreen {
                 y: this.canvas.height - 180,
                 size: 5,
                 speed: 2 + Math.random() * 3,
-                drift: (Math.random() - 0.5) * 5
+                drift: (Math.random() - 0.5) * 5,
+                rotation: Math.random() * Math.PI * 2
             });
         }
     }
 
     updateConfetti() {
+
         this.confetti.forEach(p => {
+    
             p.y += p.speed;
             p.x += p.drift;
+    
+            p.rotation += 0.05;
+    
         });
+    
     }
 
     drawConfetti() {
