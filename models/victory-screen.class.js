@@ -1,3 +1,6 @@
+/**
+ * Displays and animates the victory screen.
+ */
 class VictoryScreen {
 
     canvas;
@@ -15,13 +18,17 @@ class VictoryScreen {
     animationId = null;
 
 
+    /**
+     * Creates the victory screen.
+     *
+     * @param {HTMLCanvasElement} canvas - The game canvas.
+     */
     constructor(canvas) {
 
         this.canvas = canvas;
         this.ctx = canvas.getContext("2d");
 
         this.loadDanceImages();
-
         this.createConfetti();
 
     }
@@ -43,20 +50,26 @@ class VictoryScreen {
     }
 
 
+    /**
+     * Starts the victory screen animation.
+     */
     start() {
 
         this.danceFrame = 0;
         this.lastDanceFrame = Date.now();
-    
+
         this.createConfetti();
-    
+
         this.drawWinScreen();
-    
+
         this.animate();
-    
+
     }
 
 
+    /**
+     * Stops the victory screen animation.
+     */
     stop() {
 
         if (this.animationId) {
@@ -70,90 +83,97 @@ class VictoryScreen {
     }
 
 
+    drawWinScreen() {
+
+        this.clearWinScreen();
+        this.drawWinTitle();
+
+    }
 
 
+    clearWinScreen() {
 
-drawWinScreen() {
-    this.clearWinScreen();
-    this.drawWinTitle();
-}
+        this.ctx.clearRect(
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height
+        );
 
-
-clearWinScreen() {
-    this.ctx.clearRect(
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height
-    );
-}
+    }
 
 
+    drawWinTitle() {
 
-drawWinTitle() {
-    this.drawWinShadow();
-    this.drawWinText();
-}
+        this.drawWinShadow();
+        this.drawWinText();
 
-drawWinShadow() {
-
-    const x = this.canvas.width / 2;
-    const y = 140;
-
-    this.ctx.font = "bold 120px Arial Black";
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseline = "middle";
-
-    this.ctx.fillStyle = "#8b2d16";
-
-    this.ctx.fillText(
-        "YOU WON!",
-        x + 8,
-        y + 8
-    );
-}
+    }
 
 
-drawWinText() {
+    drawWinShadow() {
 
-    const x = this.canvas.width / 2;
-    const y = 140;
+        const x = this.canvas.width / 2;
+        const y = 140;
 
-    const gradient = this.ctx.createLinearGradient(
-        0,
-        y - 50,
-        0,
-        y + 50
-    );
+        this.ctx.font = "bold 120px Arial Black";
+        this.ctx.textAlign = "center";
+        this.ctx.textBaseline = "middle";
 
-    gradient.addColorStop(0, "#ffd928");
-    gradient.addColorStop(1, "#ff9d00");
+        this.ctx.fillStyle = "#8b2d16";
 
-    this.ctx.fillStyle = gradient;
-    this.ctx.strokeStyle = "#c74618";
-    this.ctx.lineWidth = 5;
+        this.ctx.fillText(
+            "YOU WON!",
+            x + 8,
+            y + 8
+        );
 
-    this.ctx.strokeText("YOU WON!", x, y);
-    this.ctx.fillText("YOU WON!", x, y);
-}
+    }
 
 
+    drawWinText() {
 
+        const x = this.canvas.width / 2;
+        const y = 140;
+
+        const gradient = this.ctx.createLinearGradient(
+            0,
+            y - 50,
+            0,
+            y + 50
+        );
+
+        gradient.addColorStop(0, "#ffd928");
+        gradient.addColorStop(1, "#ff9d00");
+
+        this.ctx.fillStyle = gradient;
+        this.ctx.strokeStyle = "#c74618";
+        this.ctx.lineWidth = 5;
+
+        this.ctx.strokeText("YOU WON!", x, y);
+        this.ctx.fillText("YOU WON!", x, y);
+
+    }
+
+
+    /**
+     * Updates and draws the victory screen animation.
+     */
     animate() {
 
         this.updateDance();
-    
+
         this.updateConfetti();
-    
+
         this.clearAnimationArea();
-    
+
         this.drawPepe();
-    
+
         this.drawConfetti();
-    
+
         this.animationId =
             requestAnimationFrame(() => this.animate());
-    
+
     }
 
 
@@ -190,20 +210,20 @@ drawWinText() {
 
         const width = 180;
         const height = 180;
-    
+
         const x =
             (this.canvas.width - width) / 2;
-    
+
         const y =
             this.canvas.height - height - 110;
-    
+
         this.ctx.clearRect(
             x - 10,
             y - 10,
             width + 20,
             height + 20
         );
-    
+
     }
 
 
@@ -211,12 +231,12 @@ drawWinText() {
 
         const image =
             this.getCurrentDanceImage();
-    
+
         if (!image) return;
-    
+
         const position =
             this.getPepePosition();
-    
+
         this.ctx.drawImage(
             image,
             position.x,
@@ -224,45 +244,49 @@ drawWinText() {
             position.width,
             position.height
         );
-    
+
     }
+
 
     getCurrentDanceImage() {
 
         const image =
             this.danceImages[this.danceFrame];
-    
+
         if (!image || !image.complete) return null;
-    
+
         return image;
-    
+
     }
+
 
     getPepePosition() {
 
         const width = 180;
         const height = 180;
-    
+
         const x =
             (this.canvas.width - width) / 2;
-    
+
         const y =
             this.canvas.height - height - 110;
-    
+
         return {
             x,
             y,
             width,
             height
         };
-    
+
     }
 
 
     createConfetti() {
+
         this.confetti = [];
-    
+
         for (let i = 40; i--;) {
+
             this.confetti.push({
                 x: this.canvas.width / 2,
                 y: this.canvas.height - 180,
@@ -271,66 +295,70 @@ drawWinText() {
                 drift: (Math.random() - 0.5) * 5,
                 rotation: Math.random() * Math.PI * 2
             });
+
         }
+
     }
+
 
     updateConfetti() {
 
         this.confetti.forEach(p => {
-    
+
             p.y += p.speed;
             p.x += p.drift;
-    
             p.rotation += 0.05;
-    
+
         });
-    
+
     }
+
 
     drawConfetti() {
 
         this.confetti.forEach(piece => {
-    
+
             this.drawConfettiPiece(piece);
-    
+
         });
-    
+
     }
 
 
     drawConfettiPiece(piece) {
 
         this.prepareConfettiPiece(piece);
-    
+
         this.ctx.fillRect(
             -piece.size / 2,
             -piece.size / 2,
             piece.size,
             piece.size
         );
-    
+
         this.ctx.restore();
-    
+
     }
 
 
     prepareConfettiPiece(piece) {
 
         this.ctx.save();
-    
+
         this.ctx.translate(
             piece.x,
             piece.y
         );
-    
+
         this.ctx.rotate(
             piece.rotation
         );
-    
+
         this.ctx.fillStyle =
             this.getConfettiColor();
-    
+
     }
+
 
     getConfettiColor() {
 
@@ -343,14 +371,13 @@ drawWinText() {
             "#ff8800",
             "#ffffff"
         ];
-    
+
         return colors[
             Math.floor(
                 Math.random() * colors.length
             )
         ];
-    
-    }
 
+    }
 
 }

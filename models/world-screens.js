@@ -1,3 +1,7 @@
+/**
+ * Checks whether the character's death animation has finished
+ * and triggers the game-over screen.
+ */
 World.prototype.checkGameOver = function () {
 
     if (
@@ -14,6 +18,10 @@ World.prototype.checkGameOver = function () {
 };
 
 
+/**
+ * Stops the level, hides the game controls and displays
+ * the game-over screen and menu.
+ */
 World.prototype.showGameOverScreen = function () {
 
     this.stopLevel();
@@ -31,6 +39,9 @@ World.prototype.showGameOverScreen = function () {
 };
 
 
+/**
+ * Clears the canvas and draws the game-over screen.
+ */
 World.prototype.drawGameOverScreen = function () {
 
     this.ctx.clearRect(

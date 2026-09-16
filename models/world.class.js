@@ -26,6 +26,11 @@ class World {
 
     camera_x = 0;
 
+        /**
+     * Creates the game world and initializes all game objects.
+     *
+     * @param {HTMLCanvasElement} canvas - The game canvas.
+     */
 
     constructor(canvas) {
 
@@ -55,6 +60,9 @@ class World {
     }
 
 
+    /**
+     * Loads the start, pause and game-over screens.
+     */
     loadScreens() {
 
         this.startScreen.src =
@@ -75,7 +83,9 @@ class World {
     
     }
 
-
+    /**
+     * Starts the game loop.
+     */
     run() {
 
         if (this.gameRunning) return;
@@ -97,6 +107,9 @@ class World {
     }
 
 
+    /**
+     * Updates all active game objects and checks for collisions.
+     */
     updateGame() {
 
         if (this.character.isDead) {
@@ -133,7 +146,9 @@ class World {
     
     }
 
-
+/**
+ * Activates the endboss when Pepe reaches the boss area.
+ */
     activateEndboss() {
 
         if (
@@ -147,6 +162,10 @@ class World {
     
     }
 
+
+   /**
+     * Updates Pepe's movement and animation.
+     */
     updateCharacter() {
 
         this.character.move();
@@ -166,6 +185,9 @@ class World {
     }
 
 
+  /**
+     * Updates all chickens and removes defeated enemies.
+     */    
     updateEnemies() {
 
         this.level.chickens.forEach((chicken) => {
@@ -178,7 +200,10 @@ class World {
 
     }
 
-
+    
+ /**
+     * Updates all throwable bottles.
+     */
     updateThrowableBottles() {
 
         this.throwableBottles.forEach((bottle) => {
@@ -189,6 +214,9 @@ class World {
     
     }
 
+      /**
+     * Removes bottles that are marked for removal.
+     */
     removeThrowableBottles() {
 
         this.throwableBottles =
@@ -198,7 +226,9 @@ class World {
     
     }
 
-
+  /**
+     * Removes chickens that are marked for removal.
+     */
     removeDeadEnemies() {
 
         this.level.chickens =
@@ -208,7 +238,9 @@ class World {
 
     }
 
-
+   /**
+     * Resets the level and all game objects.
+     */
     resetLevel() {
 
         this.level = new Level();
@@ -232,52 +264,65 @@ class World {
 
     }
 
+    /**
+     * Resets the game state and stops active sounds and screens.
+     */
     resetGameState() {
 
         this.victoryScreen.stop();
-    
+
         stopGameSounds();
-    
+
         hideGameOverMenu();
-    
+
         this.resetLevel();
-    
+
     }
 
+
+    /**
+     * Returns to the main menu and resets the game.
+     */
     backToMenu() {
 
         this.resetGameState();
-    
+
         this.showStartScreen = true;
-    
+
         playMenuMusic();
-    
+
         this.draw();
-    
+
         document.getElementById("menu").style.display = "flex";
         document.getElementById("game-controls").style.display = "none";
-    
+
     }
 
+
+    /**
+     * Starts a new game level.
+     */
     startLevel() {
 
         this.resetGameState();
-    
+
         this.showStartScreen = false;
         this.gameOver = false;
         this.camera_x = 0;
-    
+
         document.getElementById("menu").style.display = "none";
         document.getElementById("game-controls").style.display = "flex";
-    
+
         playLevelMusic();
-    
+
         this.run();
-    
+
     }
 
 
- 
+    /**
+     * Stops the game loop.
+     */
     stopLevel() {
 
         this.gameRunning = false;
@@ -287,8 +332,9 @@ class World {
     }
 
 
-
-    
+    /**
+     * Pauses the game.
+     */
     pauseGame() {
 
         this.paused = true;
@@ -296,6 +342,9 @@ class World {
     }
 
 
+    /**
+     * Resumes the game.
+     */
     resumeGame() {
 
         this.paused = false;
@@ -303,6 +352,9 @@ class World {
     }
 
 
+    /**
+     * Toggles the paused state of the game.
+     */
     togglePause() {
 
         this.paused = !this.paused;
@@ -310,21 +362,25 @@ class World {
     }
 
 
+    /**
+     * Ends the level and starts the victory screen.
+     */
     winGame() {
 
         this.stopLevel();
         stopMusic();
-    
+
         this.gameWon = true;
-    
+
         document.getElementById("game-controls").style.display = "none";
-    
+
         this.victoryScreen.start();
-    
+
         showGameOverMenu();
         playVictorySound();
-    
+
     }
+
 
 
 

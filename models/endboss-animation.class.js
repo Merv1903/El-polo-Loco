@@ -1,3 +1,6 @@
+/**
+ * Updates the endboss animation with a fixed frame delay.
+ */
 Endboss.prototype.animateWithDelay = function () {
 
     const now = Date.now();
@@ -11,6 +14,9 @@ Endboss.prototype.animateWithDelay = function () {
 };
 
 
+/**
+ * Selects and plays the animation that matches the current endboss state.
+ */
 Endboss.prototype.animate = function () {
 
     if (this.isDead) {
@@ -41,6 +47,9 @@ Endboss.prototype.animate = function () {
 };
 
 
+/**
+ * Plays the walking animation of the endboss.
+ */
 Endboss.prototype.playWalkingAnimation = function () {
 
     this.playAnimation(this.IMAGES_WALKING);
@@ -48,6 +57,9 @@ Endboss.prototype.playWalkingAnimation = function () {
 };
 
 
+/**
+ * Plays the alert animation and returns to walking afterwards.
+ */
 Endboss.prototype.playAlertAnimation = function () {
 
     const i = this.alertFrame;
@@ -67,6 +79,9 @@ Endboss.prototype.playAlertAnimation = function () {
 };
 
 
+/**
+ * Plays the attack animation of the endboss.
+ */
 Endboss.prototype.playAttackAnimation = function () {
 
     const i = this.attackFrame;
@@ -81,6 +96,10 @@ Endboss.prototype.playAttackAnimation = function () {
 };
 
 
+/**
+ * Checks whether the attack animation has finished.
+ * Resets the animation and determines the next state.
+ */
 Endboss.prototype.finishAttackAnimation = function () {
 
     if (this.attackFrame < this.IMAGES_ATTACK.length) {
@@ -94,6 +113,9 @@ Endboss.prototype.finishAttackAnimation = function () {
 };
 
 
+/**
+ * Determines whether the endboss should continue attacking Pepe.
+ */
 Endboss.prototype.setAttackState = function () {
 
     const distance =
@@ -115,6 +137,9 @@ Endboss.prototype.setAttackState = function () {
 };
 
 
+/**
+ * Plays the hurt animation of the endboss.
+ */
 Endboss.prototype.playHurtAnimation = function () {
 
     const i = this.hurtFrame;
@@ -134,6 +159,10 @@ Endboss.prototype.playHurtAnimation = function () {
 };
 
 
+/**
+ * Plays the death animation of the endboss.
+ * Keeps the final frame visible after the animation finishes.
+ */
 Endboss.prototype.playDeadAnimation = function () {
 
     const i = this.deadFrame;
