@@ -1,3 +1,9 @@
+/**
+ * Initializes the menu buttons and their event handlers.
+ *
+ * Connects the start button, overlay buttons and
+ * overlay close button to their respective actions.
+ */
 function initMenu() {
 
     ui.start.onclick = () => {

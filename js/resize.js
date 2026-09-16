@@ -1,7 +1,9 @@
+/**
+ * Resizes the game and scales all responsive UI elements.
+ */
 function resizeGame() {
 
     const size = getGameSize();
-
 
     resizeContainer(size.width, size.height);
 
@@ -11,11 +13,16 @@ function resizeGame() {
 
     scaleMobileControls(size.width);
 
-    scaleGameOverMenu(size.width);   // ← NEU
+    scaleGameOverMenu(size.width);
 
 }
 
 
+/**
+ * Scales and positions the mobile game controls.
+ *
+ * @param {number} width - Current game width.
+ */
 function scaleMobileControls(width) {
 
     const scale = width / 720;
@@ -39,6 +46,11 @@ function scaleMobileControls(width) {
 }
 
 
+/**
+ * Scales the game-over menu and its buttons.
+ *
+ * @param {number} width - Current game width.
+ */
 function scaleGameOverMenu(width) {
 
     const scale = width / 720;
@@ -50,7 +62,7 @@ function scaleGameOverMenu(width) {
     menu.style.paddingBottom =
         `${120 * scale}px`;
 
-            menu.style.paddingTop =
+    menu.style.paddingTop =
         `${70 * scale}px`;
 
     menu.style.gap =
@@ -64,6 +76,12 @@ function scaleGameOverMenu(width) {
 
 }
 
+
+/**
+ * Calculates the game size based on the available screen space.
+ *
+ * @returns {{width: number, height: number}} Calculated game dimensions.
+ */
 function getGameSize() {
 
     let width = 720;
@@ -94,6 +112,12 @@ function getGameSize() {
 }
 
 
+/**
+ * Sets the size of the game container.
+ *
+ * @param {number} width - Game width.
+ * @param {number} height - Game height.
+ */
 function resizeContainer(width, height) {
 
     gameContainer.style.width = width + "px";
@@ -102,6 +126,11 @@ function resizeContainer(width, height) {
 }
 
 
+/**
+ * Resizes the overlay to match the game width.
+ *
+ * @param {number} width - Current game width.
+ */
 function resizeOverlay(width) {
 
     const overlayContent = document.getElementById("overlay-content");
@@ -114,6 +143,11 @@ function resizeOverlay(width) {
 }
 
 
+/**
+ * Scales all menu elements according to the game width.
+ *
+ * @param {number} width - Current game width.
+ */
 function scaleMenu(width) {
 
     const scale = width / 720;
@@ -125,6 +159,11 @@ function scaleMenu(width) {
 }
 
 
+/**
+ * Scales the start button.
+ *
+ * @param {number} scale - Scaling factor based on the game width.
+ */
 function scaleStartButton(scale) {
 
     document.getElementById("start-btn").style.width =
@@ -133,6 +172,11 @@ function scaleStartButton(scale) {
 }
 
 
+/**
+ * Scales the music button.
+ *
+ * @param {number} scale - Scaling factor based on the game width.
+ */
 function scaleMusicButton(scale) {
 
     document.getElementById("music-btn").style.width =
@@ -141,6 +185,11 @@ function scaleMusicButton(scale) {
 }
 
 
+/**
+ * Scales the navigation buttons.
+ *
+ * @param {number} scale - Scaling factor based on the game width.
+ */
 function scaleNavigationButtons(scale) {
 
     document

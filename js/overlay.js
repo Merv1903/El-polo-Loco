@@ -1,10 +1,15 @@
-function openOverlay(type){
+/**
+ * Opens an overlay and displays the selected content.
+ *
+ * @param {string} type - Type of overlay to display.
+ */
+function openOverlay(type) {
 
     ui.overlay.style.display = "flex";
 
     ui.overlayContent.className = "overlay-content";
 
-    if(type === "imprint"){
+    if (type === "imprint") {
         ui.overlayContent.classList.add("overlay-imprint");
     }
 
@@ -12,7 +17,11 @@ function openOverlay(type){
 
 }
 
-function closeOverlay(){
+
+/**
+ * Closes the currently visible overlay.
+ */
+function closeOverlay() {
 
     ui.overlay.style.display = "none";
 

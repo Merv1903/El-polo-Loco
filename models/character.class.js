@@ -42,6 +42,8 @@ class Character extends MovableObject {
     /** Gravity acceleration. */
     acceleration = 2.5;
 
+    /** Timestamp of the last player input. */
+lastInputTime = Date.now();
 
     /** Images used for the idle animation. */
     IMAGES_IDLE = [
@@ -56,6 +58,20 @@ class Character extends MovableObject {
         "img/2_character_pepe/1_idle/idle/I-9.png",
         "img/2_character_pepe/1_idle/idle/I-10.png"
     ];
+
+/** Images used for the long idle animation. */
+IMAGES_LONG_IDLE = [
+    "img/2_character_pepe/1_idle/long_idle/I-11.png",
+    "img/2_character_pepe/1_idle/long_idle/I-12.png",
+    "img/2_character_pepe/1_idle/long_idle/I-13.png",
+    "img/2_character_pepe/1_idle/long_idle/I-14.png",
+    "img/2_character_pepe/1_idle/long_idle/I-15.png",
+    "img/2_character_pepe/1_idle/long_idle/I-16.png",
+    "img/2_character_pepe/1_idle/long_idle/I-17.png",
+    "img/2_character_pepe/1_idle/long_idle/I-18.png",
+    "img/2_character_pepe/1_idle/long_idle/I-19.png",
+    "img/2_character_pepe/1_idle/long_idle/I-20.png"
+];
 
 
     /** Images used for the walking animation. */
@@ -119,6 +135,7 @@ class Character extends MovableObject {
         this.loadImage(this.IMAGES_IDLE[0]);
 
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_HURT);
@@ -158,13 +175,24 @@ class Character extends MovableObject {
     move() {
 
         if (this.world.paused) return;
-
+    
         if (this.isDead) return;
-
+    
+        if (
+            this.keyboard.RIGHT ||
+            this.keyboard.LEFT ||
+            this.keyboard.SPACE ||
+            this.keyboard.D
+        ) {
+    
+            this.lastInputTime = Date.now();
+    
+        }
+    
         this.moveHorizontal();
         this.handleJump();
         this.handleThrow();
-
+    
     }
 
 

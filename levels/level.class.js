@@ -1,13 +1,33 @@
+/**
+ * Represents the complete game level.
+ *
+ * Contains background objects, coins, bottles, chickens
+ * and the endboss with their respective positions.
+ */
 class Level {
 
-        level_end_x = 4320;
+    /** Maximum horizontal position of the level. */
+    level_end_x = 4320;
 
+    /** Background objects of the level. */
     backgrounds = [];
 
-        coins = [];
-        bottles = [];
-            chickens = [];
+    /** Collectible coins in the level. */
+    coins = [];
 
+    /** Collectible bottles in the level. */
+    bottles = [];
+
+    /** Chicken enemies in the level. */
+    chickens = [];
+
+
+    /**
+     * Creates a new game level.
+     *
+     * Initializes all backgrounds, collectibles,
+     * enemies and the endboss.
+     */
     constructor() {
 
         this.backgrounds = [
@@ -68,75 +88,72 @@ class Level {
 
         ];
 
-this.coins = [
 
-    // Abschnitt 1
-    new Coin(500, 350),
-    new Coin(650, 250),
+        this.coins = [
 
-    new Coin(950, 330),
+            // Abschnitt 1
+            new Coin(500, 350),
+            new Coin(650, 250),
 
-    new Coin(1250, 330),
+            new Coin(950, 330),
 
-    // Abschnitt 2
-    new Coin(1600, 350),
-    new Coin(1750, 280),
+            new Coin(1250, 330),
 
-    new Coin(2100, 220),
-    new Coin(2250, 150),
+            // Abschnitt 2
+            new Coin(1600, 350),
+            new Coin(1750, 280),
+
+            new Coin(2100, 220),
+            new Coin(2250, 150),
+
+            // Abschnitt 3
+            new Coin(2800, 350),
+
+            new Coin(3300, 300),
+            new Coin(3450, 180),
+
+            // Richtung Endboss
+            new Coin(3800, 350),
+
+        ];
 
 
-    // Abschnitt 3
-    new Coin(2800, 350),
+        this.bottles = [
+
+            new Bottle(700, 330),
+            new Bottle(900, 330),
+            new Bottle(1200, 320),
+            new Bottle(500, 350),
+            new Bottle(600, 350),
+            new Bottle(650, 350),
+            new Bottle(1400, 330),
+            new Bottle(1200, 320),
+            new Bottle(1900, 330),
+            new Bottle(3000, 320),
+            new Bottle(4000, 320),
+
+        ];
 
 
-    new Coin(3300, 300),
-    new Coin(3450, 180),
+        this.chickens = [
 
-    // Richtung Endboss
-    new Coin(3800, 350),
+            new Chicken(1000, 370),
+
+            new ChickenMedium(1600, 360),
+
+            new Chicken(2300, 370),
+
+            new Chicken(2200, 370),
+
+            new ChickenMedium(3000, 360),
+
+            new ChickenMedium(3200, 360)
+
+        ];
 
 
-];
-
-this.bottles = [
-
-    new Bottle(700, 330),
-    new Bottle(900, 330),
-    new Bottle(1200, 320),
-    new Bottle(500, 350),
-    new Bottle(600, 350),
-    new Bottle(650, 350),
-    new Bottle(1400, 330),
-    new Bottle(1200, 320),
-    new Bottle(1900, 330),
-    new Bottle(3000, 320),
-    new Bottle(4000, 320),
-
-];
-
-this.chickens = [
-
-    new Chicken(1000, 370),
-
-    new ChickenMedium(1600, 360),
-
-    new Chicken(2300, 370),
-
-    new Chicken(2200, 370),
-
-    new ChickenMedium(3000, 360),
-
-    new ChickenMedium(3200, 360)
-
-];
-
-this.endboss = new Endboss(4000, 90);
+        this.endboss = new Endboss(4000, 90);
 
     }
 
-    
-    
 }
-
-

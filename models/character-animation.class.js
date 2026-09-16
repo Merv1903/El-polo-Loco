@@ -83,21 +83,28 @@ class CharacterAnimation {
     static playMovementAnimation(character) {
 
         if (character.isAboveGround()) {
-
+    
             character.playAnimation(character.IMAGES_JUMP);
             return;
-
+    
         }
-
+    
         if (character.keyboard.RIGHT || character.keyboard.LEFT) {
-
+    
             character.playAnimation(character.IMAGES_WALKING);
             return;
-
+    
         }
-
+    
+        if (Date.now() - character.lastInputTime >= 5000) {
+    
+            character.playAnimation(character.IMAGES_LONG_IDLE);
+            return;
+    
+        }
+    
         character.playAnimation(character.IMAGES_IDLE);
-
+    
     }
 
 }

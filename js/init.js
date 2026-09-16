@@ -1,5 +1,15 @@
+/**
+ * Stores references to the user interface elements.
+ */
 let ui = {};
 
+
+/**
+ * Initializes the user interface after the page has loaded.
+ *
+ * Collects all required DOM elements and starts the
+ * game, menu and audio initialization.
+ */
 window.addEventListener("load", () => {
 
     ui = {

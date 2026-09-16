@@ -1,8 +1,21 @@
+/** Reference to the game canvas. */
 let canvas;
+
+/** Reference to the game container. */
 let gameContainer;
+
+/** Reference to the current game world. */
 let world;
+
+/** Stores the current keyboard input state. */
 let keyboard = new Keyboard();
 
+
+/**
+ * Handles keyboard key presses.
+ *
+ * Updates the corresponding keyboard input state.
+ */
 window.addEventListener("keydown", (event) => {
 
     if (event.key === "ArrowRight") keyboard.RIGHT = true;
@@ -17,6 +30,12 @@ window.addEventListener("keydown", (event) => {
 
 });
 
+
+/**
+ * Handles keyboard key releases.
+ *
+ * Resets the corresponding keyboard input state.
+ */
 window.addEventListener("keyup", (event) => {
 
     if (event.key === "ArrowRight") keyboard.RIGHT = false;
@@ -29,6 +48,13 @@ window.addEventListener("keyup", (event) => {
 
 });
 
+
+/**
+ * Initializes the game.
+ *
+ * Gets the required DOM elements, resizes the game,
+ * creates the world and initializes touch controls.
+ */
 function init() {
 
     canvas = document.getElementById("canvas");
@@ -42,9 +68,18 @@ function init() {
 
 }
 
+
+/**
+ * Resizes the game whenever the browser window changes size.
+ */
 window.addEventListener("resize", resizeGame);
 
 
+/**
+ * Starts the game and switches to the level music.
+ *
+ * Displays the mobile controls and starts the current level.
+ */
 function startGame() {
 
     if (musicOn) {
@@ -60,6 +95,13 @@ function startGame() {
 
 }
 
+
+/**
+ * Returns to the main menu.
+ *
+ * Stops the current game music, hides the game controls
+ * and displays the menu with its animation and music.
+ */
 function backToMenu() {
 
     if (world) {

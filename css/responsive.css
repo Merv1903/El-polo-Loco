@@ -60,7 +60,7 @@
 /*------------------------------------------------*/
 /* KLEINE DISPLAYS */
 
-@media (max-width:700px){
+@media (max-width:1000px){
 
     .music-button{
         width:clamp(38px,7vw,60px);
