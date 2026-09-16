@@ -2,14 +2,6 @@ function resizeGame() {
 
     const size = getGameSize();
 
-    console.log(
-        "Screen:",
-        window.innerWidth,
-        window.innerHeight,
-        "Game:",
-        size.width,
-        size.height
-    );
 
     resizeContainer(size.width, size.height);
 

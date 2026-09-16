@@ -59,29 +59,20 @@ class World {
 
         this.startScreen.src =
             "img/9_intro_outro_screens/start/startscreen_1.png";
-
+    
         this.pauseOverlay.src =
             "img/9_intro_outro_screens/start/controls_overlay.png";
-
+    
         this.gameOverScreen.src =
             "img/9_intro_outro_screens/game_over/oh no you lost!.png";
-
-
     
-
+    
         this.startScreen.onload = () => {
-
+    
             this.draw();
-
+    
         };
-
-
-        this.gameOverScreen.onload = () => {
-
-            console.log("Game Over Bild geladen");
-
-        };
-
+    
     }
 
 

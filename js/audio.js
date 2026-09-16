@@ -30,7 +30,7 @@ const characterDeathSound =
 const gameOverSound =
     new Audio("audio/game_over.mp3");
 
-    const victorySound =
+const victorySound =
     new Audio("audio/level2_music.mp3");
 
 victorySound.volume = 0.5;
@@ -45,14 +45,13 @@ gameOverSound.volume = 0.5;
 
 function playMenuMusic() {
 
-    console.log("playMenuMusic");
-
     if (!musicOn) return;
 
     levelMusic.pause();
     levelMusic.currentTime = 0;
 
-    menuMusic.play().catch(error => console.log(error));
+    menuMusic.play().catch(() => { });
+
 }
 
 
@@ -62,27 +61,15 @@ function playMenuMusic() {
 
 function playLevelMusic() {
 
-    console.log("playLevelMusic");
-
     if (!musicOn) return;
 
     menuMusic.pause();
     menuMusic.currentTime = 0;
 
-    levelMusic.play().catch(error => console.log(error));
+    levelMusic.play().catch(() => {});
+
 }
-/* ===========================
-   ALLE MUSIK STOPPEN
-=========================== */
 
-function stopMusic() {
-
-    menuMusic.pause();
-    levelMusic.pause();
-
-    menuMusic.currentTime = 0;
-    levelMusic.currentTime = 0;
-}
 
 
 /* ===========================
@@ -127,8 +114,9 @@ function playCharacterDeathSound() {
     if (!musicOn) return;
 
     characterDeathSound.currentTime = 0;
+
     characterDeathSound.play()
-        .catch(error => console.log(error));
+        .catch(() => {});
 
 }
 
@@ -138,8 +126,9 @@ function playGameOverSound() {
     if (!musicOn) return;
 
     gameOverSound.currentTime = 0;
+
     gameOverSound.play()
-        .catch(error => console.log(error));
+        .catch(() => {});
 
 }
 
@@ -155,8 +144,9 @@ function playVictorySound() {
     if (!musicOn) return;
 
     victorySound.currentTime = 0;
+
     victorySound.play()
-        .catch(error => console.log(error));
+        .catch(() => {});
 
 }
 
@@ -186,7 +176,7 @@ function toggleMusic() {
 
     } else {
 
-      pauseMusic();
+        pauseMusic();
 
     }
 

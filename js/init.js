@@ -30,8 +30,6 @@ window.addEventListener("load", () => {
 
     };
 
-    console.log("Game initialized");
-
     init();          // game.js
 
     initMenu();      // menu.js

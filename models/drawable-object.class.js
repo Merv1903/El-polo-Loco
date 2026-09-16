@@ -11,19 +11,12 @@ class DrawableObject {
 
 currentImage = 0;
 
- loadImage(path) {
+loadImage(path) {
 
     this.img = new Image();
 
-    this.img.onload = () => {
-        console.log("Bild geladen:", path);
-    };
-
-    this.img.onerror = () => {
-        console.error("Bild NICHT gefunden:", path);
-    };
-
     this.img.src = path;
+
 }
 
 loadImages(arr) {

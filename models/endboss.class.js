@@ -149,8 +149,6 @@ class Endboss extends MovableObject {
 
     handleDistance(distance) {
 
-        console.log("STATE VORHER:", this.state, "DISTANZ:", distance);
-
         if (this.isTooFar(distance)) {
             this.resetDetection();
             return;
@@ -167,10 +165,10 @@ class Endboss extends MovableObject {
         }
     
         if (this.hasSeenCharacter) return;
-
-this.state = "walking";
+    
+        this.state = "walking";
+    
     }
-
 
     isTooFar(distance) {
         return distance > 1000;

@@ -1,16 +1,15 @@
-function initMenu(){
+function initMenu() {
 
-ui.start.onclick = () => {
+    ui.start.onclick = () => {
 
-    console.log("Start Button");
+        ui.menu.style.display = "none";
 
-    ui.menu.style.display = "none";
+        document.querySelector(".game-container").style.animation = "none";
 
-    document.querySelector(".game-container").style.animation = "none";
+        startGame();
 
-    startGame();
+    };
 
-};
     ui.manual.onclick = () => openOverlay("manual");
 
     ui.controls.onclick = () => openOverlay("controls");
