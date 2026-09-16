@@ -1,18 +1,40 @@
+/**
+ * Represents a small chicken enemy in the game.
+ *
+ * Extends MovableObject and provides walking, movement
+ * and death behavior.
+ */
 class Chicken extends MovableObject {
 
-     damage = 50;
+    /**
+     * Damage dealt to the character on collision.
+     */
+    damage = 50;
 
 
+    /**
+     * Images used for the walking animation.
+     */
     IMAGES_WALKING = [
         "img/3_enemies_chicken/chicken_small/1_walk/1_w.png",
         "img/3_enemies_chicken/chicken_small/1_walk/2_w.png",
         "img/3_enemies_chicken/chicken_small/1_walk/3_w.png"
     ];
 
+
+    /**
+     * Image displayed when the chicken is dead.
+     */
     IMAGE_DEAD =
         "img/3_enemies_chicken/chicken_small/2_dead/dead.png";
 
 
+    /**
+     * Creates a new chicken.
+     *
+     * @param {number} x - Initial horizontal position.
+     * @param {number} y - Initial vertical position.
+     */
     constructor(x, y) {
 
         super();
@@ -35,6 +57,12 @@ class Chicken extends MovableObject {
     }
 
 
+    /**
+     * Starts the walking animation.
+     *
+     * Changes the displayed image every 150 milliseconds
+     * while the chicken is alive.
+     */
     animate() {
 
         setInterval(() => {
@@ -50,6 +78,9 @@ class Chicken extends MovableObject {
     }
 
 
+    /**
+     * Moves the chicken to the left while it is alive.
+     */
     move() {
 
         if (this.alive) {
@@ -61,18 +92,23 @@ class Chicken extends MovableObject {
     }
 
 
- die() {
+    /**
+     * Kills the chicken and displays its dead image.
+     *
+     * Marks the chicken for removal after 500 milliseconds.
+     */
+    die() {
 
-    this.alive = false;
+        this.alive = false;
 
-    this.loadImage(this.IMAGE_DEAD);
+        this.loadImage(this.IMAGE_DEAD);
 
-    setTimeout(() => {
+        setTimeout(() => {
 
-        this.remove = true;
+            this.remove = true;
 
-    }, 500);
+        }, 500);
 
-}
+    }
 
 }

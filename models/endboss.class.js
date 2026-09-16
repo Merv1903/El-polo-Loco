@@ -1,5 +1,13 @@
+/**
+ * Represents the endboss of the game.
+ *
+ * The endboss can walk, detect Pepe, attack, get hurt and die.
+ */
 class Endboss extends MovableObject {
 
+    /**
+     * Images used for the walking animation.
+     */
     IMAGES_WALKING = [
         "img/4_enemie_boss_chicken/1_walk/G1.png",
         "img/4_enemie_boss_chicken/1_walk/G2.png",
@@ -7,6 +15,9 @@ class Endboss extends MovableObject {
         "img/4_enemie_boss_chicken/1_walk/G4.png"
     ];
 
+    /**
+     * Images used for the alert animation.
+     */
     IMAGES_ALERT = [
         "img/4_enemie_boss_chicken/2_alert/G5.png",
         "img/4_enemie_boss_chicken/2_alert/G6.png",
@@ -18,6 +29,9 @@ class Endboss extends MovableObject {
         "img/4_enemie_boss_chicken/2_alert/G12.png"
     ];
 
+    /**
+     * Images used for the attack animation.
+     */
     IMAGES_ATTACK = [
         "img/4_enemie_boss_chicken/3_attack/G13.png",
         "img/4_enemie_boss_chicken/3_attack/G14.png",
@@ -29,18 +43,31 @@ class Endboss extends MovableObject {
         "img/4_enemie_boss_chicken/3_attack/G20.png"
     ];
 
+    /**
+     * Images used for the hurt animation.
+     */
     IMAGES_HURT = [
         "img/4_enemie_boss_chicken/4_hurt/G21.png",
         "img/4_enemie_boss_chicken/4_hurt/G22.png",
         "img/4_enemie_boss_chicken/4_hurt/G23.png"
     ];
     
+    /**
+     * Images used for the death animation.
+     */
     IMAGES_DEAD = [
         "img/4_enemie_boss_chicken/5_dead/G24.png",
         "img/4_enemie_boss_chicken/5_dead/G25.png",
         "img/4_enemie_boss_chicken/5_dead/G26.png"
     ];
 
+
+    /**
+     * Creates the endboss.
+     *
+     * @param {number} x - Initial horizontal position.
+     * @param {number} y - Initial vertical position.
+     */
     constructor(x, y) {
 
         super();
@@ -98,6 +125,12 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * Applies gravity to the endboss.
+     *
+     * The boss is kept above the ground and returns to
+     * the walking state after landing from a jump.
+     */
     applyGravity() {
 
         setInterval(() => {
@@ -117,9 +150,16 @@ class Endboss extends MovableObject {
             }
     
         }, 1000 / 25);
+
     }
 
 
+    /**
+     * Updates the endboss behavior.
+     *
+     * Distance detection, jumping, movement and animation
+     * are handled during each update cycle.
+     */
     update() {
 
         this.checkDistance();
@@ -136,6 +176,10 @@ class Endboss extends MovableObject {
     
     }
 
+
+    /**
+     * Checks the distance between the endboss and Pepe.
+     */
     checkDistance() {
 
         if (this.state === "alert") return;
@@ -144,9 +188,15 @@ class Endboss extends MovableObject {
             Math.abs(this.x - this.world.character.x);
     
         this.handleDistance(distance);
+
     }
     
 
+    /**
+     * Determines the endboss state based on the distance to Pepe.
+     *
+     * @param {number} distance - Distance between the boss and Pepe.
+     */
     handleDistance(distance) {
 
         if (this.isTooFar(distance)) {
@@ -170,33 +220,76 @@ class Endboss extends MovableObject {
     
     }
 
+
+    /**
+     * Checks whether Pepe is too far away for the boss to react.
+     *
+     * @param {number} distance - Distance between the boss and Pepe.
+     * @returns {boolean} True if the distance is greater than 1000.
+     */
     isTooFar(distance) {
+
         return distance > 1000;
+
     }
 
-    
+
+    /**
+     * Resets the boss detection state when Pepe is too far away.
+     */
     resetDetection() {
+
         this.hasSeenCharacter = false;
         this.state = "walking";
+
     }
 
 
+    /**
+     * Checks whether the boss should enter the alert state.
+     *
+     * @param {number} distance - Distance between the boss and Pepe.
+     * @returns {boolean} True if Pepe is within alert range.
+     */
     shouldAlert(distance) {
+
         return !this.hasSeenCharacter && distance <= 500;
+
     }
     
+
+    /**
+     * Starts the alert state of the endboss.
+     */
     startAlert() {
+
         this.state = "alert";
         this.hasSeenCharacter = true;
         this.alertFinished = false;
         this.alertFrame = 0;
+
     }
 
+
+    /**
+     * Checks whether the boss is close enough to attack Pepe.
+     *
+     * @param {number} distance - Distance between the boss and Pepe.
+     * @returns {boolean} True if Pepe is within attack range.
+     */
     shouldAttack(distance) {
+
         return distance <= 50;
+
     }
 
-   
+
+    /**
+     * Reduces the endboss's energy after being hit by a bottle.
+     *
+     * Updates the boss health bar and starts the death sequence
+     * when the energy reaches zero.
+     */
     hit() {
 
         this.energy -= 10;
@@ -219,6 +312,12 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * Starts the endboss death sequence.
+     *
+     * After a short delay the boss is removed and the
+     * victory sequence is triggered.
+     */
     die() {
 
         if (!this.alive) return;

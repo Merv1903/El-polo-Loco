@@ -1,22 +1,49 @@
+/**
+ * Represents the playable Pepe character.
+ *
+ * Handles movement, jumping and communication with
+ * the animation and action classes.
+ */
 class Character extends MovableObject {
 
+    /** Keyboard input handler. */
     keyboard;
+
+    /** Reference to the current game world. */
     world;
+
+    /** Indicates whether the character is facing the opposite direction. */
     otherDirection = false;
 
+    /** Character's current energy. */
     energy = 100;
+
+    /** Number of collected coins. */
     coins = 0;
+
+    /** Number of collected bottles. */
     bottles = 0;
 
+    /** Indicates whether the character is currently hurt. */
     isHurt = false;
-    isInvincible = false;
-isDead = false;
-deadFrame = 0;
 
+    /** Indicates whether the character is temporarily invincible. */
+    isInvincible = false;
+
+    /** Indicates whether the character is dead. */
+    isDead = false;
+
+    /** Current frame of the death animation. */
+    deadFrame = 0;
+
+    /** Vertical movement speed. */
     speedY = 0;
+
+    /** Gravity acceleration. */
     acceleration = 2.5;
 
 
+    /** Images used for the idle animation. */
     IMAGES_IDLE = [
         "img/2_character_pepe/1_idle/idle/I-1.png",
         "img/2_character_pepe/1_idle/idle/I-2.png",
@@ -31,6 +58,7 @@ deadFrame = 0;
     ];
 
 
+    /** Images used for the walking animation. */
     IMAGES_WALKING = [
         "img/2_character_pepe/2_walk/W-21.png",
         "img/2_character_pepe/2_walk/W-22.png",
@@ -41,6 +69,7 @@ deadFrame = 0;
     ];
 
 
+    /** Images used for the jump animation. */
     IMAGES_JUMP = [
         "img/2_character_pepe/3_jump/J-31.png",
         "img/2_character_pepe/3_jump/J-32.png",
@@ -54,22 +83,32 @@ deadFrame = 0;
     ];
 
 
+    /** Images used for the hurt animation. */
     IMAGES_HURT = [
-    "img/2_character_pepe/4_hurt/H-41.png",
-    "img/2_character_pepe/4_hurt/H-42.png",
-    "img/2_character_pepe/4_hurt/H-43.png"
-];
+        "img/2_character_pepe/4_hurt/H-41.png",
+        "img/2_character_pepe/4_hurt/H-42.png",
+        "img/2_character_pepe/4_hurt/H-43.png"
+    ];
 
-IMAGES_DEAD = [
-    "img/2_character_pepe/5_dead/D-51.png",
-    "img/2_character_pepe/5_dead/D-52.png",
-    "img/2_character_pepe/5_dead/D-53.png",
-    "img/2_character_pepe/5_dead/D-54.png",
-    "img/2_character_pepe/5_dead/D-55.png",
-    "img/2_character_pepe/5_dead/D-56.png",
-    "img/2_character_pepe/5_dead/D-57.png"
-];
 
+    /** Images used for the death animation. */
+    IMAGES_DEAD = [
+        "img/2_character_pepe/5_dead/D-51.png",
+        "img/2_character_pepe/5_dead/D-52.png",
+        "img/2_character_pepe/5_dead/D-53.png",
+        "img/2_character_pepe/5_dead/D-54.png",
+        "img/2_character_pepe/5_dead/D-55.png",
+        "img/2_character_pepe/5_dead/D-56.png",
+        "img/2_character_pepe/5_dead/D-57.png"
+    ];
+
+
+    /**
+     * Creates the playable character.
+     *
+     * @param {Keyboard} keyboard - Keyboard input handler.
+     * @param {World} world - Current game world.
+     */
     constructor(keyboard, world) {
 
         super();
@@ -103,169 +142,107 @@ IMAGES_DEAD = [
     }
 
 
-animate() {
+    /**
+     * Updates the character animation.
+     */
+    animate() {
 
-    if (this.world.paused) return;
-
-    if (this.isDead) {
-
-        this.playDeadAnimation();
-        return;
+        CharacterAnimation.animate(this);
 
     }
 
-    if (this.isHurt) {
 
-        this.playHurtAnimation();
-        return;
+    /**
+     * Handles the character's movement and actions.
+     */
+    move() {
 
-    }
+        if (this.world.paused) return;
 
-    this.playMovementAnimation();
+        if (this.isDead) return;
 
-}
-
-playHurtAnimation() {
-
-    this.playAnimation(this.IMAGES_HURT);
-
-}
-
-playDeadAnimation() {
-
-    if (this.deadAnimationFinished) return;
-
-    this.loadImage(this.IMAGES_DEAD[this.deadFrame]);
-
-    if (this.deadFrame < this.IMAGES_DEAD.length - 1) {
-
-        this.deadFrame++;
-
-    } else {
-
-        this.deadAnimationFinished = true;
+        this.moveHorizontal();
+        this.handleJump();
+        this.handleThrow();
 
     }
 
-}
 
-playMovementAnimation() {
+    /**
+     * Handles horizontal movement and direction.
+     */
+    moveHorizontal() {
 
-    if (this.isAboveGround()) {
+        if (this.keyboard.RIGHT) {
 
-        this.playAnimation(this.IMAGES_JUMP);
-        return;
+            this.otherDirection = false;
+            this.moveRight();
 
-    }
+        }
 
-    if (this.keyboard.RIGHT || this.keyboard.LEFT) {
+        if (this.keyboard.LEFT) {
 
-        this.playAnimation(this.IMAGES_WALKING);
-        return;
+            this.otherDirection = true;
+            this.moveLeft();
 
-    }
-
-    this.playAnimation(this.IMAGES_IDLE);
-
-}
-
-
-
-
-move() {
-
-    if (this.world.paused) return;
-
-    if (this.isDead) return;
-
-    this.moveHorizontal();
-    this.handleJump();
-    this.handleThrow();
-
-}
-
-moveHorizontal() {
-
-    if (this.keyboard.RIGHT) {
-
-        this.otherDirection = false;
-        this.moveRight();
+        }
 
     }
 
-    if (this.keyboard.LEFT) {
 
-        this.otherDirection = true;
-        this.moveLeft();
+    /**
+     * Moves the character to the right within the level boundaries.
+     */
+    moveRight() {
 
-    }
+        if (this.x < this.world.level.level_end_x - this.width) {
 
-}
+            this.x += 5;
 
-moveRight() {
-
-    if (this.x < this.world.level.level_end_x - this.width) {
-
-        this.x += 5;
+        }
 
     }
 
-}
 
+    /**
+     * Moves the character to the left within the level boundaries.
+     */
+    moveLeft() {
 
-moveLeft() {
+        if (this.x > 0) {
 
-    if (this.x > 0) {
+            this.x -= 5;
 
-        this.x -= 5;
-
-    }
-
-}
-
-
-handleJump() {
-
-    if (this.keyboard.SPACE) {
-
-        this.jump();
-
-        this.keyboard.SPACE = false;
+        }
 
     }
 
-}
 
-handleThrow() {
+    /**
+     * Handles the jump action.
+     */
+    handleJump() {
 
-    if (this.keyboard.D) {
-
-        this.throwBottle();
-
-        this.keyboard.D = false;
+        CharacterActions.handleJump(this);
 
     }
 
-}
 
-throwBottle() {
+    /**
+     * Handles the bottle throw action.
+     */
+    handleThrow() {
 
-    if (this.bottles <= 0) return;
+        CharacterActions.handleThrow(this);
 
-    const bottle = new ThrowableBottle(
-        this.x + 60,
-        this.y + 100,
-        this.otherDirection
-    );
+    }
 
-    this.world.throwableBottles.push(bottle);
 
-    this.bottles--;
-
-    this.world.updateItemBar("bottles");
-
-}
-
+    /**
+     * Checks whether the character is above the ground.
+     *
+     * @returns {boolean} True if the character is above the ground.
+     */
     isAboveGround() {
 
         return this.y < 180;
@@ -273,6 +250,9 @@ throwBottle() {
     }
 
 
+    /**
+     * Makes the character jump if it is on the ground.
+     */
     jump() {
 
         if (!this.isAboveGround()) {
@@ -284,78 +264,58 @@ throwBottle() {
     }
 
 
+    /**
+     * Applies gravity to the character.
+     */
     applyGravity() {
 
-    setInterval(() => {
+        setInterval(() => {
 
-        this.y -= this.speedY;
+            this.y -= this.speedY;
 
-        this.speedY -= this.acceleration;
+            this.speedY -= this.acceleration;
 
-        if (this.y >= 180) {
+            if (this.y >= 180) {
 
-            this.y = 180;
-            this.speedY = 0;
+                this.y = 180;
+                this.speedY = 0;
 
-        }
+            }
 
-    }, 1000 / 25);
-
-}
-
-    isFalling() {
-
-    return this.speedY < 0;
-
-}
-
-
-hurt() {
-
-    if (this.isInvincible || this.isDead) return;
-
-    this.isHurt = true;
-    this.isInvincible = true;
-
-    this.pushBack();   
-    
-    setTimeout(() => {
-        this.isHurt = false;
-    }, 300);
-
-    setTimeout(() => {
-        this.isInvincible = false;
-    }, 1000);
-
-}
-
-
-pushBack() {
-
-    if (this.otherDirection) {
-
-        this.x += 20;
-
-    } else {
-
-        this.x -= 20;
+        }, 1000 / 25);
 
     }
 
-}
 
-die() {
+    /**
+     * Checks whether the character is currently falling.
+     *
+     * @returns {boolean} True if the character is falling.
+     */
+    isFalling() {
 
-    if (this.isDead) return;
+        return this.speedY < 0;
 
-    this.isDead = true;
-    this.isHurt = false;
+    }
 
-    this.deadFrame = 0;
-    this.deadAnimationFinished = false;
 
-    playCharacterDeathSound();
+    /**
+     * Handles damage to the character.
+     */
+    hurt() {
 
-}
+        CharacterActions.hurt(this);
+
+    }
+
+
+    /**
+     * Starts the character's death state.
+     */
+    die() {
+
+        CharacterActions.die(this);
+
+    }
 
 }

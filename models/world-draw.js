@@ -1,3 +1,6 @@
+/**
+ * Clears the entire game canvas before drawing the next frame.
+ */
 World.prototype.clearCanvas = function () {
 
     this.ctx.clearRect(
@@ -10,6 +13,12 @@ World.prototype.clearCanvas = function () {
 };
 
 
+/**
+ * Draws the current game state.
+ *
+ * Start screen, game-over screen and win state are handled separately.
+ * During normal gameplay the level and UI elements are rendered.
+ */
 World.prototype.draw = function () {
 
     this.clearCanvas();
@@ -36,7 +45,9 @@ World.prototype.draw = function () {
 };
 
 
-
+/**
+ * Draws the start screen scaled to the current canvas size.
+ */
 World.prototype.drawStartScreen = function () {
 
     this.ctx.drawImage(
@@ -49,6 +60,10 @@ World.prototype.drawStartScreen = function () {
 
 };
 
+
+/**
+ * Draws the game-over screen scaled to the current canvas size.
+ */
 World.prototype.drawGameOver = function () {
 
     this.ctx.drawImage(
@@ -62,6 +77,12 @@ World.prototype.drawGameOver = function () {
 };
 
 
+/**
+ * Draws all visual elements of the current level.
+ *
+ * The camera is updated first and the level objects are drawn
+ * relative to the camera position.
+ */
 World.prototype.drawLevel = function () {
 
     this.updateCamera();
@@ -83,6 +104,7 @@ World.prototype.drawLevel = function () {
     this.drawStatusBar();
     this.drawCoinBar();
     this.drawBottleBar();
+
     if (this.level.endboss.active) {
         this.drawEndbossBar();
     }
@@ -90,6 +112,9 @@ World.prototype.drawLevel = function () {
 };
 
 
+/**
+ * Draws all background objects of the current level.
+ */
 World.prototype.drawBackground = function () {
 
     this.level.backgrounds.forEach((background) => {
@@ -101,6 +126,9 @@ World.prototype.drawBackground = function () {
 };
 
 
+/**
+ * Draws all chickens that belong to the current level.
+ */
 World.prototype.drawEnemies = function () {
 
     this.level.chickens.forEach((chicken) => {
@@ -112,6 +140,12 @@ World.prototype.drawEnemies = function () {
 };
 
 
+/**
+ * Draws the endboss depending on its current direction.
+ *
+ * The boss is not drawn when it is neither alive nor in its
+ * death animation.
+ */
 World.prototype.drawEndboss = function () {
 
     const boss = this.level.endboss;
@@ -130,6 +164,13 @@ World.prototype.drawEndboss = function () {
 
 };
 
+
+/**
+ * Draws the endboss mirrored horizontally.
+ *
+ * Canvas transformation is used so the boss can face
+ * the opposite direction without changing its image.
+ */
 World.prototype.drawFlippedEndboss = function () {
 
     this.ctx.save();
@@ -153,6 +194,12 @@ World.prototype.drawFlippedEndboss = function () {
 
 };
 
+
+/**
+ * Draws all uncollected coins in the level.
+ *
+ * Hitboxes are also displayed for debugging.
+ */
 World.prototype.drawCoins = function () {
 
     this.level.coins.forEach((coin) => {
@@ -169,6 +216,11 @@ World.prototype.drawCoins = function () {
 };
 
 
+/**
+ * Draws all uncollected bottles in the level.
+ *
+ * Hitboxes are also displayed for debugging.
+ */
 World.prototype.drawBottles = function () {
 
     this.level.bottles.forEach((bottle) => {
@@ -185,6 +237,11 @@ World.prototype.drawBottles = function () {
 };
 
 
+/**
+ * Draws Pepe according to his current direction.
+ *
+ * The character is mirrored when he is facing left.
+ */
 World.prototype.drawCharacter = function () {
 
     if (this.character.otherDirection) {
@@ -202,6 +259,12 @@ World.prototype.drawCharacter = function () {
 };
 
 
+/**
+ * Draws Pepe mirrored horizontally.
+ *
+ * Canvas transformation is used instead of modifying
+ * the character images themselves.
+ */
 World.prototype.drawFlippedCharacter = function () {
 
     this.ctx.save();
@@ -226,6 +289,9 @@ World.prototype.drawFlippedCharacter = function () {
 };
 
 
+/**
+ * Draws Pepe's health/status bar.
+ */
 World.prototype.drawStatusBar = function () {
 
     this.statusBar.draw(this.ctx);
@@ -233,6 +299,9 @@ World.prototype.drawStatusBar = function () {
 };
 
 
+/**
+ * Draws the collected coin counter.
+ */
 World.prototype.drawCoinBar = function () {
 
     this.coinBar.draw(this.ctx);
@@ -240,12 +309,21 @@ World.prototype.drawCoinBar = function () {
 };
 
 
+/**
+ * Draws the collected bottle counter.
+ */
 World.prototype.drawBottleBar = function () {
 
     this.bottleBar.draw(this.ctx);
 
 };
 
+
+/**
+ * Draws the endboss health bar.
+ *
+ * The bar is only called when the endboss is active.
+ */
 World.prototype.drawEndbossBar = function () {
 
     this.endbossBar.draw(this.ctx);
@@ -253,6 +331,9 @@ World.prototype.drawEndbossBar = function () {
 };
 
 
+/**
+ * Draws the pause overlay over the current game scene.
+ */
 World.prototype.drawPauseOverlay = function () {
 
     this.ctx.drawImage(
@@ -265,6 +346,13 @@ World.prototype.drawPauseOverlay = function () {
 
 };
 
+
+/**
+ * Draws all currently thrown bottles.
+ *
+ * Throwable bottles are stored separately from
+ * the collectible bottles on the ground.
+ */
 World.prototype.drawThrowableBottles = function () {
 
     this.throwableBottles.forEach((bottle) => {

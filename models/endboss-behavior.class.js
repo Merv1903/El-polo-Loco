@@ -1,3 +1,9 @@
+/**
+ * Starts a jump towards Pepe.
+ *
+ * The jump can only start when the endboss is standing
+ * on the ground. The jump direction is determined by Pepe's position.
+ */
 Endboss.prototype.jump = function () {
 
     if (this.y !== 80) return;
@@ -21,6 +27,11 @@ Endboss.prototype.jump = function () {
 };
 
 
+/**
+ * Moves the endboss horizontally while jumping.
+ *
+ * The direction is determined when the jump starts.
+ */
 Endboss.prototype.moveJump = function () {
 
     if (this.jumpDirection === -1) {
@@ -32,6 +43,11 @@ Endboss.prototype.moveJump = function () {
 };
 
 
+/**
+ * Generates a random delay until the next jump.
+ *
+ * @returns {number} Random delay between 3000 and 7000 milliseconds.
+ */
 Endboss.prototype.getRandomJumpDelay = function () {
 
     return 3000 + Math.random() * 4000;
@@ -39,6 +55,12 @@ Endboss.prototype.getRandomJumpDelay = function () {
 };
 
 
+/**
+ * Moves the endboss according to its current state.
+ *
+ * The boss does not move while alerting or attacking.
+ * During a jump, horizontal jump movement is used.
+ */
 Endboss.prototype.move = function () {
 
     if (!this.alive) return;
@@ -57,6 +79,11 @@ Endboss.prototype.move = function () {
 };
 
 
+/**
+ * Moves the endboss horizontally towards Pepe.
+ *
+ * The boss direction is updated depending on Pepe's position.
+ */
 Endboss.prototype.moveHorizontal = function () {
 
     if (this.world.character.x < this.x) {
@@ -76,6 +103,9 @@ Endboss.prototype.moveHorizontal = function () {
 };
 
 
+/**
+ * Moves the endboss to the left by its current speed.
+ */
 Endboss.prototype.moveLeft = function () {
 
     this.x -= this.speed;
@@ -83,6 +113,9 @@ Endboss.prototype.moveLeft = function () {
 };
 
 
+/**
+ * Moves the endboss to the right by its current speed.
+ */
 Endboss.prototype.moveRight = function () {
 
     this.x += this.speed;

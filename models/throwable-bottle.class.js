@@ -1,5 +1,14 @@
+/**
+ * Represents a throwable salsa bottle.
+ *
+ * The bottle can fly through the level, rotate while flying
+ * and play a splash animation when it hits the ground or an enemy.
+ */
 class ThrowableBottle extends MovableObject {
 
+    /**
+     * Images used for the bottle rotation animation.
+     */
     IMAGES_ROTATION = [
         "img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
         "img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
@@ -7,6 +16,9 @@ class ThrowableBottle extends MovableObject {
         "img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png"
     ];
 
+    /**
+     * Images used for the bottle splash animation.
+     */
     IMAGES_SPLASH = [
         "img/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
         "img/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
@@ -17,6 +29,13 @@ class ThrowableBottle extends MovableObject {
     ];
 
 
+    /**
+     * Creates a throwable bottle.
+     *
+     * @param {number} x - Initial horizontal position.
+     * @param {number} y - Initial vertical position.
+     * @param {boolean} direction - Determines the throwing direction.
+     */
     constructor(x, y, direction) {
 
         super();
@@ -43,6 +62,13 @@ class ThrowableBottle extends MovableObject {
 
     }
 
+
+    /**
+     * Checks whether the bottle has reached the ground.
+     *
+     * When the ground is reached, the bottle is positioned
+     * on the ground and the splash animation is started.
+     */
     checkGround() {
 
         if (this.y + this.height >= 420) {
@@ -55,6 +81,13 @@ class ThrowableBottle extends MovableObject {
     
     }
 
+
+    /**
+     * Moves the bottle through the air.
+     *
+     * The bottle stops moving once the splash animation has started.
+     * Gravity continuously reduces the vertical speed.
+     */
     move() {
 
         if (this.splash) return;
@@ -70,6 +103,11 @@ class ThrowableBottle extends MovableObject {
     }
 
 
+    /**
+     * Updates the bottle's rotation animation.
+     *
+     * A new rotation frame is displayed every 100 milliseconds.
+     */
     rotate() {
 
         const now = Date.now();
@@ -90,9 +128,15 @@ class ThrowableBottle extends MovableObject {
             this.IMAGES_ROTATION[this.rotationFrame]
         );
 
-    
     }
 
+
+    /**
+     * Starts the splash animation.
+     *
+     * The bottle stops flying and begins with the first
+     * splash animation frame.
+     */
     startSplash() {
 
         this.splash = true;
@@ -104,6 +148,10 @@ class ThrowableBottle extends MovableObject {
     
     }
 
+
+    /**
+     * Loads the current splash animation frame.
+     */
     loadSplashImage() {
 
         this.loadImage(
@@ -112,6 +160,12 @@ class ThrowableBottle extends MovableObject {
     
     }
 
+
+    /**
+     * Plays the splash animation frame by frame.
+     *
+     * After the last frame, the bottle is marked for removal.
+     */
     playSplashAnimation() {
 
         const splashInterval = setInterval(() => {

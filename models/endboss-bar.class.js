@@ -1,5 +1,14 @@
+/**
+ * Represents the health bar of the endboss.
+ *
+ * Extends the standard StatusBar with a different position
+ * on the game screen.
+ */
 class EndbossBar extends StatusBar {
 
+    /**
+     * Creates the endboss health bar and sets it to 100%.
+     */
     constructor() {
 
         super();

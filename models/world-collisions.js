@@ -1,3 +1,8 @@
+/**
+ * Checks collisions between Pepe and all chickens.
+ *
+ * Dead chickens and collisions while Pepe is dead are ignored.
+ */
 World.prototype.checkEnemyCollisions = function () {
 
     if (this.character.isDead) return;
@@ -13,6 +18,12 @@ World.prototype.checkEnemyCollisions = function () {
 
 };
 
+
+/**
+ * Checks whether Pepe collides with the endboss.
+ *
+ * The collision is only active while the boss is alive.
+ */
 World.prototype.checkEndbossCharacterCollision = function () {
 
     const boss = this.level.endboss;
@@ -25,6 +36,12 @@ World.prototype.checkEndbossCharacterCollision = function () {
 
 };
 
+
+/**
+ * Checks collisions between thrown bottles and chickens.
+ *
+ * A bottle starts its splash animation when it hits a chicken.
+ */
 World.prototype.checkBottleCollisions = function () {
 
     this.throwableBottles.forEach((bottle) => {
@@ -50,6 +67,12 @@ World.prototype.checkBottleCollisions = function () {
 };
 
 
+/**
+ * Checks collisions between thrown bottles and the endboss.
+ *
+ * The boss takes damage and the bottle starts its splash animation
+ * when a collision occurs.
+ */
 World.prototype.checkEndbossCollision = function () {
 
     const boss = this.level.endboss;
@@ -73,6 +96,11 @@ World.prototype.checkEndbossCollision = function () {
 };
 
 
+/**
+ * Handles a collision between Pepe and a chicken.
+ *
+ * Falling onto a chicken kills it. Otherwise Pepe takes damage.
+ */
 World.prototype.handleChickenCollision = function (chicken) {
 
     if (this.character.isFalling()) {
@@ -87,6 +115,11 @@ World.prototype.handleChickenCollision = function (chicken) {
 };
 
 
+/**
+ * Kills a chicken when Pepe lands on it.
+ *
+ * Pepe receives an upward bounce after killing the chicken.
+ */
 World.prototype.killChicken = function (chicken) {
 
     chicken.die();
@@ -96,6 +129,12 @@ World.prototype.killChicken = function (chicken) {
 };
 
 
+/**
+ * Applies damage to Pepe.
+ *
+ * Invincibility prevents repeated damage.
+ * When energy reaches zero, Pepe dies.
+ */
 World.prototype.hitCharacter = function (chicken) {
 
     if (this.character.isInvincible) return;
@@ -113,6 +152,12 @@ World.prototype.hitCharacter = function (chicken) {
 
 };
 
+
+/**
+ * Reduces Pepe's energy without allowing it to fall below zero.
+ *
+ * The health bar is updated after the damage is applied.
+ */
 World.prototype.reduceCharacterEnergy = function (damage) {
 
     const newEnergy =
@@ -125,6 +170,10 @@ World.prototype.reduceCharacterEnergy = function (damage) {
 
 };
 
+
+/**
+ * Updates Pepe's health bar to match his current energy.
+ */
 World.prototype.updateHealthBar = function () {
 
     this.statusBar.setPercentage(
@@ -134,6 +183,9 @@ World.prototype.updateHealthBar = function () {
 };
 
 
+/**
+ * Checks all collectible items in the current level.
+ */
 World.prototype.collectItems = function () {
 
     this.collect(this.level.coins, "coins");
@@ -142,6 +194,12 @@ World.prototype.collectItems = function () {
 };
 
 
+/**
+ * Checks whether Pepe collects an item.
+ *
+ * The collected item is marked and the corresponding
+ * character counter and status bar are updated.
+ */
 World.prototype.collect = function (items, property) {
 
     items.forEach((item) => {
@@ -164,6 +222,11 @@ World.prototype.collect = function (items, property) {
 };
 
 
+/**
+ * Updates the status bar for collected coins or bottles.
+ *
+ * Each collected item increases the corresponding bar by 10 percent.
+ */
 World.prototype.updateItemBar = function (property) {
 
     if (property === "coins") {
