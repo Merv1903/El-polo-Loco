@@ -207,7 +207,7 @@ World.prototype.drawCoins = function () {
         if (!coin.collected) {
 
             coin.draw(this.ctx);
-            coin.drawHitbox(this.ctx);
+        
 
         }
 
@@ -228,7 +228,7 @@ World.prototype.drawBottles = function () {
         if (!bottle.collected) {
 
             bottle.draw(this.ctx);
-            bottle.drawHitbox(this.ctx);
+           
 
         }
 
@@ -254,7 +254,7 @@ World.prototype.drawCharacter = function () {
 
     }
 
-    this.character.drawHitbox(this.ctx);
+   
 
 };
 
