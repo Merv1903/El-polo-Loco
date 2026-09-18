@@ -42,6 +42,11 @@ class DrawableObject {
 
 
     /**
+ * Stores the animation currently being played.
+ */
+currentAnimation = null;
+
+    /**
      * Loads a single image and sets it as the current image.
      *
      * @param {string} path - Path to the image file.
@@ -75,26 +80,38 @@ class DrawableObject {
     }
 
 
-    /**
-     * Plays the next frame of an animation.
-     *
-     * The animation loops back to the first frame
-     * after reaching the end of the image array.
-     *
-     * @param {string[]} images - Array containing animation image paths.
-     */
-    playAnimation(images) {
+/**
+ * Plays the next frame of an animation.
+ *
+ * Resets the animation when a different image sequence starts.
+ *
+ * @param {string[]} images - Array containing animation image paths.
+ */
+playAnimation(images) {
 
-        let i = this.currentImage % images.length;
+    if (this.currentAnimation !== images) {
 
-        let path = images[i];
+        console.log(
+            "Animation changed:",
+            this.currentAnimation,
+            "→",
+            images
+        );
 
-        this.img = this.imageCache[path];
+        this.currentAnimation = images;
+        this.currentImage = 0;
 
-        this.currentImage++;
-
+        console.log("Animation reset to frame:", this.currentImage);
     }
 
+    let i = this.currentImage % images.length;
+
+    let path = images[i];
+
+    this.img = this.imageCache[path];
+
+    this.currentImage++;
+}
 
     /**
      * Draws the object on the canvas.

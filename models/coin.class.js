@@ -25,6 +25,14 @@ class Coin extends CollectableObject {
 
         super(x, y);
 
+            this.offset = {
+        top: 50,
+        left: 50,
+        right: 50,
+        bottom: 50
+    };
+
+
         this.loadImage(this.IMAGES[0]);
         this.loadImages(this.IMAGES);
 
