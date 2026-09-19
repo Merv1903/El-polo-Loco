@@ -36,10 +36,36 @@ function hideGameOverMenu() {
  */
 restartButton.addEventListener("click", () => {
 
+    console.log("1. NOCHMAL SPIELEN geklickt");
+
     hideGameOverMenu();
+
+    console.log(
+        "2. Vor startLevel - game-active:",
+        document.getElementById("game-controls").classList.contains("game-active")
+    );
 
     world.startLevel();
 
+    console.log(
+        "3. Nach startLevel - game-active:",
+        document.getElementById("game-controls").classList.contains("game-active")
+    );
+
+    console.log(
+        "4. game-controls display:",
+        getComputedStyle(document.getElementById("game-controls")).display
+    );
+
+    console.log(
+        "INLINE STYLE:",
+        document.getElementById("game-controls").style.display
+    );
+
+    console.log(
+        "COMPUTED STYLE:",
+        getComputedStyle(document.getElementById("game-controls")).display
+    );
 });
 
 

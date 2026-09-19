@@ -27,8 +27,8 @@ World.prototype.showGameOverScreen = function () {
     this.stopLevel();
 
     stopMusic();
-
-    document.getElementById("game-controls").style.display = "none";
+    
+    document.getElementById("game-controls").classList.remove("game-active");
 
     this.drawGameOverScreen();
 
