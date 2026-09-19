@@ -1,9 +1,7 @@
 /*------------------------------------------------*/
 /* GAME CONTROLS */
 
-#game-controls{
-
-    display:none;
+#game-controls {
 
     position:absolute;
 
@@ -17,11 +15,28 @@
     pointer-events:none;
 }
 
-/*------------------------------------------------*/
-/* CONTROL GROUPS */
 
-.top-controls,
-.bottom-controls{
+/*------------------------------------------------*/
+/* TOUCH CONTROLS */
+
+.touch-controls {
+
+    display:none;
+
+    position:absolute;
+
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+
+/*------------------------------------------------*/
+/* TOUCH CONTROL GROUPS */
+
+.touch-controls .top-controls,
+.touch-controls .bottom-controls {
 
     position:absolute;
 
@@ -29,20 +44,42 @@
     right:0;
 }
 
-.top-controls{
+.touch-controls .top-controls {
 
     bottom:200px;
 }
 
-.bottom-controls{
+.touch-controls .bottom-controls {
 
     bottom:100px;
+}
+
+
+/*------------------------------------------------*/
+/* GAME UI CONTROLS */
+/* Musik / Pause / Home */
+
+.game-ui-controls {
+
+    display:none;
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:-60px;
+
+    height:60px;
+}
+
+#game-controls.game-active .game-ui-controls {
+    display:block;
 }
 
 /*------------------------------------------------*/
 /* BUTTONS */
 
-#game-controls button{
+#game-controls button {
 
     position:absolute;
 
@@ -61,16 +98,17 @@
     user-select:none;
 
     touch-action:manipulation;
-}
-
-#game-controls button{
 
     overflow:hidden;
 
     padding:0;
 }
 
-#game-controls button img{
+
+/*------------------------------------------------*/
+/* BUTTON IMAGES */
+
+#game-controls button img {
 
     width:32px;
     height:32px;
@@ -84,35 +122,46 @@
     pointer-events:none;
 }
 
-/*------------------------------------------------*/
-/* TOP BUTTONS */
 
-#btn-throw{
+/*------------------------------------------------*/
+/* TOUCH BUTTONS */
+
+/* Werfen */
+
+#btn-throw {
 
     left:20px;
 }
 
-#btn-jump{
+
+/* Springen */
+
+#btn-jump {
 
     right:20px;
 }
 
-/*------------------------------------------------*/
-/* BOTTOM BUTTONS */
 
-#btn-left{
+/* Links */
+
+#btn-left {
 
     left:20px;
 }
 
-#btn-right{
+
+/* Rechts */
+
+#btn-right {
 
     right:20px;
 }
 
-#music-btn-mobile{
 
-    position:absolute;
+/*------------------------------------------------*/
+/* MOBILE MUSIC */
+
+#music-btn-mobile {
 
     left:50%;
 
@@ -130,7 +179,7 @@
     cursor:pointer;
 }
 
-#music-btn-mobile.muted::after{
+#music-btn-mobile.muted::after {
 
     content:"";
 
@@ -153,14 +202,22 @@
     z-index:5;
 }
 
-#pause-btn{
+
+/*------------------------------------------------*/
+/* PAUSE */
+
+#pause-btn {
 
     left:50%;
 
     transform:translateX(-30px);
 }
 
-#home-btn{
+
+/*------------------------------------------------*/
+/* HOME */
+
+#home-btn {
 
     left:50%;
 

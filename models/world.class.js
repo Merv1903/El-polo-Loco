@@ -294,7 +294,7 @@ class World {
         this.draw();
 
         document.getElementById("menu").style.display = "flex";
-        document.getElementById("game-controls").style.display = "none";
+        document.getElementById("game-controls").classList.remove("game-active");
 
     }
 
@@ -311,7 +311,7 @@ class World {
         this.camera_x = 0;
 
         document.getElementById("menu").style.display = "none";
-        document.getElementById("game-controls").style.display = "flex";
+        document.getElementById("game-controls").classList.add("game-active");    
 
         playLevelMusic();
 
@@ -372,7 +372,7 @@ class World {
 
         this.gameWon = true;
 
-        document.getElementById("game-controls").style.display = "none";
+        document.getElementById("game-controls").classList.remove("game-active");    
 
         this.victoryScreen.start();
 

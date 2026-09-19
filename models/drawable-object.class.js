@@ -91,17 +91,11 @@ playAnimation(images) {
 
     if (this.currentAnimation !== images) {
 
-        console.log(
-            "Animation changed:",
-            this.currentAnimation,
-            "→",
-            images
-        );
-
+    
         this.currentAnimation = images;
         this.currentImage = 0;
 
-        console.log("Animation reset to frame:", this.currentImage);
+       
     }
 
     let i = this.currentImage % images.length;

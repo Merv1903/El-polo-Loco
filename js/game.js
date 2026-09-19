@@ -89,7 +89,7 @@ function startGame() {
 
     }
 
-    document.getElementById("game-controls").style.display = "flex";
+    
 
     world.startLevel();
 
@@ -112,7 +112,7 @@ function backToMenu() {
 
     stopMusic();
 
-    document.getElementById("game-controls").style.display = "none";
+  
 
     ui.menu.style.display = "flex";
 

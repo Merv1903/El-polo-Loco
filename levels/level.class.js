@@ -125,6 +125,7 @@ class Level {
             new Bottle(1200, 320),
             new Bottle(500, 350),
             new Bottle(600, 350),
+            new Bottle(620, 350),
             new Bottle(650, 350),
             new Bottle(1400, 330),
             new Bottle(1200, 320),
