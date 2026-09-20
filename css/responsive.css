@@ -1,7 +1,7 @@
- /*------------------------------------------------*/
+/*------------------------------------------------*/
 /* TABLETS */
 
-@media (max-width:1025px){
+@media (max-width:1200px){
 
     /* Canvas */
 
@@ -103,14 +103,13 @@
     #btn-throw{
         left:-20px;
     }
-
-
+    
+    
     #btn-jump{
         left:-20px;
         right:auto;
         top:60px;
     }
-
 
     /*------------------------------------------------*/
     /* HOME BUTTON */
@@ -129,9 +128,11 @@
 
 
 /*------------------------------------------------*/
-/* PORTRAIT */
+/* TOUCH DEVICES - PORTRAIT */
 
-@media (max-width:1025px) and (orientation:portrait){
+@media (orientation:portrait)
+and (hover:none)
+and (pointer:coarse){
 
     .game-container{
         display:none;
@@ -145,9 +146,11 @@
 
 
 /*------------------------------------------------*/
-/* LANDSCAPE */
+/* TOUCH DEVICES - LANDSCAPE */
 
-@media (max-width:1025px) and (orientation:landscape){
+@media (orientation:landscape)
+and (hover:none)
+and (pointer:coarse){
 
     .game-container{
         display:block;
@@ -160,13 +163,12 @@
 }
 
 
-
-/* MOBILE TOUCH CONTROLS */
 /*------------------------------------------------*/
-/* MOBILE TOUCH CONTROLS */
+/* MOBILE / TABLET TOUCH CONTROLS */
 
-@media (max-width:1025px)
-and (orientation:landscape){
+@media (orientation:landscape)
+and (hover:none)
+and (pointer:coarse){
 
     #game-controls.game-active .touch-controls{
         display:block;

@@ -99,21 +99,40 @@ World.prototype.checkEndbossCollision = function () {
 /**
  * Handles a collision between Pepe and a chicken.
  *
- * Falling onto a chicken kills it. Otherwise Pepe takes damage.
+ * While Pepe is in the air, he does not take damage from chickens.
+ * If Pepe is falling and reaches the chicken from above, the chicken
+ * is killed and Pepe bounces upward.
+ *
+ * If Pepe collides with a chicken while on the ground,
+ * he takes damage.
+ *
+ * @param {Chicken} chicken - The chicken involved in the collision.
  */
 World.prototype.handleChickenCollision = function (chicken) {
 
-    if (this.character.isFalling()) {
+    const character = this.character;
 
-        this.killChicken(chicken);
+
+    if (character.isAboveGround()) {
+
+        if (
+            character.isFalling() &&
+            character.y + character.height - character.offset.bottom
+                <= chicken.y + 25
+        ) {
+
+            this.killChicken(chicken);
+
+        }
+
         return;
 
     }
 
+
     this.hitCharacter(chicken);
 
 };
-
 
 /**
  * Kills a chicken when Pepe lands on it.

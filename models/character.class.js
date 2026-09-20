@@ -23,6 +23,16 @@ class Character extends MovableObject {
 
     /** Number of collected bottles. */
     bottles = 0;
+    
+    /** Prevents repeated throws while D is held. */
+    throwPressed = false;
+
+
+    /** Minimum time between bottle throws in milliseconds. */
+    throwCooldown = 700;
+
+    /** Timestamp of the last bottle throw. */
+    lastThrowTime = 0;
 
     /** Indicates whether the character is currently hurt. */
     isHurt = false;
@@ -40,7 +50,7 @@ class Character extends MovableObject {
     speedY = 0;
 
     /** Gravity acceleration. */
-    acceleration = 2.5;
+    acceleration = 2.0;
 
     /** Timestamp of the last player input. */
 lastInputTime = Date.now();
@@ -285,7 +295,7 @@ IMAGES_LONG_IDLE = [
 
         if (!this.isAboveGround()) {
 
-            this.speedY = 30;
+            this.speedY = 29;
 
         }
 
@@ -298,20 +308,20 @@ IMAGES_LONG_IDLE = [
     applyGravity() {
 
         setInterval(() => {
-
+    
             this.y -= this.speedY;
-
+    
             this.speedY -= this.acceleration;
-
+    
             if (this.y >= 180) {
-
+    
                 this.y = 180;
                 this.speedY = 0;
-
+    
             }
-
+    
         }, 1000 / 25);
-
+    
     }
 
 

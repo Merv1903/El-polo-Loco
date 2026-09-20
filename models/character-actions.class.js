@@ -24,23 +24,38 @@ class CharacterActions {
     }
 
 
-    /**
-     * Handles the bottle throw input.
-     *
-     * @param {Character} character - The character throwing the bottle.
-     */
-    static handleThrow(character) {
+/**
+ * Handles bottle throwing.
+ *
+ * @param {Character} character - The character throwing the bottle.
+ */
+static handleThrow(character) {
 
-        if (character.keyboard.D) {
-
-            CharacterActions.throwBottle(character);
-
-            character.keyboard.D = false;
-
-        }
-
+    if (!character.keyboard.D) {
+        character.throwPressed = false;
+        return;
     }
 
+    if (character.throwPressed) {
+        return;
+    }
+
+    const now = Date.now();
+
+    console.log("Cooldown:", now - character.lastThrowTime);
+    console.log("Blocked:", now - character.lastThrowTime < character.throwCooldown);
+
+    if (now - character.lastThrowTime < character.throwCooldown) {
+        return;
+    }
+
+    character.throwPressed = true;
+    character.lastThrowTime = now;
+
+    console.log("THROW!");
+
+    CharacterActions.throwBottle(character);
+}
 
     /**
      * Throws a bottle if the character has bottles available.

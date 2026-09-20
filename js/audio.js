@@ -1,5 +1,6 @@
+
 /** Indicates whether music and game sounds are enabled. */
-let musicOn = true;
+let musicOn = localStorage.getItem("musicOn") !== "false";
 
 /* ===========================
    MENU MUSIC
@@ -200,10 +201,15 @@ function pauseMusic() {
 
 /**
  * Toggles music and game sounds on or off.
+ *
+ * The selected state is stored in localStorage
+ * so it remains after reloading the page.
  */
 function toggleMusic() {
 
     musicOn = !musicOn;
+
+    localStorage.setItem("musicOn", musicOn);
 
     updateMusicButtons();
 
@@ -263,6 +269,7 @@ function resumeMusic() {
    AUDIO INITIALISIEREN
 =========================== */
 
+
 /**
  * Initializes all audio controls and starts the menu music.
  */
@@ -282,10 +289,11 @@ function initAudio() {
         homeButton.onclick = backToMenu;
     }
 
+    updateMusicButtons();
+
     playMenuMusic();
 
 }
-
 
 /**
  * Connects the pause button to the world's pause functionality.

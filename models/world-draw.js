@@ -109,6 +109,18 @@ World.prototype.drawLevel = function () {
         this.drawEndbossBar();
     }
 
+    if (this.character.isAboveGround()) {
+
+        this.ctx.save();
+    
+        this.ctx.translate(this.camera_x, 0);
+    
+        this.drawCharacter();
+    
+        this.ctx.restore();
+    
+    }
+
 };
 
 

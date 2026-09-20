@@ -43,12 +43,20 @@ function addPointerDown(button, key) {
     button.addEventListener("pointerdown", (event) => {
 
         event.preventDefault();
+
+        button.setPointerCapture(event.pointerId);
+
         keyboard[key] = true;
 
     });
 
-}
+    button.addEventListener("contextmenu", (event) => {
 
+        event.preventDefault();
+
+    });
+
+}
 
 /**
  * Releases a keyboard input when the touch ends or is cancelled.

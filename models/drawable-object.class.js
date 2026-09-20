@@ -91,11 +91,9 @@ playAnimation(images) {
 
     if (this.currentAnimation !== images) {
 
-    
         this.currentAnimation = images;
         this.currentImage = 0;
 
-       
     }
 
     let i = this.currentImage % images.length;
@@ -103,6 +101,11 @@ playAnimation(images) {
     let path = images[i];
 
     this.img = this.imageCache[path];
+
+    // Log jump animation frames for debugging.
+    if (images === this.IMAGES_JUMP) {
+        console.log("Jump frame:", path);
+    }
 
     this.currentImage++;
 }

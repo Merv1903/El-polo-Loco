@@ -46,8 +46,9 @@ window.addEventListener("keyup", (event) => {
 
     if (event.key === "ArrowUp") keyboard.UP = false;
 
-});
+    if (event.key.toLowerCase() === "d") keyboard.D = false;
 
+});
 
 /**
  * Initializes the game.

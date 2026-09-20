@@ -26,10 +26,10 @@ class Coin extends CollectableObject {
         super(x, y);
 
             this.offset = {
-        top: 50,
-        left: 50,
-        right: 50,
-        bottom: 50
+        top: 30,
+        left: 30,
+        right: 30,
+        bottom: 30
     };
 
 

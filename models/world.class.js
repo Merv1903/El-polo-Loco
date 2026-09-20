@@ -163,27 +163,28 @@ class World {
     }
 
 
-   /**
-     * Updates Pepe's movement and animation.
-     */
-    updateCharacter() {
+ /**
+ * Updates Pepe's movement and animation.
+ */
+updateCharacter() {
 
-        this.character.move();
+    this.character.move();
 
-        const now = Date.now();
+    const now = Date.now();
 
-        if (
-            now - this.lastAnimation >= 180
-        ) {
+    const animationDelay = this.character.isAboveGround()
+    ? 90
+    : 180;
 
-            this.character.animate();
+    if (now - this.lastAnimation >= animationDelay) {
 
-            this.lastAnimation = now;
+        this.character.animate();
 
-        }
+        this.lastAnimation = now;
 
     }
 
+}
 
   /**
      * Updates all chickens and removes defeated enemies.
