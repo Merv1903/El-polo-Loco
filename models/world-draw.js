@@ -105,8 +105,11 @@ World.prototype.drawLevel = function () {
     this.drawCoinBar();
     this.drawBottleBar();
 
-    if (this.level.endboss.active) {
+    if (this.isEndbossBarVisible()) {
+
+    
         this.drawEndbossBar();
+    
     }
 
     if (this.character.isAboveGround()) {

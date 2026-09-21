@@ -81,35 +81,44 @@ currentAnimation = null;
 
 
 /**
- * Plays the next frame of an animation.
+ * Plays an animation using the given image array.
  *
- * Resets the animation when a different image sequence starts.
- *
- * @param {string[]} images - Array containing animation image paths.
+ * @param {string[]} images - Array of image paths.
  */
 playAnimation(images) {
 
     if (this.currentAnimation !== images) {
-
         this.currentAnimation = images;
         this.currentImage = 0;
-
     }
+// Jump animation
+if (images === this.IMAGES_JUMP) {
 
-    let i = this.currentImage % images.length;
+    const i = Math.min(
+        this.currentImage,
+        images.length - 1
+    );
 
-    let path = images[i];
+    const path = images[i];
 
     this.img = this.imageCache[path];
 
-    // Log jump animation frames for debugging.
-    if (images === this.IMAGES_JUMP) {
-        console.log("Jump frame:", path);
+    console.log("JUMP FRAME:", path);
+    console.log("CURRENT IMAGE:", this.currentImage);
+
+    if (this.currentImage < images.length - 1) {
+        this.currentImage++;
     }
+
+    return;
+}
+    // All other animations continue looping.
+    const i = this.currentImage % images.length;
+
+    this.img = this.imageCache[images[i]];
 
     this.currentImage++;
 }
-
     /**
      * Draws the object on the canvas.
      *
