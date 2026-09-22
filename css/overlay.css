@@ -1,148 +1,142 @@
 /*------------------------------------------------*/
 /* OVERLAY */
 
-#overlay{
-    position:fixed;
-    inset:0;
+#overlay {
+  position: fixed;
+  inset: 0;
 
-    display:none;
+  display: none;
 
-    justify-content:center;
-    align-items:center;
+  justify-content: center;
+  align-items: center;
 
-    background:rgba(255,255,255,.65);
+  background: rgba(255, 255, 255, 0.65);
 
-    z-index:100;
+  z-index: 100;
 }
 
-.overlay-wrapper{
-    position:relative;
-    display:inline-block;
+.overlay-wrapper {
+  position: relative;
+  display: inline-block;
 }
 
-.overlay-content{
-    width:min(92vw,720px);
+.overlay-content {
+  width: min(92vw, 720px);
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.overlay-image{
-    width:95%;
-    height:auto;
+.overlay-image {
+  width: 95%;
+  height: auto;
 
-    display:block;
-    margin:auto;
+  display: block;
+  margin: auto;
 }
 
-#close-btn{
-    position:absolute;
+#close-btn {
+  position: absolute;
 
-    top:2%;
-    right:2%;
+  top: 2%;
+  right: 2%;
 
-    width:clamp(34px,5vw,50px);
-    height:clamp(34px,5vw,50px);
+  width: clamp(34px, 5vw, 50px);
+  height: clamp(34px, 5vw, 50px);
 
-    border:none;
-    cursor:pointer;
+  border: none;
+  cursor: pointer;
 
-    z-index:1000;
+  z-index: 1000;
 }
 
 /*------------------------------------------------*/
 /* IMPRINT OVERLAY */
 
-.imprint-container{
-    position:relative;
+.imprint-container {
+  position: relative;
 
-    width:100%;
-    height:100%;
+  width: 100%;
+  height: 100%;
 }
 
-.overlay-imprint{
-    width:92%;
-    height:92%;
+.overlay-imprint {
+  width: 92%;
+  height: 92%;
 
-    overflow:hidden;
+  overflow: hidden;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.imprint-text{
-    position:absolute;
+.imprint-text {
+  position: absolute;
 
-    top:22%;
-    left:12%;
-    right:12%;
-    bottom:10%;
+  top: 22%;
+  left: 12%;
+  right: 12%;
+  bottom: 10%;
 
-    overflow-y:auto;
+  overflow-y: auto;
 
-    color:#4d2c17;
+  color: #4d2c17;
 
-    text-align:center;
-    line-height:1.6;
+  text-align: center;
+  line-height: 1.6;
 }
 
-.imprint-text h3{
-    margin:18px 0 8px;
-    font-size:clamp(18px,2vw,28px);
+.imprint-text h3 {
+  margin: 18px 0 8px;
+  font-size: clamp(18px, 2vw, 28px);
 }
 
-.imprint-text p{
-    margin-bottom:18px;
-    font-size:clamp(14px,1.3vw,20px);
+.imprint-text p {
+  margin-bottom: 18px;
+  font-size: clamp(14px, 1.3vw, 20px);
 }
 
 #game-over-menu {
+  display: none;
 
-    display: none;
+  position: absolute;
+  inset: 0;
 
-    position: absolute;
-    inset: 0;
+  z-index: 60;
 
-    z-index: 60;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  padding-bottom: 70px;
 
-    padding-bottom: 70px;
-
-    gap: clamp(170px, 5vh, 45px);
+  gap: clamp(170px, 5vh, 45px);
 }
-
 
 /* GAME OVER MENU */
 #game-over-menu {
+  display: none;
 
-    display: none;
+  position: absolute;
+  inset: 0;
 
-    position: absolute;
-    inset: 0;
+  z-index: 60;
 
-    z-index: 60;
-
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .game-over-button {
+  height: auto;
 
-    height: auto;
+  cursor: pointer;
 
-    cursor: pointer;
-
-    transition: transform .2s ease;
+  transition: transform 0.2s ease;
 }
 
 .game-over-button:hover {
-
-    transform: scale(1.05);
-
+  transform: scale(1.05);
 }

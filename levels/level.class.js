@@ -5,156 +5,113 @@
  * and the endboss with their respective positions.
  */
 class Level {
+  level_end_x = 4320;
+  backgrounds = [];
+  coins = [];
+  bottles = [];
+  chickens = [];
 
-    /** Maximum horizontal position of the level. */
-    level_end_x = 4320;
+  /**
+   * Creates a new game level.
+   *
+   * Initializes all backgrounds, collectibles,
+   * enemies and the endboss.
+   */
+  constructor() {
+    this.backgrounds = [
+      new BackgroundObject("img/5_background/layers/air.png", 0),
+      new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 0),
+      new BackgroundObject("img/5_background/layers/2_second_layer/1.png", 0),
+      new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 0),
 
-    /** Background objects of the level. */
-    backgrounds = [];
+      new BackgroundObject("img/5_background/layers/air.png", 720),
+      new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 720),
+      new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 720),
+      new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 720),
 
-    /** Collectible coins in the level. */
-    coins = [];
+      new BackgroundObject("img/5_background/layers/air.png", 1440),
+      new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 1440),
+      new BackgroundObject(
+        "img/5_background/layers/2_second_layer/1.png",
+        1440,
+      ),
+      new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 1440),
 
-    /** Collectible bottles in the level. */
-    bottles = [];
+      new BackgroundObject("img/5_background/layers/air.png", 2160),
+      new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 2160),
+      new BackgroundObject(
+        "img/5_background/layers/2_second_layer/2.png",
+        2160,
+      ),
+      new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 2160),
 
-    /** Chicken enemies in the level. */
-    chickens = [];
+      new BackgroundObject("img/5_background/layers/air.png", 2880),
+      new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 2880),
+      new BackgroundObject(
+        "img/5_background/layers/2_second_layer/1.png",
+        2880,
+      ),
+      new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 2880),
 
+      new BackgroundObject("img/5_background/layers/air.png", 3600),
+      new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 3600),
+      new BackgroundObject(
+        "img/5_background/layers/2_second_layer/2.png",
+        3600,
+      ),
+      new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 3600),
+    ];
 
-    /**
-     * Creates a new game level.
-     *
-     * Initializes all backgrounds, collectibles,
-     * enemies and the endboss.
-     */
-    constructor() {
+    this.coins = [
+      new Coin(500, 350),
+      new Coin(650, 250),
 
-        this.backgrounds = [
+      new Coin(950, 330),
 
-            /* ===========================
-               ABSCHNITT 1
-            =========================== */
+      new Coin(1250, 330),
 
-            new BackgroundObject("img/5_background/layers/air.png", 0),
-            new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 0),
-            new BackgroundObject("img/5_background/layers/2_second_layer/1.png", 0),
-            new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 0),
+      new Coin(1600, 350),
+      new Coin(1750, 280),
 
-            /* ===========================
-               ABSCHNITT 2
-            =========================== */
+      new Coin(2100, 220),
+      new Coin(2250, 150),
 
-            new BackgroundObject("img/5_background/layers/air.png", 720),
-            new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 720),
-            new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 720),
-            new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 720),
+      new Coin(2800, 350),
+      new Coin(3300, 300),
+      new Coin(3450, 180),
 
-            /* ===========================
-               ABSCHNITT 3
-            =========================== */
+      new Coin(3800, 350),
+    ];
 
-            new BackgroundObject("img/5_background/layers/air.png", 1440),
-            new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 1440),
-            new BackgroundObject("img/5_background/layers/2_second_layer/1.png", 1440),
-            new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 1440),
+    this.bottles = [
+      new Bottle(700, 330),
+      new Bottle(900, 330),
+      new Bottle(1200, 320),
+      new Bottle(500, 350),
+      new Bottle(600, 350),
+      new Bottle(620, 350),
+      new Bottle(650, 350),
+      new Bottle(1400, 330),
+      new Bottle(1200, 320),
+      new Bottle(1900, 330),
+      new Bottle(3000, 320),
+      new Bottle(4000, 320),
+    ];
 
-            /* ===========================
-               ABSCHNITT 4
-            =========================== */
+    this.chickens = [
+      new Chicken(1000, 370),
 
-            new BackgroundObject("img/5_background/layers/air.png", 2160),
-            new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 2160),
-            new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 2160),
-            new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 2160),
+      new ChickenMedium(1600, 360),
 
-            /* ===========================
-               ABSCHNITT 5
-            =========================== */
+      new Chicken(2300, 370),
 
-            new BackgroundObject("img/5_background/layers/air.png", 2880),
-            new BackgroundObject("img/5_background/layers/3_third_layer/1.png", 2880),
-            new BackgroundObject("img/5_background/layers/2_second_layer/1.png", 2880),
-            new BackgroundObject("img/5_background/layers/1_first_layer/1.png", 2880),
+      new Chicken(2200, 370),
 
-            /* ===========================
-               ABSCHNITT 6
-            =========================== */
+      new ChickenMedium(3000, 360),
 
-            new BackgroundObject("img/5_background/layers/air.png", 3600),
-            new BackgroundObject("img/5_background/layers/3_third_layer/2.png", 3600),
-            new BackgroundObject("img/5_background/layers/2_second_layer/2.png", 3600),
-            new BackgroundObject("img/5_background/layers/1_first_layer/2.png", 3600)
+      new ChickenMedium(3200, 360),
+    ];
 
-        ];
-
-
-        this.coins = [
-
-            // Abschnitt 1
-            new Coin(500, 350),
-            new Coin(650, 250),
-
-            new Coin(950, 330),
-
-            new Coin(1250, 330),
-
-            // Abschnitt 2
-            new Coin(1600, 350),
-            new Coin(1750, 280),
-
-            new Coin(2100, 220),
-            new Coin(2250, 150),
-
-            // Abschnitt 3
-            new Coin(2800, 350),
-
-            new Coin(3300, 300),
-            new Coin(3450, 180),
-
-            // Richtung Endboss
-            new Coin(3800, 350),
-
-        ];
-
-
-        this.bottles = [
-
-            new Bottle(700, 330),
-            new Bottle(900, 330),
-            new Bottle(1200, 320),
-            new Bottle(500, 350),
-            new Bottle(600, 350),
-            new Bottle(620, 350),
-            new Bottle(650, 350),
-            new Bottle(1400, 330),
-            new Bottle(1200, 320),
-            new Bottle(1900, 330),
-            new Bottle(3000, 320),
-            new Bottle(4000, 320),
-
-        ];
-
-
-        this.chickens = [
-
-            new Chicken(1000, 370),
-
-            new ChickenMedium(1600, 360),
-
-            new Chicken(2300, 370),
-
-            new Chicken(2200, 370),
-
-            new ChickenMedium(3000, 360),
-
-            new ChickenMedium(3200, 360)
-
-        ];
-
-
-        this.endboss = new Endboss(4000, 90);
-
-    }
-
+    this.endboss = new Endboss(4000, 90);
+  }
 }

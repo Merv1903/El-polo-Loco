@@ -1,15 +1,12 @@
-/** Reference to the game canvas. */
+/**
+ * Handles keyboard key presses.
+ *
+ * Updates the corresponding keyboard input state.
+ */
 let canvas;
-
-/** Reference to the game container. */
 let gameContainer;
-
-/** Reference to the current game world. */
 let world;
-
-/** Stores the current keyboard input state. */
 let keyboard = new Keyboard();
-
 
 /**
  * Handles keyboard key presses.
@@ -17,19 +14,16 @@ let keyboard = new Keyboard();
  * Updates the corresponding keyboard input state.
  */
 window.addEventListener("keydown", (event) => {
+  if (event.key === "ArrowRight") keyboard.RIGHT = true;
 
-    if (event.key === "ArrowRight") keyboard.RIGHT = true;
+  if (event.key === "ArrowLeft") keyboard.LEFT = true;
 
-    if (event.key === "ArrowLeft") keyboard.LEFT = true;
+  if (event.key === " ") keyboard.SPACE = true;
 
-    if (event.key === " ") keyboard.SPACE = true;
+  if (event.key === "ArrowUp") keyboard.UP = true;
 
-    if (event.key === "ArrowUp") keyboard.UP = true;
-
-    if (event.key.toLowerCase() === "d") keyboard.D = true;
-
+  if (event.key.toLowerCase() === "d") keyboard.D = true;
 });
-
 
 /**
  * Handles keyboard key releases.
@@ -37,17 +31,15 @@ window.addEventListener("keydown", (event) => {
  * Resets the corresponding keyboard input state.
  */
 window.addEventListener("keyup", (event) => {
+  if (event.key === "ArrowRight") keyboard.RIGHT = false;
 
-    if (event.key === "ArrowRight") keyboard.RIGHT = false;
+  if (event.key === "ArrowLeft") keyboard.LEFT = false;
 
-    if (event.key === "ArrowLeft") keyboard.LEFT = false;
+  if (event.key === " ") keyboard.SPACE = false;
 
-    if (event.key === " ") keyboard.SPACE = false;
+  if (event.key === "ArrowUp") keyboard.UP = false;
 
-    if (event.key === "ArrowUp") keyboard.UP = false;
-
-    if (event.key.toLowerCase() === "d") keyboard.D = false;
-
+  if (event.key.toLowerCase() === "d") keyboard.D = false;
 });
 
 /**
@@ -57,24 +49,20 @@ window.addEventListener("keyup", (event) => {
  * creates the world and initializes touch controls.
  */
 function init() {
+  canvas = document.getElementById("canvas");
+  gameContainer = document.querySelector(".game-container");
 
-    canvas = document.getElementById("canvas");
-    gameContainer = document.querySelector(".game-container");
+  resizeGame();
 
-    resizeGame();
+  world = new World(canvas);
 
-    world = new World(canvas);
-
-    initTouchControls();
-
+  initTouchControls();
 }
-
 
 /**
  * Resizes the game whenever the browser window changes size.
  */
 window.addEventListener("resize", resizeGame);
-
 
 /**
  * Starts the game and switches to the level music.
@@ -82,20 +70,13 @@ window.addEventListener("resize", resizeGame);
  * Displays the mobile controls and starts the current level.
  */
 function startGame() {
+  if (musicOn) {
+    stopMusic();
+    playLevelMusic();
+  }
 
-    if (musicOn) {
-
-        stopMusic();
-        playLevelMusic();
-
-    }
-
-    
-
-    world.startLevel();
-
+  world.startLevel();
 }
-
 
 /**
  * Returns to the main menu.
@@ -104,26 +85,18 @@ function startGame() {
  * and displays the menu with its animation and music.
  */
 function backToMenu() {
+  if (world) {
+    world.backToMenu();
+  }
 
-    if (world) {
+  stopMusic();
 
-        world.backToMenu();
+  ui.menu.style.display = "flex";
 
-    }
+  document.querySelector(".game-container").style.animation =
+    "floatGame 4s ease-in-out infinite";
 
-    stopMusic();
-
-  
-
-    ui.menu.style.display = "flex";
-
-    document.querySelector(".game-container").style.animation =
-        "floatGame 4s ease-in-out infinite";
-
-    if (musicOn) {
-
-        playMenuMusic();
-
-    }
-
+  if (musicOn) {
+    playMenuMusic();
+  }
 }

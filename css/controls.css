@@ -2,126 +2,113 @@
 /* GAME CONTROLS */
 
 #game-controls {
+  position: absolute;
 
-    position:absolute;
+  top: 18px;
+  left: 22px;
+  right: 22px;
+  bottom: 53px;
 
-    top:18px;
-    left:22px;
-    right:22px;
-    bottom:53px;
+  z-index: 30;
 
-    z-index:30;
-
-    pointer-events:none;
+  pointer-events: none;
 }
-
 
 /*------------------------------------------------*/
 /* TOUCH CONTROLS */
 
 .touch-controls {
+  display: none;
 
-    display:none;
+  position: absolute;
 
-    position:absolute;
-
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
-
 
 /*------------------------------------------------*/
 /* TOUCH CONTROL GROUPS */
 
 .touch-controls .top-controls,
 .touch-controls .bottom-controls {
+  position: absolute;
 
-    position:absolute;
-
-    left:0;
-    right:0;
+  left: 0;
+  right: 0;
 }
 
 .touch-controls .top-controls {
-
-    bottom:200px;
+  bottom: 200px;
 }
 
 .touch-controls .bottom-controls {
-
-    bottom:100px;
+  bottom: 100px;
 }
-
 
 /*------------------------------------------------*/
 /* GAME UI CONTROLS */
 /* Musik / Pause / Home */
 
 .game-ui-controls {
+  display: none;
 
-    display:none;
+  position: absolute;
 
-    position:absolute;
+  left: 0;
+  right: 0;
+  bottom: -60px;
 
-    left:0;
-    right:0;
-    bottom:-60px;
-
-    height:60px;
+  height: 60px;
 }
 
 #game-controls.game-active .game-ui-controls {
-    display:block;
+  display: block;
 }
 
 /*------------------------------------------------*/
 /* BUTTONS */
 
 #game-controls button {
+  position: absolute;
 
-    position:absolute;
+  width: 60px;
+  height: 60px;
 
-    width:60px;
-    height:60px;
+  border: none;
+  border-radius: 50%;
 
-    border:none;
-    border-radius:50%;
+  background: rgba(255, 255, 255, 0.25);
 
-    background:rgba(255,255,255,.25);
+  cursor: pointer;
 
-    cursor:pointer;
+  pointer-events: auto;
 
-    pointer-events:auto;
+  user-select: none;
 
-    user-select:none;
+  touch-action: manipulation;
 
-    touch-action:manipulation;
+  overflow: hidden;
 
-    overflow:hidden;
-
-    padding:0;
+  padding: 0;
 }
-
 
 /*------------------------------------------------*/
 /* BUTTON IMAGES */
 
 #game-controls button img {
+  width: 32px;
+  height: 32px;
 
-    width:32px;
-    height:32px;
+  object-fit: contain;
 
-    object-fit:contain;
+  display: block;
 
-    display:block;
+  margin: auto;
 
-    margin:auto;
-
-    pointer-events:none;
+  pointer-events: none;
 }
-
 
 /*------------------------------------------------*/
 /* TOUCH BUTTONS */
@@ -129,97 +116,83 @@
 /* Werfen */
 
 #btn-throw {
-
-    left:20px;
+  left: 20px;
 }
-
 
 /* Springen */
 
 #btn-jump {
-
-    right:20px;
+  right: 20px;
 }
-
 
 /* Links */
 
 #btn-left {
-
-    left:20px;
+  left: 20px;
 }
-
 
 /* Rechts */
 
 #btn-right {
-
-    right:20px;
+  right: 20px;
 }
-
 
 /*------------------------------------------------*/
 /* MOBILE MUSIC */
 
 #music-btn-mobile {
+  left: 50%;
 
-    left:50%;
+  transform: translateX(-105px);
 
-    transform:translateX(-105px);
+  width: 60px;
+  height: 60px;
 
-    width:60px;
-    height:60px;
+  background: transparent;
 
-    background:transparent;
+  border: none;
 
-    border:none;
+  padding: 0;
 
-    padding:0;
-
-    cursor:pointer;
+  cursor: pointer;
 }
 
 #music-btn-mobile.muted::after {
+  content: "";
 
-    content:"";
+  position: absolute;
 
-    position:absolute;
+  top: 50%;
+  left: 8%;
 
-    top:50%;
-    left:8%;
+  width: 84%;
+  height: 4px;
 
-    width:84%;
-    height:4px;
+  background: #d61c1c;
 
-    background:#d61c1c;
+  border-radius: 10px;
 
-    border-radius:10px;
+  transform: translateY(-50%) rotate(-45deg);
 
-    transform:translateY(-50%) rotate(-45deg);
+  pointer-events: none;
 
-    pointer-events:none;
-
-    z-index:5;
+  z-index: 5;
 }
-
 
 /*------------------------------------------------*/
 /* PAUSE */
 
 #pause-btn {
+  left: 50%;
 
-    left:50%;
-
-    transform:translateX(-30px);
+  transform: translateX(-30px);
 }
-
 
 /*------------------------------------------------*/
 /* HOME */
 
 #home-btn {
+  left: 50%;
 
-    left:50%;
-
-    transform:translateX(45px);
+  transform: translateX(45px);
 }

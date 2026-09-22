@@ -4,25 +4,20 @@
  * @param {string} type - Type of overlay to display.
  */
 function openOverlay(type) {
+  ui.overlay.style.display = "flex";
 
-    ui.overlay.style.display = "flex";
+  ui.overlayContent.className = "overlay-content";
 
-    ui.overlayContent.className = "overlay-content";
+  if (type === "imprint") {
+    ui.overlayContent.classList.add("overlay-imprint");
+  }
 
-    if (type === "imprint") {
-        ui.overlayContent.classList.add("overlay-imprint");
-    }
-
-    ui.overlayBody.innerHTML = OVERLAYS[type];
-
+  ui.overlayBody.innerHTML = OVERLAYS[type];
 }
-
 
 /**
  * Closes the currently visible overlay.
  */
 function closeOverlay() {
-
-    ui.overlay.style.display = "none";
-
+  ui.overlay.style.display = "none";
 }

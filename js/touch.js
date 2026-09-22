@@ -5,14 +5,11 @@
  * corresponding keyboard input.
  */
 function initTouchControls() {
-
-    addTouchButton("btn-left", "LEFT");
-    addTouchButton("btn-right", "RIGHT");
-    addTouchButton("btn-jump", "SPACE");
-    addTouchButton("btn-throw", "D");
-
+  addTouchButton("btn-left", "LEFT");
+  addTouchButton("btn-right", "RIGHT");
+  addTouchButton("btn-jump", "SPACE");
+  addTouchButton("btn-throw", "D");
 }
-
 
 /**
  * Connects a touch button to a keyboard input.
@@ -21,16 +18,13 @@ function initTouchControls() {
  * @param {string} key - Keyboard input key to control.
  */
 function addTouchButton(buttonId, key) {
+  const button = document.getElementById(buttonId);
 
-    const button = document.getElementById(buttonId);
+  if (!button) return;
 
-    if (!button) return;
-
-    addPointerDown(button, key);
-    addPointerUp(button, key);
-
+  addPointerDown(button, key);
+  addPointerUp(button, key);
 }
-
 
 /**
  * Activates a keyboard input when a touch begins.
@@ -39,23 +33,17 @@ function addTouchButton(buttonId, key) {
  * @param {string} key - Keyboard input key to activate.
  */
 function addPointerDown(button, key) {
+  button.addEventListener("pointerdown", (event) => {
+    event.preventDefault();
 
-    button.addEventListener("pointerdown", (event) => {
+    button.setPointerCapture(event.pointerId);
 
-        event.preventDefault();
+    keyboard[key] = true;
+  });
 
-        button.setPointerCapture(event.pointerId);
-
-        keyboard[key] = true;
-
-    });
-
-    button.addEventListener("contextmenu", (event) => {
-
-        event.preventDefault();
-
-    });
-
+  button.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+  });
 }
 
 /**
@@ -65,16 +53,12 @@ function addPointerDown(button, key) {
  * @param {string} key - Keyboard input key to release.
  */
 function addPointerUp(button, key) {
+  function release(event) {
+    event.preventDefault();
+    keyboard[key] = false;
+  }
 
-    function release(event) {
-
-        event.preventDefault();
-        keyboard[key] = false;
-
-    }
-
-    button.addEventListener("pointerup", release);
-    button.addEventListener("pointerleave", release);
-    button.addEventListener("pointercancel", release);
-
+  button.addEventListener("pointerup", release);
+  button.addEventListener("pointerleave", release);
+  button.addEventListener("pointercancel", release);
 }

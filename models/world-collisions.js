@@ -4,20 +4,15 @@
  * Dead chickens and collisions while Pepe is dead are ignored.
  */
 World.prototype.checkEnemyCollisions = function () {
+  if (this.character.isDead) return;
 
-    if (this.character.isDead) return;
+  this.level.chickens.forEach((chicken) => {
+    if (!chicken.alive) return;
+    if (!this.character.isColliding(chicken)) return;
 
-    this.level.chickens.forEach((chicken) => {
-
-        if (!chicken.alive) return;
-        if (!this.character.isColliding(chicken)) return;
-
-        this.handleChickenCollision(chicken);
-
-    });
-
+    this.handleChickenCollision(chicken);
+  });
 };
-
 
 /**
  * Checks whether Pepe collides with the endboss.
@@ -25,17 +20,14 @@ World.prototype.checkEnemyCollisions = function () {
  * The collision is only active while the boss is alive.
  */
 World.prototype.checkEndbossCharacterCollision = function () {
+  const boss = this.level.endboss;
 
-    const boss = this.level.endboss;
+  if (!boss.alive) return;
 
-    if (!boss.alive) return;
+  if (!this.character.isColliding(boss)) return;
 
-    if (!this.character.isColliding(boss)) return;
-
-    this.hitCharacter(boss);
-
+  this.hitCharacter(boss);
 };
-
 
 /**
  * Checks collisions between thrown bottles and chickens.
@@ -43,29 +35,20 @@ World.prototype.checkEndbossCharacterCollision = function () {
  * A bottle starts its splash animation when it hits a chicken.
  */
 World.prototype.checkBottleCollisions = function () {
+  this.throwableBottles.forEach((bottle) => {
+    if (bottle.splash) return;
 
-    this.throwableBottles.forEach((bottle) => {
+    this.level.chickens.forEach((chicken) => {
+      if (!chicken.alive) return;
 
-        if (bottle.splash) return;
+      if (bottle.isColliding(chicken)) {
+        chicken.die();
 
-        this.level.chickens.forEach((chicken) => {
-
-            if (!chicken.alive) return;
-
-            if (bottle.isColliding(chicken)) {
-
-                chicken.die();
-
-                bottle.startSplash();
-
-            }
-
-        });
-
+        bottle.startSplash();
+      }
     });
-
+  });
 };
-
 
 /**
  * Checks collisions between thrown bottles and the endboss.
@@ -74,27 +57,20 @@ World.prototype.checkBottleCollisions = function () {
  * when a collision occurs.
  */
 World.prototype.checkEndbossCollision = function () {
+  const boss = this.level.endboss;
 
-    const boss = this.level.endboss;
+  if (!boss.alive) return;
 
-    if (!boss.alive) return;
+  this.throwableBottles.forEach((bottle) => {
+    if (bottle.splash) return;
 
-    this.throwableBottles.forEach((bottle) => {
+    if (bottle.isColliding(boss)) {
+      boss.hit();
 
-        if (bottle.splash) return;
-
-        if (bottle.isColliding(boss)) {
-
-            boss.hit();
-
-            bottle.startSplash();
-
-        }
-
-    });
-
+      bottle.startSplash();
+    }
+  });
 };
-
 
 /**
  * Handles a collision between Pepe and a chicken.
@@ -109,29 +85,20 @@ World.prototype.checkEndbossCollision = function () {
  * @param {Chicken} chicken - The chicken involved in the collision.
  */
 World.prototype.handleChickenCollision = function (chicken) {
+  const character = this.character;
 
-    const character = this.character;
-
-
-    if (character.isAboveGround()) {
-
-        if (
-            character.isFalling() &&
-            character.y + character.height - character.offset.bottom
-                <= chicken.y + 25
-        ) {
-
-            this.killChicken(chicken);
-
-        }
-
-        return;
-
+  if (character.isAboveGround()) {
+    if (
+      character.isFalling() &&
+      character.y + character.height - character.offset.bottom <= chicken.y + 25
+    ) {
+      this.killChicken(chicken);
     }
 
+    return;
+  }
 
-    this.hitCharacter(chicken);
-
+  this.hitCharacter(chicken);
 };
 
 /**
@@ -143,18 +110,14 @@ World.prototype.handleChickenCollision = function (chicken) {
  * @param {Chicken} chicken - The chicken Pepe lands on.
  */
 World.prototype.killChicken = function (chicken) {
+  chicken.die();
 
-    chicken.die();
+  this.character.speedY = 20;
 
-    this.character.speedY = 20;
-
-    // Restart the jump animation for every bounce.
-    this.character.currentImage = 0;
-    this.character.currentAnimation = null;
-
-
+  // Restart the jump animation for every bounce.
+  this.character.currentImage = 0;
+  this.character.currentAnimation = null;
 };
-
 
 /**
  * Applies damage to Pepe.
@@ -163,22 +126,17 @@ World.prototype.killChicken = function (chicken) {
  * When energy reaches zero, Pepe dies.
  */
 World.prototype.hitCharacter = function (chicken) {
+  if (this.character.isInvincible) return;
 
-    if (this.character.isInvincible) return;
+  this.reduceCharacterEnergy(chicken.damage);
 
-    this.reduceCharacterEnergy(chicken.damage);
+  if (this.character.energy === 0) {
+    this.character.die();
+    return;
+  }
 
-    if (this.character.energy === 0) {
-
-        this.character.die();
-        return;
-
-    }
-
-    this.character.hurt();
-
+  this.character.hurt();
 };
-
 
 /**
  * Reduces Pepe's energy without allowing it to fall below zero.
@@ -186,42 +144,25 @@ World.prototype.hitCharacter = function (chicken) {
  * The health bar is updated after the damage is applied.
  */
 World.prototype.reduceCharacterEnergy = function (damage) {
+  this.character.energy = Math.max(0, this.character.energy - damage);
 
-
-
-    this.character.energy = Math.max(
-        0,
-        this.character.energy - damage
-    );
-
-
-
-    this.updateHealthBar();
-
+  this.updateHealthBar();
 };
 
 /**
  * Updates Pepe's health bar to match his current energy.
  */
 World.prototype.updateHealthBar = function () {
-
-    this.statusBar.setPercentage(
-        this.character.energy
-    );
-
-
+  this.statusBar.setPercentage(this.character.energy);
 };
 
 /**
  * Checks all collectible items in the current level.
  */
 World.prototype.collectItems = function () {
-
-    this.collect(this.level.coins, "coins");
-    this.collect(this.level.bottles, "bottles");
-
+  this.collect(this.level.coins, "coins");
+  this.collect(this.level.bottles, "bottles");
 };
-
 
 /**
  * Checks whether Pepe collects an item.
@@ -230,26 +171,16 @@ World.prototype.collectItems = function () {
  * character counter and status bar are updated.
  */
 World.prototype.collect = function (items, property) {
+  items.forEach((item) => {
+    if (!item.collected && this.character.isColliding(item)) {
+      item.collected = true;
 
-    items.forEach((item) => {
+      this.character[property]++;
 
-        if (
-            !item.collected &&
-            this.character.isColliding(item)
-        ) {
-
-            item.collected = true;
-
-            this.character[property]++;
-
-            this.updateItemBar(property);
-
-        }
-
-    });
-
+      this.updateItemBar(property);
+    }
+  });
 };
-
 
 /**
  * Updates the status bar for collected coins or bottles.
@@ -257,21 +188,11 @@ World.prototype.collect = function (items, property) {
  * Each collected item increases the corresponding bar by 10 percent.
  */
 World.prototype.updateItemBar = function (property) {
+  if (property === "coins") {
+    this.coinBar.setPercentage(this.character.coins * 10);
+  }
 
-    if (property === "coins") {
-
-        this.coinBar.setPercentage(
-            this.character.coins * 10
-        );
-
-    }
-
-    if (property === "bottles") {
-
-        this.bottleBar.setPercentage(
-            this.character.bottles * 10
-        );
-
-    }
-
+  if (property === "bottles") {
+    this.bottleBar.setPercentage(this.character.bottles * 10);
+  }
 };

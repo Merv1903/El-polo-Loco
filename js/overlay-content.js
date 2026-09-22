@@ -1,18 +1,17 @@
 const OVERLAYS = {
-
-    about: `
+  about: `
         <img src="img/9_intro_outro_screens/start/about_overlay.png" class="overlay-image" alt="Über das Spiel">
     `,
 
-    controls: `
+  controls: `
         <img src="img/9_intro_outro_screens/start/controls_overlay.png" class="overlay-image" alt="Steuerung">
     `,
 
-    manual: `
+  manual: `
         <img src="img/9_intro_outro_screens/start/manual_overlay.png" class="overlay-image" alt="Benutzerhandbuch">
     `,
 
-    imprint: `
+  imprint: `
 
         <div class="imprint-container">
 
@@ -48,5 +47,5 @@ const OVERLAYS = {
 
         </div>
 
-    `
+    `,
 };

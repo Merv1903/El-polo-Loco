@@ -5,25 +5,21 @@
  * overlay close button to their respective actions.
  */
 function initMenu() {
+  ui.start.onclick = () => {
+    ui.menu.style.display = "none";
 
-    ui.start.onclick = () => {
+    document.querySelector(".game-container").style.animation = "none";
 
-        ui.menu.style.display = "none";
+    startGame();
+  };
 
-        document.querySelector(".game-container").style.animation = "none";
+  ui.manual.onclick = () => openOverlay("manual");
 
-        startGame();
+  ui.controls.onclick = () => openOverlay("controls");
 
-    };
+  ui.about.onclick = () => openOverlay("about");
 
-    ui.manual.onclick = () => openOverlay("manual");
+  ui.imprint.onclick = () => openOverlay("imprint");
 
-    ui.controls.onclick = () => openOverlay("controls");
-
-    ui.about.onclick = () => openOverlay("about");
-
-    ui.imprint.onclick = () => openOverlay("imprint");
-
-    ui.close.onclick = closeOverlay;
-
+  ui.close.onclick = closeOverlay;
 }

@@ -3,7 +3,6 @@
  */
 let ui = {};
 
-
 /**
  * Initializes the user interface after the page has loaded.
  *
@@ -11,39 +10,35 @@ let ui = {};
  * game, menu and audio initialization.
  */
 window.addEventListener("load", () => {
+  ui = {
+    menu: document.getElementById("menu"),
 
-    ui = {
+    overlay: document.getElementById("overlay"),
 
-        menu: document.getElementById("menu"),
+    overlayTitle: document.getElementById("overlay-title"),
 
-        overlay: document.getElementById("overlay"),
+    overlayBody: document.getElementById("overlay-body"),
 
-        overlayTitle: document.getElementById("overlay-title"),
+    overlayContent: document.getElementById("overlay-content"),
 
-        overlayBody: document.getElementById("overlay-body"),
+    start: document.getElementById("start-btn"),
 
-        overlayContent: document.getElementById("overlay-content"),
+    manual: document.getElementById("manual-btn"),
 
-        start: document.getElementById("start-btn"),
+    controls: document.getElementById("controls-btn"),
 
-        manual: document.getElementById("manual-btn"),
+    about: document.getElementById("about-btn"),
 
-        controls: document.getElementById("controls-btn"),
+    imprint: document.getElementById("imprint-btn"),
 
-        about: document.getElementById("about-btn"),
+    music: document.getElementById("music-btn"),
 
-        imprint: document.getElementById("imprint-btn"),
+    close: document.getElementById("close-btn"),
+  };
 
-        music: document.getElementById("music-btn"),
+  init(); // game.js
 
-        close: document.getElementById("close-btn")
+  initMenu(); // menu.js
 
-    };
-
-    init();          // game.js
-
-    initMenu();      // menu.js
-
-    initAudio();     // audio.js
-
+  initAudio(); // audio.js
 });

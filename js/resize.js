@@ -2,21 +2,18 @@
  * Resizes the game and scales all responsive UI elements.
  */
 function resizeGame() {
+  const size = getGameSize();
 
-    const size = getGameSize();
+  resizeContainer(size.width, size.height);
 
-    resizeContainer(size.width, size.height);
+  resizeOverlay(size.width);
 
-    resizeOverlay(size.width);
+  scaleMenu(size.width);
 
-    scaleMenu(size.width);
+  scaleMobileControls(size.width);
 
-    scaleMobileControls(size.width);
-
-    scaleGameOverMenu(size.width);
-
+  scaleGameOverMenu(size.width);
 }
-
 
 /**
  * Scales and positions the mobile game controls.
@@ -24,27 +21,20 @@ function resizeGame() {
  * @param {number} width - Current game width.
  */
 function scaleMobileControls(width) {
+  const scale = width / 720;
 
-    const scale = width / 720;
+  const controls = document.getElementById("game-controls");
 
-    const controls = document.getElementById("game-controls");
+  if (!controls) return;
 
-    if (!controls) return;
+  document.querySelector(".top-controls").style.bottom = `${170 * scale}px`;
 
-    document.querySelector(".top-controls").style.bottom =
-        `${170 * scale}px`;
+  document.querySelector(".bottom-controls").style.bottom = `${5 * scale}px`;
 
-    document.querySelector(".bottom-controls").style.bottom =
-        `${5 * scale}px`;
+  document.getElementById("btn-throw").style.left = `${-25 * scale}px`;
 
-    document.getElementById("btn-throw").style.left =
-        `${-25 * scale}px`;
-
-    document.getElementById("btn-jump").style.right =
-        `${-25 * scale}px`;
-
+  document.getElementById("btn-jump").style.right = `${-25 * scale}px`;
 }
-
 
 /**
  * Scales the game-over menu and its buttons.
@@ -52,30 +42,22 @@ function scaleMobileControls(width) {
  * @param {number} width - Current game width.
  */
 function scaleGameOverMenu(width) {
+  const scale = width / 720;
 
-    const scale = width / 720;
+  const menu = document.getElementById("game-over-menu");
 
-    const menu = document.getElementById("game-over-menu");
+  if (!menu) return;
 
-    if (!menu) return;
+  menu.style.paddingBottom = `${120 * scale}px`;
 
-    menu.style.paddingBottom =
-        `${120 * scale}px`;
+  menu.style.paddingTop = `${70 * scale}px`;
 
-    menu.style.paddingTop =
-        `${70 * scale}px`;
+  menu.style.gap = `${220 * scale}px`;
 
-    menu.style.gap =
-        `${220 * scale}px`;
+  document.getElementById("restart-btn").style.width = `${200 * scale}px`;
 
-    document.getElementById("restart-btn").style.width =
-        `${200 * scale}px`;
-
-    document.getElementById("gameover-home-btn").style.width =
-        `${90 * scale}px`;
-
+  document.getElementById("gameover-home-btn").style.width = `${90 * scale}px`;
 }
-
 
 /**
  * Calculates the game size based on the available screen space.
@@ -83,34 +65,27 @@ function scaleGameOverMenu(width) {
  * @returns {{width: number, height: number}} Calculated game dimensions.
  */
 function getGameSize() {
+  let width = 720;
+  let height = 480;
 
-    let width = 720;
-    let height = 480;
+  if (window.innerWidth <= 1025) {
+    const maxWidth = window.innerWidth * 0.95;
+    const maxHeight = window.innerHeight * 0.95;
 
-    if (window.innerWidth <= 1025) {
+    width = maxWidth;
+    height = width / 1.5;
 
-        const maxWidth = window.innerWidth * 0.95;
-        const maxHeight = window.innerHeight * 0.95;
-
-        width = maxWidth;
-        height = width / 1.5;
-
-        if (height > maxHeight) {
-
-            height = maxHeight;
-            width = height * 1.5;
-
-        }
-
+    if (height > maxHeight) {
+      height = maxHeight;
+      width = height * 1.5;
     }
+  }
 
-    return {
-        width,
-        height
-    };
-
+  return {
+    width,
+    height,
+  };
 }
-
 
 /**
  * Sets the size of the game container.
@@ -119,12 +94,9 @@ function getGameSize() {
  * @param {number} height - Game height.
  */
 function resizeContainer(width, height) {
-
-    gameContainer.style.width = width + "px";
-    gameContainer.style.height = height + "px";
-
+  gameContainer.style.width = width + "px";
+  gameContainer.style.height = height + "px";
 }
-
 
 /**
  * Resizes the overlay to match the game width.
@@ -132,16 +104,13 @@ function resizeContainer(width, height) {
  * @param {number} width - Current game width.
  */
 function resizeOverlay(width) {
+  const overlayContent = document.getElementById("overlay-content");
 
-    const overlayContent = document.getElementById("overlay-content");
+  if (!overlayContent) return;
 
-    if (!overlayContent) return;
-
-    overlayContent.style.width = (width - 8) + "px";
-    overlayContent.style.height = "auto";
-
+  overlayContent.style.width = width - 8 + "px";
+  overlayContent.style.height = "auto";
 }
-
 
 /**
  * Scales all menu elements according to the game width.
@@ -149,15 +118,12 @@ function resizeOverlay(width) {
  * @param {number} width - Current game width.
  */
 function scaleMenu(width) {
+  const scale = width / 720;
 
-    const scale = width / 720;
-
-    scaleStartButton(scale);
-    scaleMusicButton(scale);
-    scaleNavigationButtons(scale);
-
+  scaleStartButton(scale);
+  scaleMusicButton(scale);
+  scaleNavigationButtons(scale);
 }
-
 
 /**
  * Scales the start button.
@@ -165,12 +131,8 @@ function scaleMenu(width) {
  * @param {number} scale - Scaling factor based on the game width.
  */
 function scaleStartButton(scale) {
-
-    document.getElementById("start-btn").style.width =
-        `${260 * scale}px`;
-
+  document.getElementById("start-btn").style.width = `${260 * scale}px`;
 }
-
 
 /**
  * Scales the music button.
@@ -178,12 +140,8 @@ function scaleStartButton(scale) {
  * @param {number} scale - Scaling factor based on the game width.
  */
 function scaleMusicButton(scale) {
-
-    document.getElementById("music-btn").style.width =
-        `${60 * scale}px`;
-
+  document.getElementById("music-btn").style.width = `${60 * scale}px`;
 }
-
 
 /**
  * Scales the navigation buttons.
@@ -191,15 +149,9 @@ function scaleMusicButton(scale) {
  * @param {number} scale - Scaling factor based on the game width.
  */
 function scaleNavigationButtons(scale) {
-
-    document
-        .querySelectorAll(
-            "#manual-btn,#controls-btn,#about-btn,#imprint-btn"
-        )
-        .forEach(button => {
-
-            button.style.width = `${150 * scale}px`;
-
-        });
-
+  document
+    .querySelectorAll("#manual-btn,#controls-btn,#about-btn,#imprint-btn")
+    .forEach((button) => {
+      button.style.width = `${150 * scale}px`;
+    });
 }
