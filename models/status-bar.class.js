@@ -39,21 +39,24 @@ class StatusBar extends DrawableObject {
     }
 
 
-    /**
-     * Updates the percentage and selects the corresponding image.
-     *
-     * @param {number} percentage - Current percentage value.
-     */
-    setPercentage(percentage) {
+/**
+ * Updates the percentage and selects the corresponding image.
+ *
+ * @param {number} percentage - Current percentage value.
+ */
+setPercentage(percentage) {
 
-        this.percentage = percentage;
+    this.percentage = percentage;
 
-        let path = this.IMAGES[this.resolveImageIndex()];
+    let index = this.resolveImageIndex();
 
-        this.img = this.imageCache[path];
+    let path = this.IMAGES[index];
 
-    }
+    this.img = this.imageCache[path];
 
+
+
+}
 
     /**
      * Determines which status bar image matches the current percentage.

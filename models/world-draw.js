@@ -309,6 +309,8 @@ World.prototype.drawFlippedCharacter = function () {
  */
 World.prototype.drawStatusBar = function () {
 
+ 
+
     this.statusBar.draw(this.ctx);
 
 };
@@ -340,6 +342,8 @@ World.prototype.drawBottleBar = function () {
  * The bar is only called when the endboss is active.
  */
 World.prototype.drawEndbossBar = function () {
+
+
 
     this.endbossBar.draw(this.ctx);
 

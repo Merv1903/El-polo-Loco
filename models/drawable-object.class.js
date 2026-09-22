@@ -103,8 +103,6 @@ if (images === this.IMAGES_JUMP) {
 
     this.img = this.imageCache[path];
 
-    console.log("JUMP FRAME:", path);
-    console.log("CURRENT IMAGE:", this.currentImage);
 
     if (this.currentImage < images.length - 1) {
         this.currentImage++;

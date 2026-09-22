@@ -89,7 +89,7 @@ class Endboss extends MovableObject {
         this.height = 350;
 
         this.energy = 100;
-        this.damage = 10;
+        this.damage = 21;
 
         this.alive = true;
         this.active = false;
@@ -292,8 +292,7 @@ class Endboss extends MovableObject {
      */
     hit() {
 
-        this.energy -= 10;
-    
+        this.energy -= 20;
         this.isHurt = true;
         this.hurtFrame = 0;
     
@@ -310,7 +309,6 @@ class Endboss extends MovableObject {
         }
     
     }
-
 
     /**
      * Starts the endboss death sequence.

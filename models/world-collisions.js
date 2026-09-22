@@ -152,8 +152,6 @@ World.prototype.killChicken = function (chicken) {
     this.character.currentImage = 0;
     this.character.currentAnimation = null;
 
-    console.log("CHICKEN BOUNCE!");
-    console.log("Jump animation reset to J-31");
 
 };
 
@@ -189,16 +187,18 @@ World.prototype.hitCharacter = function (chicken) {
  */
 World.prototype.reduceCharacterEnergy = function (damage) {
 
-    const newEnergy =
-        this.character.energy - damage;
 
-    this.character.energy =
-        Math.max(0, newEnergy);
+
+    this.character.energy = Math.max(
+        0,
+        this.character.energy - damage
+    );
+
+
 
     this.updateHealthBar();
 
 };
-
 
 /**
  * Updates Pepe's health bar to match his current energy.
@@ -209,8 +209,8 @@ World.prototype.updateHealthBar = function () {
         this.character.energy
     );
 
-};
 
+};
 
 /**
  * Checks all collectible items in the current level.

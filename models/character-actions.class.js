@@ -42,8 +42,7 @@ static handleThrow(character) {
 
     const now = Date.now();
 
-    console.log("Cooldown:", now - character.lastThrowTime);
-    console.log("Blocked:", now - character.lastThrowTime < character.throwCooldown);
+
 
     if (now - character.lastThrowTime < character.throwCooldown) {
         return;
@@ -52,7 +51,7 @@ static handleThrow(character) {
     character.throwPressed = true;
     character.lastThrowTime = now;
 
-    console.log("THROW!");
+
 
     CharacterActions.throwBottle(character);
 }

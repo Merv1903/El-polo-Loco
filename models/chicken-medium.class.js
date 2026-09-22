@@ -39,7 +39,7 @@ class ChickenMedium extends Chicken {
         this.width = 70;
         this.height = 70;
 
-        this.damage = 10;
+        this.damage = 20;
     }
 
 }
