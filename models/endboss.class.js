@@ -89,7 +89,7 @@ class Endboss extends MovableObject {
         this.height = 350;
 
         this.energy = 100;
-        this.damage = 20;
+        this.damage = 10;
 
         this.alive = true;
         this.active = false;

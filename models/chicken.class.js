@@ -9,7 +9,7 @@ class Chicken extends MovableObject {
     /**
      * Damage dealt to the character on collision.
      */
-    damage = 50;
+    damage = 10;
 
 
     /**

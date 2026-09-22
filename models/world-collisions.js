@@ -137,13 +137,23 @@ World.prototype.handleChickenCollision = function (chicken) {
 /**
  * Kills a chicken when Pepe lands on it.
  *
- * Pepe receives an upward bounce after killing the chicken.
+ * Pepe receives an upward bounce and his jump animation
+ * restarts from the first frame.
+ *
+ * @param {Chicken} chicken - The chicken Pepe lands on.
  */
 World.prototype.killChicken = function (chicken) {
 
     chicken.die();
 
     this.character.speedY = 20;
+
+    // Restart the jump animation for every bounce.
+    this.character.currentImage = 0;
+    this.character.currentAnimation = null;
+
+    console.log("CHICKEN BOUNCE!");
+    console.log("Jump animation reset to J-31");
 
 };
 
